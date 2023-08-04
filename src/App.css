@@ -1,0 +1,81 @@
+
+html, body{
+  font-family: "Poppins", sans-serif !important;
+}
+
+.landingPage nav a{
+  color: #fff;
+}
+
+.landingPage{
+  /* background: linear-gradient(to right, #69BFAD, #380036); */
+  background: linear-gradient( #000000b3, #000000ed), url("../src/assets/images/spinning-globe-white.gif");
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
+
+.landingPage main{
+  position: relative;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.landingPage main img{
+  filter: drop-shadow(10px 10px 10px rgb(61, 61, 61));
+  animation: 10s linear 0s moveY infinite;
+}
+
+@keyframes moveY {
+  0% {
+      transform: translateY(0);
+  }
+
+  50% {
+      transform: translateY(-10%);
+  }
+}
+
+footer{
+  border-top: 1px solid #333;
+  padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+footer a{
+  color: #fff;
+  font-size: 10px;
+}
+
+footer i{
+  font-size: 16px;
+}
+
+.sign-in-form {
+  box-shadow: 0 0 20px #0000007b;
+}
+
+.sign-in-form a {
+  color: #83B943;
+}
+
+.sign-in-form .inputs div{
+  border-bottom: 1px solid #ffffff;
+}
+
+.sign-in-form i, .sign-in-form p{
+  color: #fff;
+}
+
+.continue-with-google {
+  border: 1px solid #fff;
+}
+
+.or_line {
+  height: 2px;
+  width: 50px;
+  background: #fff;
+}
