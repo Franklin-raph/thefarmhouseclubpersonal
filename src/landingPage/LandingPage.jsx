@@ -1,5 +1,5 @@
 import logo from "../assets/images/Asset-2.-300x47.png"
-import coin from "../assets/images/coinn4.png"
+import coin from "../assets/images/WhatsApp-Image-2023-08-03-at-11.47.37-AM-300x225.jpeg"
 import { useNavigate } from "react-router-dom"
 
 const LandingPage = () => {
