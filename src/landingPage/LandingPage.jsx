@@ -1,12 +1,13 @@
 import logo from "../assets/images/Asset-2.-300x47.png"
-import coin from "../assets/images/WhatsApp-Image-2023-08-03-at-11.47.37-AM-300x225.jpeg"
+import coin1 from "../assets/images/Coin1.png"
+import coin2 from "../assets/images/Coin2.png"
 import { useNavigate } from "react-router-dom"
 
 const LandingPage = () => {
     const navigate = useNavigate()
   return (
     <div className='landingPage'>
-        <nav className="flex items-center justify-between px-[90px] py-5">
+        <nav className="flex items-center justify-between px-[16px] py-5">
             <a href="/" className="w-[12rem] flex items-center gap-1">
                 <img src={logo} alt="" />
             </a>
@@ -24,14 +25,17 @@ const LandingPage = () => {
             <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Login</button>
         </nav>
         <main className="flex justify-between items-center px-[150px]">
-            <div className="sm:w-full md:w-[55%] text-white">
-                <h1 className="text-[40px] font-bold">Stake <span className="text-[#83B943]">AVDA tokens</span> in real world argricultural Projects</h1>
+            <div className="md:w-[100%] w-full text-white">
+                <h1 className="text-[37px] font-bold">Earn <span className="text-[#83B943]">AVDA tokens</span> from real world argricultural Projects</h1>
                 <p className="mt-5 mb-8">The farmhouse club's AVDA token makes it easy to let your money work for you.</p>
                 <button onClick={() => navigate("/register")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Get Started</button>
             </div>
-            <img src={coin} alt="" className="w-[30%]"/>
+            <div className="w-full relative top-[-42px]">
+                <img src={coin1} alt="" className="w-[50%] mx-auto coin1 relative z-20"/>
+                <img src={coin2} alt="" className="w-[40%] ml-auto absolute top-[100px] right-0 coin2 z-10"/>
+            </div>
         </main>
-        <footer className="flex justify-between items-center px-[90px] py-4">
+        <footer className="flex justify-between items-center px-[16px] py-4">
             <ul className="flex justify-between items-center gap-5">
                 <li>
                     <a href="#">Terms</a>

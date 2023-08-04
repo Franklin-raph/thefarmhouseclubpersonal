@@ -22,9 +22,16 @@ html, body{
   transform: translate(-50%, -50%);
 }
 
-.landingPage main img{
+.landingPage main .coin1{
+  filter: drop-shadow(10px 10px 10px rgb(128, 128, 128));
+  animation: 5s linear 0s moveY infinite;
+  transform: rotate(120%);
+}
+
+.landingPage main .coin2{
   filter: drop-shadow(10px 10px 10px rgb(61, 61, 61));
-  animation: 10s linear 0s moveY infinite;
+  animation: 5s linear 0s moveY infinite;
+  filter: blur(3px)
 }
 
 @keyframes moveY {
@@ -58,7 +65,7 @@ footer i{
 }
 
 .sign-in-form a {
-  color: #83B943;
+  /* color: #83B943; */
 }
 
 .sign-in-form .inputs div{
@@ -77,4 +84,36 @@ footer i{
   height: 2px;
   width: 50px;
   background: #fff;
+}
+/* linear-gradient(170deg,#f2fffd 20%,#69bfad 100%); */
+.login{
+  background:url("./assets/images/FinalScenne-01..png"),linear-gradient(170deg,#f2fffd 20%,#69bfad 100%);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+input::placeholder{
+  color: #fff !important;
+}
+
+.register{
+  height: 100vh;
+  overflow: hidden;
+}
+
+.login-register-error{
+  background-color: #F8D7DA !important;
+  border: 1px solid #f5c2c7;
+  color: #842029 !important;
+  padding: 5px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.register form{
+  width: 30%;
+  padding-top: 20rem;
+  height: 70% !important;
+  overflow-y: scroll;
 }
