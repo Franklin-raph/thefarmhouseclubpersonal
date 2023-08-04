@@ -1,5 +1,5 @@
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 
 const Login = () => {
@@ -7,6 +7,7 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [inputType, setInputType] = useState("password");
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate()
 
     const toggleInput = () => {
         setInputType(inputType === "password" ? "text" : "password");
@@ -15,7 +16,11 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center flex-col bg-[#1B2030] w-full h-[100vh] login">
-        <form className="sign-in-form flex justify-center items-center bg-[#292E41] flex-col my-[8rem] mx-[auto] py-[2.5rem] px-[1px] w-[80%] sm:w-[60%] md:w-[50%] lg:w-[40%] xl:w-[30%] rounded-xl">
+        {/* <p>back</p> */}
+        <div className="bg-[#1B2030] w-[5%] fixed top-6 rounded-full p-3" onClick={() => navigate("/")}>
+            <img src={logo} alt="" className="w-full"/>
+        </div>
+        <form className="sign-in-form flex justify-center items-center bg-[#292E41] flex-col mt-[8rem] mb-[8rem] mx-[auto] py-[2.5rem] px-[1px] w-[80%] sm:w-[60%] md:w-[50%] lg:w-[40%] xl:w-[30%] rounded-xl">
             <div className="header text-center text-white">
             <h1 className="text-[28px]">Welcome Back</h1>
             <p className="text-white mt-3 text-sm">

@@ -6,10 +6,9 @@ const LandingPage = () => {
     const navigate = useNavigate()
   return (
     <div className='landingPage'>
-        <nav className="flex items-center justify-between px-[150px] py-5">
+        <nav className="flex items-center justify-between px-[90px] py-5">
             <a href="/" className="w-[12rem] flex items-center gap-1">
                 <img src={logo} alt="" />
-                {/* <p>thefarmhouseclub</p> */}
             </a>
             <ul className="flex items-center justify-between gap-[30px]">
                 <li>
@@ -32,7 +31,7 @@ const LandingPage = () => {
             </div>
             <img src={coin} alt="" className="w-[30%]"/>
         </main>
-        <footer className="flex justify-between items-center">
+        <footer className="flex justify-between items-center px-[90px] py-4">
             <ul className="flex justify-between items-center gap-5">
                 <li>
                     <a href="#">Terms</a>
