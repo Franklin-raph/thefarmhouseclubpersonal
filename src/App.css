@@ -117,3 +117,111 @@ input::placeholder{
   height: 70% !important;
   overflow-y: scroll;
 }
+
+br {
+  content: " ";
+}
+
+@media screen and (max-width:1244px) {
+  .landingPage main{
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+  .landingPage main h1{
+    font-size: 33px;
+  }
+}
+
+@media screen and (max-width:992px) {
+  .landingPage main{
+    /* flex-direction: column-reverse; */
+  }
+
+  .landingPage main .coin1{
+    /* width: 30%; */
+  }
+
+  .landingPage main .coin2{
+    /* width: 25%; */
+    right: 50px;
+  }
+
+  .coins-div{
+    top: 25px !important;
+    margin-bottom: 8rem;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .landingPage main{
+    flex-direction: column-reverse;
+  }
+
+  .landingPage main .coin1{
+    width: 30%;
+    right: -72px;
+    top: 86px;
+  }
+
+  .landingPage main .coin2{
+    width: 25%;
+    top: 150px;
+    right: 45px;
+  }
+
+  .coins-div{
+    justify-self: flex-end;
+  }
+
+  br {
+    content: "/";
+  }
+
+  /* .landingPage main .text-div{
+    width: 70%;
+    margin: 4rem 0;
+  } */
+
+  .landingPage main .text-div{
+    width: 70%;
+    margin: 4rem 0;
+    /* text-align: center; */
+  }
+
+  .landingPage main .text-div h1{
+    /* width: 70%; */
+  }
+
+  footer{
+    position: relative;
+  }
+}
+
+@media screen and (max-width:600px) {
+  .landingPage main .text-div{
+    text-align: center;
+    width: 85%;
+  }
+}
+
+@media screen and (max-width:480px) {
+  .landingPage main .text-div{
+    width: 95%;
+  }
+
+  .landingPage main .text-div h1{
+    font-size: 25px;
+  }
+
+  .landingPage main .coin1{
+    right: -38px;
+    width: 40%;
+  }
+
+  .landingPage main .coin2{
+    top: 175px;
+    width: 35%;
+    right: 20px;
+  }
+}

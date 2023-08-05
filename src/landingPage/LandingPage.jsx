@@ -24,13 +24,13 @@ const LandingPage = () => {
             </ul>
             <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Login</button>
         </nav>
-        <main className="flex justify-between items-center px-[150px]">
-            <div className="md:w-[100%] w-full text-white">
-                <h1 className="text-[37px] font-bold">Earn <span className="text-[#83B943]">AVDA tokens</span> from real world argricultural Projects</h1>
+        <main className="flex justify-between items-center px-[100px]">
+            <div className="md:w-[100%] w-full text-white text-div">
+                <h1 className="text-[37px] font-bold">Earn <span className="text-[#83B943]">AVDA <br /> tokens</span> from real <br /> world argricultural Projects</h1>
                 <p className="mt-5 mb-8">The farmhouse club's AVDA token makes it easy to let your money work for you.</p>
                 <button onClick={() => navigate("/register")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Get Started</button>
             </div>
-            <div className="w-full relative top-[-42px]">
+            <div className="w-full relative top-[-42px] coins-div">
                 <img src={coin1} alt="" className="w-[50%] mx-auto coin1 relative z-20"/>
                 <img src={coin2} alt="" className="w-[40%] ml-auto absolute top-[100px] right-0 coin2 z-10"/>
             </div>
