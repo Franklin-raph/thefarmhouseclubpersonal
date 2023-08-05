@@ -7,6 +7,14 @@ html, body{
   color: #fff;
 }
 
+.toggler i{
+  color: #fff;
+}
+
+.toggler{
+  display: none;
+}
+
 .landingPage{
   /* background: linear-gradient(to right, #69BFAD, #380036); */
   background: linear-gradient( #000000b3, #000000ed), url("../src/assets/images/spinning-globe-white.gif");
@@ -172,12 +180,22 @@ br {
     align-items: flex-start !important;
     gap: 10px !important;
     padding: 2rem;
+    transition: .5s;
+  }
+
+  .fa-xmark{
+    display: none;
   }
 
   nav ul li{
     font-size: 2rem;
     font-weight: 600;
   }
+
+  
+.toggler{
+  display: block;
+}
 
   .nav-login{
     display: none;
@@ -189,6 +207,8 @@ br {
 
   .landingPage main{
     flex-direction: column-reverse;
+    height: 100%;
+    padding-bottom: 3rem;
   }
 
   .landingPage main .coin1{
@@ -205,29 +225,29 @@ br {
 
   .coins-div{
     justify-self: flex-end;
+    top: 30% !important;
   }
 
   br {
     content: "/";
   }
 
-  /* .landingPage main .text-div{
-    width: 70%;
-    margin: 4rem 0;
-  } */
-
   .landingPage main .text-div{
     width: 70%;
-    margin: 4rem 0;
-    /* text-align: center; */
+    padding: 9rem 0 3rem;
   }
 
   .landingPage main .text-div h1{
-    /* width: 70%; */
+    font-size: 25px;
+  }
+
+  .landingPage main .text-div p{
+    font-size: 15px;
   }
 
   footer{
-    position: relative;
+    /* position: relative; */
+    background-color: #000;
   }
 }
 
@@ -241,6 +261,7 @@ br {
 @media screen and (max-width:480px) {
   .landingPage main .text-div{
     width: 95%;
+    padding-bottom: 5rem;
   }
 
   .landingPage main .text-div h1{
@@ -248,13 +269,38 @@ br {
   }
 
   .landingPage main .coin1{
-    right: -38px;
-    width: 40%;
+    right: -71px;
+    width: 30%;
   }
 
   .landingPage main .coin2{
-    top: 175px;
-    width: 35%;
+    top: 140px;
+    width: 25%;
     right: 20px;
+  }
+
+  footer{
+    flex-direction: column;
+    gap: 1rem;
+    padding: 10px;
+    /* position: relative; */
+  }
+}
+
+@media screen and (max-width:375px) {
+  .landingPage main .text-div{
+    width: 100%;
+  }
+
+  .landingPage main .text-div h1{
+    font-size: 20px;
+  }
+
+  .landingPage main .text-div p{
+    font-size: 14px;
+  }
+  
+  .landingPage main .coin1{
+    filter: drop-shadow(3px 3px 10px rgb(128, 128, 128));
   }
 }
