@@ -21,8 +21,11 @@ const LandingPage = () => {
                 <li>
                     <a href="#">Governance</a>
                 </li>
+                <li className="login-btn">
+                    <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Login</button>
+                </li>
             </ul>
-            <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Login</button>
+            <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700 nav-login">Login</button>
         </nav>
         <main className="flex justify-between items-center px-[100px]">
             <div className="md:w-[100%] w-full text-white text-div">
