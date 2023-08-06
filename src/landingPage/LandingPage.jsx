@@ -1,8 +1,8 @@
 import { useEffect } from "react"
-import logo from "../assets/images/Asset-2.-300x47.png"
 import coin1 from "../assets/images/Coin1.png"
 import coin2 from "../assets/images/Coin2.png"
 import { useNavigate } from "react-router-dom"
+import Navbar from "../components/navbar/Navbar"
 
 const LandingPage = () => {
     const navigate = useNavigate()
@@ -12,7 +12,7 @@ const LandingPage = () => {
         const nav = document.querySelector("nav ul")
         const navOpen = document.querySelector(".fa-bars")
         const navClose = document.querySelector(".fa-xmark")
-        
+
         navOpen.addEventListener("click", ()=>{
             nav.style.left = 0
             navClose.style.display = "block"
@@ -29,30 +29,8 @@ const LandingPage = () => {
 
   return (
     <div className='landingPage'>
-        <nav className="flex items-center justify-between px-[16px] py-5">
-            <a href="/" className="w-[12rem] flex items-center gap-1">
-                <img src={logo} alt="" />
-            </a>
-            <div className="toggler relative z-50">
-                <i class="fa-solid fa-bars"></i>
-                <i class="fa-solid fa-xmark"></i>
-            </div>
-            <ul className="flex items-center justify-between gap-[30px]">
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">Market</a>
-                </li>
-                <li>
-                    <a href="#">Governance</a>
-                </li>
-                <li className="login-btn">
-                    <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Login</button>
-                </li>
-            </ul>
-            <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700 nav-login">Login</button>
-        </nav>
+        <Navbar />
+
         <main className="flex justify-between items-center px-[100px]">
             <div className="md:w-[100%] w-full text-white text-div">
                 <h1 className="text-[37px] font-bold">Earn <span className="text-[#83B943]">AVDA <br /> tokens</span> from real <br /> world argricultural Projects</h1>

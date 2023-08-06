@@ -46,6 +46,7 @@ const Login = () => {
             }
 
             if(response.ok) {
+                localStorage.setItem("user", JSON.stringify(data.detail))
                 navigate("/dashboard")
             }
         }
@@ -55,13 +56,13 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center flex-col w-full h-[100vh] login">
         {/* <p>back</p> */}
-        <div className="bg-[#fff] w-[5%] fixed top-2 rounded-full p-3 cursor-pointer" onClick={() => navigate("/")}>
+        <div className="bg-[#fff] w-[15%] fixed top-[-1%] sm:w-[10%] md:w-[8%] lg:w-[6%] rounded-full p-3 cursor-pointer" onClick={() => navigate("/")}>
             <img src={logo} alt="" className="w-full"/>
         </div>
-        <form onSubmit={handleLogin} className="sign-in-form flex justify-center items-center bg-[#83B943] flex-col mt-[8rem] mb-[8rem] mx-[auto] py-[2.5rem] px-[1px] w-[80%] sm:w-[60%] md:w-[50%] lg:w-[40%] xl:w-[30%] rounded-xl">
+        <form onSubmit={handleLogin} className="sign-in-form flex justify-center items-center bg-[#83B943] flex-col mt-[8rem] mb-[8rem] mx-[auto] py-[2rem] px-[1px] w-[80%] sm:w-[60%] md:w-[50%] lg:w-[40%] xl:w-[30%] rounded-xl">
             <div className="header text-center text-white">
-            <h1 className="text-[28px]">Welcome Back</h1>
-            <p className="text-white mt-3 text-sm">
+            <h1 className="text-[20px]">Welcome Back</h1>
+            <p className="text-white mt-1 text-sm">
                 Don't have an account? <Link to="/register">Start for free</Link>
             </p>
             </div>

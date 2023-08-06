@@ -57,15 +57,15 @@ const Register = () => {
   }
 
   return (
-    <div className="flex items-center justify-center flex-col w-full  login register">
+    <div className="flex items-center justify-center flex-col w-full register">
         {/* <p>back</p> */}
-        <div className="bg-[#fff] w-[7%] absolute top-12 rounded-full p-3 cursor-pointer" onClick={() => navigate("/")}>
+        <div className="bg-[#fff] w-[15%] fixed top-[7%] sm:w-[10%] md:w-[8%] lg:w-[6%] rounded-full p-3 cursor-pointer" onClick={() => navigate("/")}>
             <img src={logo} alt="" className="w-full"/>
         </div>
-        <form onSubmit={handleUserRegister} className="sign-in-form flex justify-center items-center bg-[#83B943] flex-col rounded-xl pb-7">
+        <form onSubmit={handleUserRegister} className="sign-in-form flex justify-center items-center bg-[#83B943] flex-col rounded-xl pb-7 ">
             <div className="header text-center text-white">
-            <h1 className="text-[28px]">Welcome Back</h1>
-            <p className="text-white mt-3 text-sm">
+            <h1 className="text-[20px]">Welcome Back</h1>
+            <p className="text-white mt-1 text-sm">
                 Already have an account? <Link to="/login">Continue to login</Link>
             </p>
             </div>
