@@ -317,6 +317,10 @@ br {
     padding: 10px;
     /* position: relative; */
   }
+
+  .register form{
+    width: 80%;
+  }
 }
 
 @media screen and (max-width:375px) {
@@ -334,5 +338,9 @@ br {
   
   .landingPage main .coin1{
     filter: drop-shadow(3px 3px 10px rgb(128, 128, 128));
+  }
+
+  .register form{
+    width: 90%;
   }
 }
