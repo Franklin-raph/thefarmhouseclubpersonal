@@ -73,6 +73,7 @@ const Login = () => {
         let jwt = `${response.credential}`
         var tokens = jwt.split(".");
         const userDetails = JSON.parse(atob(tokens[1]))
+        console.log(userDetails)
         if(userDetails){
             handleLoginFromGoogleResponse(userDetails.email)
         }
@@ -93,6 +94,10 @@ const Login = () => {
         if(response.ok) {
             localStorage.setItem("user", JSON.stringify(data))
             navigate("/dashboard")
+        }
+
+        if(!response.ok){
+            setError(data.detail)
         }
       }
 
@@ -121,7 +126,7 @@ const Login = () => {
                 console.log('Login Failed');
             }}
             />
-            {error && <p className="login-register-error">{error}</p>}
+            {error && <p className="login-register-error mt-3">{error}</p>}
             <div className="center-line flex justify-center items-center">
             <div className="line1 flex justify-center items-center gap-2 mt-2">
                 <p className="or_line"></p>

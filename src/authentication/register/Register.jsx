@@ -114,8 +114,9 @@ const Register = () => {
     }
 
     if(response.ok) {
-        localStorage.setItem("user", JSON.stringify(data))
-        navigate("/dashboard")
+      setSuccess("Registeration was successful, please use the button below to continue.")
+        // localStorage.setItem("user", JSON.stringify(data))
+        // navigate("/dashboard")
     }
   }
 

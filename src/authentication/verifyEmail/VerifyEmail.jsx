@@ -20,9 +20,11 @@ const VerifyEmail = () => {
         console.log(response)
         const data = await response.json()
         if(response.ok){
+            setError("")
             setSuccess(data.detail)
         }
         if(!response.ok){
+            setSuccess("")
             setError(data.detail)
         }
         console.log(data)

@@ -7,14 +7,19 @@ import Register from './authentication/register/Register';
 import ForgotPassword from './authentication/forgotPassword/ForgotPassword';
 import Dashboard from './pages/dashboard/Dashboard';
 import VerifyEmail from './authentication/verifyEmail/VerifyEmail';
+import LoggedInNav from './components/navbar/LoggedInNav';
+import Navbar from './components/navbar/Navbar';
 
 console.log("igboekwulusifranklin@gmail.com")
 
 function App() {
 
+  useEffect(() => {
+  },[])
+  const user = JSON.parse(localStorage.getItem("user"))
+
   return (
     <BrowserRouter>
-    {/* <Navbar /> */}
     <Routes>
       <Route path='/' element={<LandingPage />} />
       <Route path='/login' element={<Login />} />

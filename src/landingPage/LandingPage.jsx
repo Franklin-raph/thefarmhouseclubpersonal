@@ -3,6 +3,7 @@ import coin1 from "../assets/images/Coin1.png"
 import coin2 from "../assets/images/Coin2.png"
 import { useNavigate } from "react-router-dom"
 import Navbar from "../components/navbar/Navbar"
+import LoggedInNav from "../components/navbar/LoggedInNav"
 
 const LandingPage = () => {
     const navigate = useNavigate()
@@ -38,13 +39,17 @@ const LandingPage = () => {
 
   return (
     <div className='landingPage'>
-        <Navbar />
+        {!user ? <Navbar /> : <LoggedInNav /> }
 
         <main className="flex justify-between items-center px-[100px]">
             <div className="md:w-[100%] w-full text-white text-div">
                 <h1 className="text-[37px] font-bold">Earn <span className="text-[#83B943]">AVDA <br /> tokens</span> from real <br /> world argricultural Projects</h1>
                 <p className="mt-5 mb-8">The farmhouse club's AVDA token makes it easy to let your money work for you.</p>
+                {user ? 
+                <button onClick={() => navigate("/dashboard")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Dashboard</button>
+                :
                 <button onClick={() => navigate("/register")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Get Started</button>
+                }
             </div>
             <div className="w-full relative top-[-42px] coins-div">
                 <img src={coin1} alt="" className="w-[50%] mx-auto coin1 relative z-20"/>
