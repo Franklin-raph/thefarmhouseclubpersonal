@@ -1,6 +1,7 @@
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
     const [email, setEmail] = useState("nwaforglory680@gmail.com")
@@ -53,6 +54,9 @@ const Login = () => {
         
       }
 
+      function responseMessage(){}
+      function errorMessage(){}
+
   return (
     <div className="flex items-center justify-center flex-col w-full h-[100vh] login">
         {/* <p>back</p> */}
@@ -62,17 +66,26 @@ const Login = () => {
         <form onSubmit={handleLogin} className="sign-in-form flex justify-center items-center bg-[#83B943] flex-col mt-[8rem] mb-[8rem] mx-[auto] py-[2rem] px-[1px] w-[80%] sm:w-[60%] md:w-[50%] lg:w-[40%] xl:w-[30%] rounded-xl">
             <div className="header text-center text-white">
             <h1 className="text-[20px]">Welcome Back</h1>
-            <p className="text-white mt-1 text-sm">
+            <p className="text-white mt-1 text-sm mb-3">
                 Don't have an account? <Link to="/register">Start for free</Link>
             </p>
             </div>
-            <div className="continue-with-google flex justify-center items-center w-[80%] p-1 rounded cursor-pointer my-[1rem] gap-2">
-            <i className="ri-google-fill"></i>
-            <p className="text-sm">Continue with Google</p>
-            </div>
+            {/* <div className="continue-with-google flex justify-center items-center w-[80%] p-1 rounded cursor-pointer my-[1rem] gap-2">
+                <i className="ri-google-fill"></i>
+                <p className="text-sm">Continue with Google</p>
+            </div> */}
+            <GoogleLogin
+            onSuccess={credentialResponse => {
+                navigate("/dashboard")
+                console.log(credentialResponse);
+            }}
+            onError={() => {
+                console.log('Login Failed');
+            }}
+            />
             {error && <p className="login-register-error">{error}</p>}
             <div className="center-line flex justify-center items-center">
-            <div className="line1 flex justify-center items-center gap-2">
+            <div className="line1 flex justify-center items-center gap-2 mt-2">
                 <p className="or_line"></p>
                 <p>or</p>
                 <p className="or_line"></p>
@@ -80,12 +93,12 @@ const Login = () => {
             </div>
             <div className="inputs w-[80%]">
             <div className="flex items-center mt-5">
-                <label><i class="fa-solid fa-envelope text-xl text-white"></i></label>
+                <label><i className="fa-solid fa-envelope text-xl text-white"></i></label>
                 <input type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" 
                 className="w-full px-[10px] py-[7px] text-white bg-transparent mt-1 border-0 outline-none"/>
             </div>
             <div className="flex items-center my-[2.5rem]">
-                <label><i class="ri-lock-2-fill text-xl text-white"></i></label>
+                <label><i className="ri-lock-2-fill text-xl text-white"></i></label>
                 <input
                 type={inputType}
                 onChange={(e) => setPassword(e.target.value)}
@@ -99,7 +112,7 @@ const Login = () => {
                     )}
             </div>
             </div>
-            {loading ? <i class="fa-solid fa-gear fa-spin mb-4 text-lg"></i> : <input type="submit" value="Login" className="bg-[#fff] w-[80%] mb-5 py-2 rounded-[6px] text-[#83B943] cursor-pointer"/>}
+            {loading ? <i className="fa-solid fa-gear fa-spin mb-4 text-lg"></i> : <input type="submit" value="Login" className="bg-[#fff] w-[80%] mb-5 py-2 rounded-[6px] text-[#83B943] cursor-pointer"/>}
             
             <Link to="/forgotpassword" className="text-sm text-white">Forgot Password?</Link>
       </form>

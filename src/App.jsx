@@ -6,6 +6,7 @@ import Login from './authentication/login/Login';
 import Register from './authentication/register/Register';
 import ForgotPassword from './authentication/forgotPassword/ForgotPassword';
 import Dashboard from './pages/dashboard/Dashboard';
+import VerifyEmail from './authentication/verifyEmail/VerifyEmail';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Route path='/register' element={<Register />} />
       <Route path='/forgotpassword' element={<ForgotPassword />} />
       <Route path='/dashboard' element={<Dashboard />} />
+      <Route path='/verifyemail/:token/:uuid' element={<VerifyEmail />} />
     </Routes>
     </BrowserRouter>
   )

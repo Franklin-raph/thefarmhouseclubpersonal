@@ -41,9 +41,10 @@ const Register = () => {
         })
         if(response) setLoading(false)
         const data = await response.json()
+        console.log(data)
 
         if(!response.ok){
-            // setError(data.detail)
+            setError(data.detail)
             setTimeout(() => {
                 setError("")
             },5000)
@@ -74,7 +75,7 @@ const Register = () => {
             <p className="text-sm">Continue with Google</p>
             </div>
             {error && <p className="login-register-error">{error}</p>}
-            {success && <p className="login-register-error">{success}</p>}
+            
             <div className="center-line flex justify-center items-center">
             <div className="line1 flex justify-center items-center gap-2">
                 <p className="or_line"></p>
@@ -134,6 +135,15 @@ const Register = () => {
             </div>
             {loading ? <i class="fa-solid fa-gear fa-spin mb-4 text-lg"></i> : <input type="submit" value="Sign Up" className="bg-[#fff] w-[80%] mb-5 py-2 rounded-[6px] text-[#83B943] cursor-pointer"/>}
       </form>
+      {success &&
+      <div className="successModalBg">
+        <div className="successModal">
+          <i class="ri-checkbox-circle-line"></i>
+           <p >{success}</p>
+          <button onClick={()=> navigate("/login")}>Continue to login</button>
+        </div>
+      </div>
+      }
     </div>
   )
 }
