@@ -2,6 +2,7 @@ import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { GoogleLogin } from '@react-oauth/google';
+import { useEffect } from "react";
 
 const Login = () => {
     const [email, setEmail] = useState("nwaforglory680@gmail.com")
@@ -11,6 +12,20 @@ const Login = () => {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+
+    const user = JSON.parse(localStorage.getItem("user"))
+    console.log(user)
+
+    useEffect(() => {
+        if(user){
+            console.log(true)
+            navigate("/")
+        }
+        if(!user){
+            console.log(true)
+            navigate("/login")
+        }
+    },[])
 
     const toggleInput = () => {
         setInputType(inputType === "password" ? "text" : "password");
@@ -47,14 +62,40 @@ const Login = () => {
             }
 
             if(response.ok) {
-                localStorage.setItem("user", JSON.stringify(data.detail))
+                console.log(data)
+                localStorage.setItem("user", JSON.stringify(data))
                 navigate("/dashboard")
             }
         }
-        
       }
 
-      function responseMessage(){}
+      function googleResponseMessage(response){
+        let jwt = `${response.credential}`
+        var tokens = jwt.split(".");
+        const userDetails = JSON.parse(atob(tokens[1]))
+        if(userDetails){
+            handleLoginFromGoogleResponse(userDetails.email)
+        }
+      }
+
+      async function handleLoginFromGoogleResponse(email){
+        setLoading(true)
+        const response = await fetch("https://avda.pythonanywhere.com/api/v1/google-login/", {
+            method:"POST",
+            body: JSON.stringify({email:email}),
+            headers:{
+                "Content-Type":"application/json"
+            }
+        })
+        const data = await response.json()
+        if(response) setLoading(false)
+
+        if(response.ok) {
+            localStorage.setItem("user", JSON.stringify(data))
+            navigate("/dashboard")
+        }
+      }
+
       function errorMessage(){}
 
   return (
@@ -75,10 +116,7 @@ const Login = () => {
                 <p className="text-sm">Continue with Google</p>
             </div> */}
             <GoogleLogin
-            onSuccess={credentialResponse => {
-                navigate("/dashboard")
-                console.log(credentialResponse);
-            }}
+            onSuccess={googleResponseMessage}
             onError={() => {
                 console.log('Login Failed');
             }}

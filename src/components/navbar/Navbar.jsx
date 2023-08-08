@@ -31,8 +31,8 @@ const Navbar = () => {
                 <img src={logo} alt="" />
             </a>
             <div className="toggler relative z-50">
-                <i class="fa-solid fa-bars"></i>
-                <i class="fa-solid fa-xmark"></i>
+                <i className="fa-solid fa-bars"></i>
+                <i className="fa-solid fa-xmark"></i>
             </div>
             <ul className="flex items-center justify-between gap-[30px]">
                 <li>

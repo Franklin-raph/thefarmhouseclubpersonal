@@ -358,7 +358,7 @@ br {
   align-items: center;
 }
 
-.successModal{
+.successModal, .failureModal{
   background-color: #fff;
   color: #000;
   padding: 2rem;
@@ -374,7 +374,12 @@ br {
   color: #83B943;
 }
 
-.successModal button{
+.failureModal i{
+  font-size: 50px;
+  color: rgb(209, 0, 0);
+}
+
+.successModal button, .failureModal button{
   background-color: #83B943;
   font-size: 20px;
   color: #fff;
@@ -382,3 +387,12 @@ br {
   margin-top: 10px;
   border-radius: 6px;
 }
+
+/* .failureModal button{
+  background-color: rgb(209, 0, 0);
+  font-size: 20px;
+  color: #fff;
+  padding: 6px 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+} */

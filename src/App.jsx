@@ -8,6 +8,8 @@ import ForgotPassword from './authentication/forgotPassword/ForgotPassword';
 import Dashboard from './pages/dashboard/Dashboard';
 import VerifyEmail from './authentication/verifyEmail/VerifyEmail';
 
+console.log("igboekwulusifranklin@gmail.com")
+
 function App() {
 
   return (

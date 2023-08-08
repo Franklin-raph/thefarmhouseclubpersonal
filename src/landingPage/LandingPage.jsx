@@ -6,9 +6,18 @@ import Navbar from "../components/navbar/Navbar"
 
 const LandingPage = () => {
     const navigate = useNavigate()
+    const user = JSON.parse(localStorage.getItem("user"))
+    console.log(user)
 
-    
     useEffect(() => {
+        if(user){
+            console.log(true)
+            navigate("/")
+        }
+        if(!user){
+            console.log(true)
+            navigate("/")
+        }
         const nav = document.querySelector("nav ul")
         const navOpen = document.querySelector(".fa-bars")
         const navClose = document.querySelector(".fa-xmark")
@@ -62,16 +71,16 @@ const LandingPage = () => {
             </ul>
             <ul className="flex justify-between items-center gap-5">
                 <li>
-                    <a href="#"><i class="ri-twitter-fill"></i></a>
+                    <a href="#"><i className="ri-twitter-fill"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="ri-discord-fill"></i></a>
+                    <a href="#"><i className="ri-discord-fill"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="ri-instagram-fill"></i></a>
+                    <a href="#"><i className="ri-instagram-fill"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="ri-linkedin-box-fill"></i></a>
+                    <a href="#"><i className="ri-linkedin-box-fill"></i></a>
                 </li>
             </ul>
         </footer>
