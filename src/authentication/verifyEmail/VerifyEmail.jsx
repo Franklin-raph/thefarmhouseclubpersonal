@@ -13,7 +13,7 @@ const VerifyEmail = () => {
 
     async function verifyEmail(){
         const response = await fetch("https://avda.pythonanywhere.com/api/v1/verify-email/", {
-            method:"POST",
+            method:"GET",
             body: JSON.stringify({token:token, uidb64:uuid}),
             headers:{
                 "Content-Type":"application/json"
