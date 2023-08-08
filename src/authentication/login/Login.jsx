@@ -67,7 +67,7 @@ const Login = () => {
             <div className="header text-center text-white">
             <h1 className="text-[20px]">Welcome Back</h1>
             <p className="text-white mt-1 text-sm mb-3">
-                Don't have an account? <Link to="/register">Start for free</Link>
+                Don't have an account? <Link to="/register" className="underline font-bold">Start for free</Link>
             </p>
             </div>
             {/* <div className="continue-with-google flex justify-center items-center w-[80%] p-1 rounded cursor-pointer my-[1rem] gap-2">
