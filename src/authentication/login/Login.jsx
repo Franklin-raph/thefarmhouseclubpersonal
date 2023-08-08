@@ -105,6 +105,15 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center flex-col w-full h-[100vh] login">
+        {error &&
+            <div className="errorModalBg">
+                <div className="failureModal">
+                <i className="ri-close-circle-line text-red-600"></i>
+                <p >{error}</p>
+                {/* <button onClick={()=> navigate("/login")}>Continue to login</button> */}
+                </div>
+            </div>
+        }
         {/* <p>back</p> */}
         <div className="bg-[#fff] w-[15%] fixed top-[-1%] sm:w-[10%] md:w-[8%] lg:w-[6%] rounded-full p-3 cursor-pointer" onClick={() => navigate("/")}>
             <img src={logo} alt="" className="w-full"/>
@@ -126,7 +135,7 @@ const Login = () => {
                 console.log('Login Failed');
             }}
             />
-            {error && <p className="login-register-error mt-3">{error}</p>}
+            {/* {error && <p className="login-register-error mt-3">{error}</p>} */}
             <div className="center-line flex justify-center items-center">
             <div className="line1 flex justify-center items-center gap-2 mt-2">
                 <p className="or_line"></p>

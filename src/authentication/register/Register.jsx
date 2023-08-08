@@ -107,10 +107,13 @@ const Register = () => {
     })
     const data = await response.json()
     if(response) setLoading(false)
-
+console.log(response)
     if(!response.ok){
       setError(data.detail)
       console.log(data)
+      setTimeout(() => {
+        setError("")
+    },5000)
     }
 
     if(response.ok) {
@@ -143,7 +146,18 @@ const Register = () => {
                 console.log('Login Failed');
             }}
             />
-            {error && <p className="login-register-error mt-2">{error}</p>}
+            {/* {error && <p className="login-register-error mt-2">{error}</p>} */}
+
+            {!error &&
+              <div className="successModalBg">
+                <div className="failureModal">
+                  <i className="ri-close-circle-line"></i>
+                  <p style={{ color:"black" }}>User not found or user account not active</p>
+                  <p style={{ color:"black" }}>{error}</p>
+                  {/* <button onClick={()=> navigate("/login")}>Continue to login</button> */}
+                </div>
+              </div>
+              }
             
             <div className="center-line flex justify-center items-center">
             <div className="line1 flex justify-center items-center gap-2">
