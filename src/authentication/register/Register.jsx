@@ -148,7 +148,7 @@ console.log(response)
             />
             {/* {error && <p className="login-register-error mt-2">{error}</p>} */}
 
-            {!error &&
+            {error &&
               <div className="successModalBg">
                 <div className="failureModal">
                   <i className="ri-close-circle-line"></i>
