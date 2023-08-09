@@ -4,13 +4,10 @@ import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import stellar from "../../assets/images/Stellar_Symbol.png"
 
-const LoggedInNav = ({fundAccount}) => {
-
-    console.log(fundAccount)
+const LoggedInNav = ({fundAccount, setFundAccountModal}) => {
 
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem("user"))
-    console.log(user)
     const [userModal, setUserModal] = useState(false)
     const [walletModal, setWalletModal] = useState(false)
     const [walletConnected, setWalletConnected] = useState(false)
@@ -19,6 +16,7 @@ const LoggedInNav = ({fundAccount}) => {
     // console.log(user.refresh)
     
     useEffect(() => {
+        console.log(user)
         // if(user === null){
         //     navigate("/login")
         // }
@@ -84,7 +82,7 @@ const LoggedInNav = ({fundAccount}) => {
                     <Link to="/markets">Market</Link>
                 </li>
                 <li>
-                    <Link to="#">Governance</Link>
+                    <Link to="/governance">Governance</Link>
                 </li>
             </ul>
             <div>
@@ -93,7 +91,7 @@ const LoggedInNav = ({fundAccount}) => {
                         Connect
                     </button>
                 : 
-                    <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setWalletModal(!walletModal)}>
+                    <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setFundAccountModal(true)}>
                         Fund Account
                     </button>
                 }
@@ -110,7 +108,7 @@ const LoggedInNav = ({fundAccount}) => {
             <div className="userModal bg-slate-200 fixed right-4 rounded-md p-2 z-10">
                 <div className='flex items-center gap-2 cursor-pointer'>
                     <i className="ri-user-3-line ml-3 py-1 px-2  bg-slate-500 rounded-full text-white"></i>
-                    {user  && <p className='text-sm'>My Profile</p>}
+                    {user  && <p className='text-sm' onClick={()=> navigate(`/myprofile/${user && user.user.id}`)}>My Profile</p>}
                 </div>
                 <div className='flex items-center gap-2 my-3 cursor-pointer'>
                     <i className="ri-key-line ml-3 py-1 px-2  bg-slate-500 rounded-full text-white"></i>

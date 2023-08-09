@@ -36,13 +36,13 @@ const Navbar = () => {
             </div>
             <ul className="flex items-center justify-between gap-[30px]">
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a href="/dashboard">Dashboard</a>
                 </li>
                 <li>
                     <a href="/markets">Market</a>
                 </li>
                 <li>
-                    <a href="#">Governance</a>
+                    <a href="/governance">Governance</a>
                 </li>
                 <li className="login-btn">
                     <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Login</button>

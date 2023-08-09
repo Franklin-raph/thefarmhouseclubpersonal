@@ -8,10 +8,14 @@ import ForgotPassword from './authentication/forgotPassword/ForgotPassword';
 import Dashboard from './pages/dashboard/Dashboard';
 import VerifyEmail from './authentication/verifyEmail/VerifyEmail';
 import Markets from './pages/markets/Markets';
+import Governance from './pages/governance/Governance';
+import UserProfile from './pages/userprofile/UserProfile';
 
 console.log("igboekwulusifranklin@gmail.com")
 
 function App() {
+
+  const baseUrl = "https://avda.pythonanywhere.com/api/v1"
 
   return (
     <BrowserRouter>
@@ -21,7 +25,9 @@ function App() {
       <Route path='/register' element={<Register />} />
       <Route path='/forgotpassword' element={<ForgotPassword />} />
       <Route path='/dashboard' element={<Dashboard />} />
+      <Route path='/governance' element={<Governance />} />
       <Route path='/verifyemail/:token/:uuid' element={<VerifyEmail />} />
+      <Route path='/myprofile/:id' element={<UserProfile baseUrl={baseUrl}/>} />
       <Route path='/markets' element={<Markets />} />
     </Routes>
     </BrowserRouter>
