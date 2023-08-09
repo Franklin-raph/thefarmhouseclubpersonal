@@ -39,7 +39,7 @@ const Navbar = () => {
                     <a href="#">Dashboard</a>
                 </li>
                 <li>
-                    <a href="#">Market</a>
+                    <a href="/markets">Market</a>
                 </li>
                 <li>
                     <a href="#">Governance</a>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import Navbar from '../../components/navbar/Navbar'
 import logo from "../../assets/images/Asset-2.-300x47.png"
 import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import slackLogo from "../../assets/images/Stellar_Symbol.png"
+import { Link, useNavigate } from "react-router-dom"
+import stellar from "../../assets/images/Stellar_Symbol.png"
 
-const LoggedInNav = () => {
+const LoggedInNav = ({fundAccount}) => {
+
+    console.log(fundAccount)
 
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem("user"))
@@ -18,12 +19,12 @@ const LoggedInNav = () => {
     // console.log(user.refresh)
     
     useEffect(() => {
-        if(user === null){
-            navigate("/login")
-        }
-        if(user) {
-            navigate("/dashboard")
-        }
+        // if(user === null){
+        //     navigate("/login")
+        // }
+        // if(user) {
+        //     navigate("/dashboard")
+        // }
         const nav = document.querySelector("nav ul")
         const navOpen = document.querySelector(".fa-bars")
         const navClose = document.querySelector(".fa-xmark")
@@ -77,22 +78,29 @@ const LoggedInNav = () => {
             </div>
             <ul className="flex items-center justify-between gap-[30px]">
                 <li>
-                    <a href="#">Dashboard</a>
+                    <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li>
-                    <a href="#">Market</a>
+                    <Link to="/markets">Market</Link>
                 </li>
                 <li>
-                    <a href="#">Governance</a>
+                    <Link to="#">Governance</Link>
                 </li>
             </ul>
             <div>
-                <button className='border border-teal-500 py-1 px-2 rounded' onClick={()=> setWalletModal(!walletModal)}>
-                    Connect Wallet
-                </button>
+                {!fundAccount ? 
+                    <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setWalletModal(!walletModal)}>
+                        Connect
+                    </button>
+                : 
+                    <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setWalletModal(!walletModal)}>
+                        Fund Account
+                    </button>
+                }
+                
                 {/* {user &&
                     <button className='border border-teal-500 py-1 px-2 rounded'>
-                        `${user.public_key.slice(0, 9)}...${user.public_key.slice(-9)}`
+                        {user.public_key.slice(0, 9)}...${user.public_key.slice(-9)}
                     </button>
                 } */}
                 <i className="ri-user-3-line text-lg ml-3 p-2 bg-slate-500 rounded-full text-white cursor-pointer" onClick={()=> setUserModal(!userModal)}></i>
@@ -102,7 +110,7 @@ const LoggedInNav = () => {
             <div className="userModal bg-slate-200 fixed right-4 rounded-md p-2 z-10">
                 <div className='flex items-center gap-2 cursor-pointer'>
                     <i className="ri-user-3-line ml-3 py-1 px-2  bg-slate-500 rounded-full text-white"></i>
-                    {user  && <p className='text-sm'>{user.user.email}</p>}
+                    {user  && <p className='text-sm'>My Profile</p>}
                 </div>
                 <div className='flex items-center gap-2 my-3 cursor-pointer'>
                     <i className="ri-key-line ml-3 py-1 px-2  bg-slate-500 rounded-full text-white"></i>
@@ -131,7 +139,7 @@ const LoggedInNav = () => {
             <div className="walletModal bg-slate-200 fixed right-16 rounded-md p-4 w-[15%]">
                 <div className='flex item-center gap-2 mb-3 cursor-pointer' onClick={()=>setWalletConnected(!walletConnected)}>
                     {/* <i class="ri-wallet-line"></i> */}
-                    <img src={slackLogo} alt="" width={"12%"} />
+                    <img src={stellar} alt="" width={"12%"} />
                     <p className='font-bold text-md'>Stellar</p>
                 </div>
                 <p className='border-t-[1px] border-slate-300 pt-2 cursor-pointer'>Disconnect my wallet</p>

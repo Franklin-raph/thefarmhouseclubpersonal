@@ -7,16 +7,11 @@ import Register from './authentication/register/Register';
 import ForgotPassword from './authentication/forgotPassword/ForgotPassword';
 import Dashboard from './pages/dashboard/Dashboard';
 import VerifyEmail from './authentication/verifyEmail/VerifyEmail';
-import LoggedInNav from './components/navbar/LoggedInNav';
-import Navbar from './components/navbar/Navbar';
+import Markets from './pages/markets/Markets';
 
 console.log("igboekwulusifranklin@gmail.com")
 
 function App() {
-
-  useEffect(() => {
-  },[])
-  const user = JSON.parse(localStorage.getItem("user"))
 
   return (
     <BrowserRouter>
@@ -27,6 +22,7 @@ function App() {
       <Route path='/forgotpassword' element={<ForgotPassword />} />
       <Route path='/dashboard' element={<Dashboard />} />
       <Route path='/verifyemail/:token/:uuid' element={<VerifyEmail />} />
+      <Route path='/markets' element={<Markets />} />
     </Routes>
     </BrowserRouter>
   )

@@ -115,6 +115,14 @@ footer i{
   background-position: bottom;
 }
 
+.forgotPassword{
+  background:url("./assets/images/FinalScenne-01..png"),linear-gradient(170deg,#f2fffd 20%,#69bfad 100%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+}
+
 input::placeholder{
   color: #fff !important;
 }
@@ -192,6 +200,31 @@ br {
   padding: 6px 10px;
   margin-top: 10px;
   border-radius: 6px;
+}
+
+.market{
+  background: linear-gradient(170deg,#f2fffd 20%,#69bfac 100%);;
+}
+
+/* dashboard */
+
+.walletsModalBg{
+  width: 100%;
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333333bc;
+}
+
+.walletsModal{
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 40%;
 }
 
 @media screen and (max-width:1244px) {
@@ -364,7 +397,7 @@ br {
     width: 75%;
   }
 
-  .successModal p, .failureModal p{
+  .successModal p, .failureModal p, .successModal button, .failureModal button{
     font-size: 18px;
   }
 

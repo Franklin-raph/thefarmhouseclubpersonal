@@ -37,7 +37,7 @@ const VerifyEmail = () => {
             {success && 
                 <div className="successModal">
                     <i className="ri-checkbox-circle-line"></i>
-                    <h3 className='text-center text-2xl'>{success}</h3>
+                    <p className='text-center text-2xl'>{success}</p>
                     <button onClick={()=> navigate("/login")}>Continue to login</button>
                 </div>
             }
@@ -45,7 +45,7 @@ const VerifyEmail = () => {
             {error && 
             <div className="failureModal">
                 <i className="ri-close-circle-line"></i>
-                <h3 className='text-center text-2xl mb-2'>{error}</h3>
+                <p className='text-center text-2xl mb-2'>{error}</p>
                 <button onClick={()=> navigate("/login")}>Continue to login</button>
             </div>
             }
