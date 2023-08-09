@@ -14,6 +14,10 @@ import UserProfile from './pages/userprofile/UserProfile';
 console.log("igboekwulusifranklin@gmail.com")
 
 function App() {
+useEffect(() => {
+  localStorage.clear()
+},[])
+
 
   const baseUrl = "https://avda.pythonanywhere.com/api/v1"
 
