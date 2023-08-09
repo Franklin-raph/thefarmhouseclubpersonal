@@ -152,7 +152,6 @@ console.log(response)
               <div className="successModalBg">
                 <div className="failureModal">
                   <i className="ri-close-circle-line"></i>
-                  <p style={{ color:"black" }}>User not found or user account not active</p>
                   <p style={{ color:"black" }}>{error}</p>
                   {/* <button onClick={()=> navigate("/login")}>Continue to login</button> */}
                 </div>
