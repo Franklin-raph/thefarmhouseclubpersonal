@@ -10,12 +10,13 @@ import VerifyEmail from './authentication/verifyEmail/VerifyEmail';
 import Markets from './pages/markets/Markets';
 import Governance from './pages/governance/Governance';
 import UserProfile from './pages/userprofile/UserProfile';
+import MarketInfo from './pages/marketInfo/MarketInfo';
 
 console.log("igboekwulusifranklin@gmail.com")
 
 function App() {
 useEffect(() => {
-  localStorage.clear()
+  // localStorage.clear()
 },[])
 
 
@@ -25,14 +26,15 @@ useEffect(() => {
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<LandingPage />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/register' element={<Register />} />
-      <Route path='/forgotpassword' element={<ForgotPassword />} />
-      <Route path='/dashboard' element={<Dashboard />} />
-      <Route path='/governance' element={<Governance />} />
-      <Route path='/verifyemail/:token/:uuid' element={<VerifyEmail />} />
+      <Route path='/login' element={<Login baseUrl={baseUrl}/>} />
+      <Route path='/register' element={<Register baseUrl={baseUrl}/>} />
+      <Route path='/forgotpassword' element={<ForgotPassword baseUrl={baseUrl}/>} />
+      <Route path='/dashboard' element={<Dashboard baseUrl={baseUrl}/>} />
+      <Route path='/governance' element={<Governance baseUrl={baseUrl}/>} />
+      <Route path='/verifyemail/:token/:uuid' element={<VerifyEmail baseUrl={baseUrl}/>} />
       <Route path='/myprofile/:id' element={<UserProfile baseUrl={baseUrl}/>} />
-      <Route path='/markets' element={<Markets />} />
+      <Route path='/markets' element={<Markets baseUrl={baseUrl}/>} />
+      <Route path='/marketinfo/:id' element={<MarketInfo baseUrl={baseUrl}/>} />
     </Routes>
     </BrowserRouter>
   )

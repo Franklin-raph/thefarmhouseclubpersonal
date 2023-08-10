@@ -234,7 +234,34 @@ br {
 }
 
 .userProfileDetails div{
-  
+
+}
+
+.marketCardContainer{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.marketCard{
+  box-shadow: 0 0 10px #00000066;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.marketCard .firstImage{
+  border-radius: 20px 20px 0 0;
+  border: none;
+}
+
+.marketCard img{
+  border: 2px solid #fff;
+}
+
+.marketCard .footer div{
+  border: 1px solid #3333333f;
+  background-color: #C0E8DF;
 }
 
 @media screen and (max-width:1244px) {

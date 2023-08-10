@@ -134,7 +134,10 @@ const Dashboard = () => {
                 </div>
               }
               {!openBankTransfer && openCryptoTransfer && !openBankInstrumentsTransfer &&
-                <div>Wallet Address</div>
+                <div className='my-5 text-center'>
+                  <h1><span className='font-bold'>Note:</span>You need to make trustline to transfer funds into your wallet</h1>
+                  <button className='py-1 bg-[#83B943] w-full text-white mt-3 rounded'>Trustline</button>
+                </div>
               }
               {!openBankTransfer && !openCryptoTransfer && openBankInstrumentsTransfer &&
                 <div>Instrument</div>
