@@ -127,6 +127,10 @@ input::placeholder{
   color: #fff !important;
 }
 
+.marketCard .body input::placeholder{
+  color: #6f6f6f !important;
+}
+
 .register{
   height: 100vh;
   overflow: hidden;
@@ -234,7 +238,7 @@ br {
 }
 
 .userProfileDetails div{
-
+color: #bfe7df;
 }
 
 .marketCardContainer{
@@ -247,7 +251,6 @@ br {
 .marketCard{
   box-shadow: 0 0 10px #00000066;
   border-radius: 20px;
-  cursor: pointer;
 }
 
 .marketCard .firstImage{
@@ -262,6 +265,21 @@ br {
 .marketCard .footer div{
   border: 1px solid #3333333f;
   background-color: #C0E8DF;
+}
+
+.marketInfoFirstSection{
+  display: grid;
+  grid-template-columns: 4fr 3fr;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.tabBtn{
+  border-bottom: 1px solid #333;
+}
+
+.tabBtn{
+  cursor: pointer;
 }
 
 @media screen and (max-width:1244px) {

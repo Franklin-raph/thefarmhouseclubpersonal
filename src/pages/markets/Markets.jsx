@@ -13,7 +13,7 @@ const Markets = () => {
         </div>
         <div className="marketCardContainer">
           
-          <div className="marketCard w-full" onClick={()=> navigate("/marketinfo/123")}>
+          <div className="marketCard w-full cursor-pointer" onClick={()=> navigate("/marketinfo/123")}>
             <img src={cardImage1} alt="" className='firstImage'/>
               <div className="body">
               <div className="author flex justify-between items-center px-4">
@@ -34,7 +34,7 @@ const Markets = () => {
               </div>
           </div>
           
-          <div className="marketCard w-full" onClick={()=> navigate("/marketinfo/123")}>
+          <div className="marketCard w-full cursor-pointer" onClick={()=> navigate("/marketinfo/123")}>
             <img src={cardImage1} alt="" className='firstImage'/>
               <div className="body">
               <div className="author flex justify-between items-center px-4">
@@ -55,7 +55,7 @@ const Markets = () => {
               </div>
           </div>
 
-          <div className="marketCard w-full" onClick={()=> navigate("/marketinfo/123")}>
+          <div className="marketCard w-full cursor-pointer" onClick={()=> navigate("/marketinfo/123")}>
             <img src={cardImage1} alt="" className='firstImage'/>
               <div className="body">
               <div className="author flex justify-between items-center px-4">
