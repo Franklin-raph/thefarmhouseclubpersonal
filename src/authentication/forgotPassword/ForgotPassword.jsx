@@ -17,7 +17,7 @@ const ForgotPassword = ({baseUrl}) => {
   }
   if(!user){
       console.log(true)
-      navigate("/login")
+      navigate("/forgotpassword")
   }
   },[])
 
