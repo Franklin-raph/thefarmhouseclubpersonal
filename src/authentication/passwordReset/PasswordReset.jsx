@@ -18,6 +18,12 @@ const PasswordReset = ({baseUrl}) => {
     async function verifyPaswordResetLink(){
         const resp = await fetch(`${baseUrl}/confirm-reset-password/${token}/${uuid}/`)
         const data = await resp.json()
+        if(!resp.ok){
+            setError(data.detail)
+            setTimeout(() => {
+                setError("")
+            },4000)
+        }
         console.log(resp)
     }
 
@@ -44,8 +50,20 @@ const PasswordReset = ({baseUrl}) => {
                     "Content-Type": "application/json"
                 }
             })
+            const data = await resp.json()
             if(resp) setLoader(false)
-            if(resp.ok) setSuccess(data.detail)
+            if(resp.ok){
+                setSuccess(data.detail)
+                setTimeout(() => {
+                    setSuccess("")
+                },4000)
+            } 
+            if(!resp.ok){
+                setError(data.detail)
+                setTimeout(() => {
+                    setError("")
+                },4000)
+            }
         }
     }
 
@@ -79,7 +97,7 @@ const PasswordReset = ({baseUrl}) => {
       <div className="successModalBg">
         <div className="successModal">
           <i className="ri-checkbox-circle-line"></i>
-           <p >{success}</p>
+           <p>{success}</p>
           <button onClick={()=> navigate("/login")}>Continue to login</button>
         </div>
       </div>

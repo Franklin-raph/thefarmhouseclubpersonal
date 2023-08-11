@@ -10,6 +10,7 @@ const Login = () => {
     const [inputType, setInputType] = useState("password");
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("")
+    const [success, setSuccess] = useState("")
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
@@ -52,6 +53,7 @@ const Login = () => {
         })
         if(response) setLoading(false)
         const data = await response.json()
+        console.log(response, data)
 
         if(!response.ok){
             setError(data.detail)
@@ -61,10 +63,17 @@ const Login = () => {
             return
             }
 
-            if(response.ok) {
+            if(response.status === 200) {
                 console.log(data)
                 localStorage.setItem("user", JSON.stringify(data))
                 navigate("/dashboard")
+            }
+            
+            if(response.status === 202){
+                console.log(data)
+                setSuccess(data.detail)
+                localStorage.setItem("_2fa", JSON.stringify({email, password}))
+                // navigate("/twofactorlogin")
             }
         }
       }
@@ -108,9 +117,17 @@ const Login = () => {
         {error &&
             <div className="errorModalBg">
                 <div className="failureModal">
-                <i className="ri-close-circle-line text-red-600"></i>
-                <p >{error}</p>
-                {/* <button onClick={()=> navigate("/login")}>Continue to login</button> */}
+                    <i className="ri-close-circle-line text-red-600"></i>
+                    <p >{error}</p>
+                </div>
+            </div>
+        }
+        {success &&
+            <div className="successModalBg">
+                <div className="successModal">
+                    <i className="ri-checkbox-circle-line text-green-600"></i>
+                    <p >{success}</p>
+                    <button onClick={()=> navigate("/twofactorlogin")}>Continue</button>
                 </div>
             </div>
         }
