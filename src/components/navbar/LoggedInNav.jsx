@@ -16,7 +16,7 @@ const LoggedInNav = ({fundAccount, setFundAccountModal}) => {
     // console.log(user.refresh)
     
     useEffect(() => {
-        console.log(user)
+        // console.log(user)
         // if(user === null){
         //     navigate("/login")
         // }

@@ -11,6 +11,7 @@ import Markets from './pages/markets/Markets';
 import Governance from './pages/governance/Governance';
 import UserProfile from './pages/userprofile/UserProfile';
 import MarketInfo from './pages/marketInfo/MarketInfo';
+import PasswordReset from './authentication/passwordReset/PasswordReset';
 
 console.log("igboekwulusifranklin@gmail.com")
 
@@ -35,6 +36,7 @@ useEffect(() => {
       <Route path='/myprofile/:id' element={<UserProfile baseUrl={baseUrl}/>} />
       <Route path='/markets' element={<Markets baseUrl={baseUrl}/>} />
       <Route path='/marketinfo/:id' element={<MarketInfo baseUrl={baseUrl}/>} />
+      <Route path='/resetpassword/:uuid/:token' element={<PasswordReset baseUrl={baseUrl}/>} />
     </Routes>
     </BrowserRouter>
   )

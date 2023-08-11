@@ -131,10 +131,10 @@ console.log(response)
         </div>
         <form onSubmit={handleUserRegister} className="sign-in-form flex justify-center items-center bg-[#83B943] flex-col rounded-xl pb-7 ">
             <div className="header text-center text-white">
-            <h1 className="text-[20px]">Welcome Back</h1>
-            <p className="text-white my-1 text-sm">
-                Already have an account? <Link to="/login" className="underline font-bold">Continue to login</Link>
-            </p>
+              <h1 className="text-[20px]">Welcome Back</h1>
+              <p className="text-white my-1 text-sm">
+                  Already have an account? <Link to="/login" className="underline font-bold">Continue to login</Link>
+              </p>
             </div>
             {/* <div className="continue-with-google flex justify-center items-center w-[80%] p-1 rounded cursor-pointer my-[1rem] gap-2">
             <i className="ri-google-fill"></i>
