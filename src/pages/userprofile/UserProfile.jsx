@@ -75,24 +75,34 @@ const UserProfile = ({baseUrl}) => {
         <LoggedInNav />
         <div className="userProfileDetailsContainer">
           <div className='userProfileNav border-r-2 border-gray-500'>
-            <p className='my-5 cursor-pointer' onClick={()=> {
+            <div className='my-5 cursor-pointer flex items-center gap-2' onClick={()=> {
               setShow2Fa(false)
               setShowProfile(true)
               setAccountUpdate(false)
-            }}>My Profile</p>
-            <p className='my-5 cursor-pointer' onClick={()=> {
+            }}>
+              <i class="ri-user-3-line"></i>
+              <p>My Profile</p>
+              </div>
+            <div className='my-5 cursor-pointer flex items-center gap-2' onClick={()=> {
               setShow2Fa(false)
               setShowProfile(false)
               setAccountUpdate(true)
-            }}>Account Update</p>
-            <p className='my-5 cursor-pointer' onClick={()=> {
+            }}>
+              <i class="ri-pencil-fill"></i>
+              <p>Account Update</p>
+            </div>
+            <div className='my-5 cursor-pointer flex items-center gap-2' onClick={()=> {
               setShow2Fa(true)
               setShowProfile(false)
               setAccountUpdate(false)
-            }}>Two-Factor Authentication</p>
+            }}>
+              <i class="ri-key-2-line"></i>
+              <p>2 Factor Authentication</p>
+              </div>
           </div>
           {showProfile && 
             <div className='userProfileDetails pl-5'>
+              <h1 className='font-medium text-2xl'>My Profile</h1>
               <div className='my-3'>
                 <label>First Name</label>
                 <p className='border border-gray-300 w-[50%] rounded-md px-2 py-1'>{myProfile && myProfile.first_name}</p>
@@ -126,6 +136,7 @@ const UserProfile = ({baseUrl}) => {
 
           {showAccountUpdate && 
             <div className='userProfileDetails pl-5'>
+              <h1 className='font-medium text-2xl'>Account Update</h1>
               <div className='my-3'>
                 <label className='block'>First Name</label>
                 <input type="text" className='border border-gray-300 w-[62%] rounded-md px-2 py-1 outline-none'/>
@@ -156,7 +167,7 @@ const UserProfile = ({baseUrl}) => {
 
           {show2Fa && 
             <div className='pl-5 py-5'>
-              <h3 className='mb-5'>Set Up your two factor Authentication</h3>
+              <h3 className='mb-5 font-medium text-2xl'>Set Up your Two Factor Authentication</h3>
               {error && <p className='text-white bg-red-400 p-2 inline'>{error}</p>}
               {success && <p className='text-white bg-green-400 p-2 inline'>{success}</p>}
               <div className='mt-5'>
@@ -168,7 +179,11 @@ const UserProfile = ({baseUrl}) => {
                   <label htmlFor="Email" className='block'>Password</label>
                   <input type="text" placeholder='******'  value={password} onChange={(e)=> setPassword(e.target.value)} className='border border-gray-300 w-[62%] rounded-md px-2 py-1 outline-none' />
                 </div>
-                {loader ? <button className='my-4 bg-[#84b943f7] text-white py-1 px-4 rounded-sm text-lg cursor-disabled'> <i className="fa-solid fa-gear fa-spin"></i> </button> : <button className='mt-3 bg-[#84b943f7] text-white py-1 px-4 rounded-sm' onClick={activateTwoFactorAuth}>Submit</button>}
+                {loader ? 
+                  <button className='my-4 bg-[#84b943f7] text-white py-1 px-4 rounded-sm text-lg cursor-disabled'> <i className="fa-solid fa-gear fa-spin"></i> </button> 
+                    :
+                  <button className='mt-3 bg-[#84b943f7] text-white py-1 px-4 rounded-sm' onClick={activateTwoFactorAuth}>{myProfile && myProfile.has2fa ? "Turn Off 2 factor": "Turn On 2 factor"}</button>
+                }
                 
               </div>
             </div>

@@ -1,5 +1,5 @@
-import {useState} from 'react'
-import { Link } from 'react-router-dom'
+import {useState, useEffect} from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 const ForgotPassword = ({baseUrl}) => {
   console.log(baseUrl)
@@ -7,6 +7,19 @@ const ForgotPassword = ({baseUrl}) => {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
   const [loader, setLoader] = useState(false)
+  const user = JSON.parse(localStorage.getItem("user"))
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(user){
+      console.log(true)
+      navigate("/")
+  }
+  if(!user){
+      console.log(true)
+      navigate("/login")
+  }
+  },[])
 
   async function handleForgotPassword(e){
     e.preventDefault()

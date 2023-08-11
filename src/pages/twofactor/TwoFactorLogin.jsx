@@ -41,7 +41,7 @@ const TwoFactorLogin = ({baseUrl}) => {
 
   return (
     <div className='flex justify-center items-center forgotPassword w-full'>
-      <form onSubmit={handleTwoFactorLogin} className='flex justify-center items-center flex-col bg-[#84b943f7] p-5 text-white xl:w-[35%] lg:w-[45%] md:w-[55%] sm:w-[65%] w-[80%]'>
+      <form onSubmit={handleTwoFactorLogin} className='text-center flex justify-center items-center flex-col bg-[#84b943f7] p-5 text-white xl:w-[35%] lg:w-[45%] md:w-[55%] sm:w-[65%] w-[80%]'>
         <h1 className='text-xl mb-5'>2-Factor Authentication</h1>
         <div className="w-full">
           <label htmlFor="email" className='block my-2'>Enter 8-digit code sent to your email</label>

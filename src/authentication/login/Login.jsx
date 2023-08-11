@@ -98,6 +98,7 @@ const Login = () => {
             }
         })
         const data = await response.json()
+        console.log(response)
         if(response) setLoading(false)
 
         if(response.ok) {

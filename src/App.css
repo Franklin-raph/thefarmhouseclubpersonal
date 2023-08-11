@@ -124,7 +124,7 @@ footer i{
 }
 
 input::placeholder{
-  color: #fff !important;
+  color: #ffffff55 !important;
 }
 
 .marketCard .body input::placeholder{
