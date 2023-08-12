@@ -18,19 +18,12 @@ form label{
 .register form{
   box-shadow: 0 0 30px #0063405c;
   border-radius: 10px;
-  padding: 2.5rem;
+  /* padding: 2.5rem; */
 }
 
 .register form i{
   color: #333;
 }
-
-.register form div{
-  border-bottom: 1px solid #333;
-}
-
-
-
 
 /* ANIMATED CANCELMARK STARTS */
 .cancel {
@@ -78,6 +71,59 @@ form label{
 }
 
 /* ANIMATED CANCELMARK STARTS */
+
+/* ANIMATED CHECKMARK STARTS */
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #ffffff;
+  stroke-miterlimit: 10;
+  margin: 10% auto;
+  box-shadow: inset 0px 0px 0px #00ff8c;
+  animation: successFill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+      stroke-dashoffset: 0
+  }
+}
+
+@keyframes scale {
+
+  0%,
+  100% {
+      transform: none
+  }
+
+  50% {
+      transform: scale3d(1.1, 1.1, 1)
+  }
+}
+
+@keyframes successFill {
+  100% {
+      box-shadow: inset 0px 0px 0px 30px #00ff8c;
+  }
+}
+
+/* ANIMATED CHECKMARK ENDS */
 
 
 

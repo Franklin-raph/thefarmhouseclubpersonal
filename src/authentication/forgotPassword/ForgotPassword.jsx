@@ -1,5 +1,8 @@
 import {useState, useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import logo from "../../assets/images/Asset-2.-300x47.png"
+import ErrorAlert from '../../components/alert/ErrorAlert'
+import SuccessAlert from '../../components/alert/SuccessAlert'
 
 const ForgotPassword = ({baseUrl}) => {
   console.log(baseUrl)
@@ -53,37 +56,38 @@ const ForgotPassword = ({baseUrl}) => {
   }
 
   return (
-    <div className='flex justify-center items-center forgotPassword w-full'>
-      <form onSubmit={handleForgotPassword} className='flex justify-center items-center flex-col bg-[#84b943f7] p-5 text-white xl:w-[35%] lg:w-[45%] md:w-[55%] sm:w-[65%] w-[80%]'>
-        <h1 className='text-xl mb-5'>Password Reset Link</h1>
-        <div className="w-full">
-          <label htmlFor="email" className='block my-2'>Password Request Link</label>
-          <input type="text" placeholder='info@gmail.com' value={email} onChange={(e) => setEmail(e.target.value)} className='outline-none py-1 p-3 w-full bg-[#84b943f7] rounded-md border-2 border-white-500 mb-5'/>
-        </div>
-        {loader ? <i className="fa-solid fa-gear fa-spin mb-4 text-lg"></i> : <button type='submit' className="my-3 bg-white text-[#84b943f7] py-1 px-3 rounded-md">Submit</button> }
-          
-          <Link to="/"><i class="fa-solid fa-house"></i> Go back home</Link>
-      </form>
-
-      {error &&
-        <div className="successModalBg">
-          <div className="failureModal">
-            <i className="ri-close-circle-line"></i>
-            <p style={{ color:"black" }}>{error}</p>
-            {/* <button onClick={()=> navigate("/login")}>Continue to login</button> */}
-          </div>
-        </div>
-      }
-      {success &&
-      <div className="successModalBg">
-        <div className="successModal">
-          <i className="ri-checkbox-circle-line"></i>
-           <p >{success}</p>
-          <button onClick={()=> setSuccess(false)}>Ok</button>
-        </div>
-      </div>
-      }
+    <div className="px-[1rem] lg:px-[5rem] py-[5rem] register">
+    <div className=" mb-[5rem] cursor-pointer" onClick={() => navigate("/")}>
+          <img src={logo} alt="" className=""/>
     </div>
+    <div className="flex flex-col md:flex-row items-center md:items-start justify-between justify-center">
+      <div className="w-[90%] md:w-[55%]">
+        <h1 className="font-bold text-[27px] xl:text-[50px] text-[#006340]">Reset Password</h1>
+      </div>
+      <form onSubmit={handleForgotPassword} className="w-[95%] md:w-[50%] md:mt-[0] mt-[2rem] px-[1.5rem] py-5 md:px-[2.5rem]">
+        <h1 className="text-[18px] text-[#B3B3B3] font-[600]">Put in your email to get a password reset link</h1>
+        <div className="flex items-center mt-5" style={{ borderBottom:"1px solid #333" }}>
+              <label><i className="fa-solid fa-envelope text-sm"></i></label>
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" 
+              className="w-full px-[10px] py-[7px] bg-transparent mt-1 border-0 outline-none"/>
+        </div>
+        {loader ? <button className="bg-[#83B943] w-full mt-9 py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> : <input type="submit" value="Send Reset Password Link" className="bg-[#83B943] w-full mt-9 py-2 rounded-[6px] text-[#fff] cursor-pointer"/>}
+        
+        <div className="flex mt-3 mb-8 items-center justify-between" style={{ borderBottom:"none" }}>
+          <a href='https://mailto:thefarmhouseclub@gmail.com' className="text-sm">Having trouble logging in? <Link to="/register" className="text-sm text-[#83B943]">Contact support</Link> </a>
+        </div>
+      </form>
+      <a href="https://wa.me/+2347056514643" target="_blank" className="whatsapp fixed bottom-2 right-2 bg-green-500 py-2 px-3 rounded-full text-white text-sm">
+        <div className="flex items-center gap-4">
+          <i class="ri-whatsapp-line text-2xl"></i>
+        </div>
+      </a>
+    </div>
+
+    {error && <ErrorAlert error={error} setError={setError}/>}
+    {success && <SuccessAlert success={success} setSuccess={setSuccess}/>}
+    
+  </div>
   )
 }
 

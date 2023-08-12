@@ -1,12 +1,14 @@
-import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
+import logo from "../../assets/images/Asset-2.-300x47.png"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { GoogleLogin } from '@react-oauth/google';
 import { useEffect } from "react";
+import ErrorAlert from "../../components/alert/ErrorAlert";
+import SuccessAlert from "../../components/alert/SuccessAlert";
 
 const Login = () => {
-    const [email, setEmail] = useState("nwaforglory680@gmail.com")
-    const [password, setPassword] = useState("12345")
+    const [email, setEmail] = useState("igboekwulusifranklin@gmail.com")
+    const [password, setPassword] = useState("1234567890")
     const [inputType, setInputType] = useState("password");
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("")
@@ -40,7 +42,7 @@ const Login = () => {
             setError("Please fill out all fields")
             setTimeout(() => {
                 setError("")
-            },5000)
+            },10000)
             return
         }else {
             setLoading(true)
@@ -59,7 +61,7 @@ const Login = () => {
             setError(data.detail)
             setTimeout(() => {
                 setError("")
-            },5000)
+            },10000)
             return
             }
 
@@ -114,78 +116,63 @@ const Login = () => {
       function errorMessage(){}
 
   return (
-    <div className="flex items-center justify-center flex-col w-full h-[100vh] login">
-        {error &&
-            <div className="errorModalBg">
-                <div className="failureModal">
-                    <i className="ri-close-circle-line text-red-600"></i>
-                    <p >{error}</p>
-                </div>
-            </div>
-        }
-        {success &&
-            <div className="successModalBg">
-                <div className="successModal">
-                    <i className="ri-checkbox-circle-line text-green-600"></i>
-                    <p >{success}</p>
-                    <button onClick={()=> navigate("/twofactorlogin")}>Continue</button>
-                </div>
-            </div>
-        }
-        {/* <p>back</p> */}
-        <div className="bg-[#fff] w-[15%] fixed top-[-1%] sm:w-[10%] md:w-[8%] lg:w-[6%] rounded-full p-3 cursor-pointer" onClick={() => navigate("/")}>
-            <img src={logo} alt="" className="w-full"/>
+    <div className="px-[1rem] lg:px-[5rem] py-[5rem] register">
+      <div className=" mb-[5rem] cursor-pointer" onClick={() => navigate("/")}>
+            <img src={logo} alt="" className=""/>
+      </div>
+      <div className="flex flex-col md:flex-row items-center md:items-start justify-between justify-center">
+        <div className="w-[90%] md:w-[55%]">
+          <h1 className="font-bold text-[27px] xl:text-[50px] text-[#006340]">Jump right back in</h1>
+          <p  className="font-bold text-[19px] xl:text-[25px] text-[#B3B3B3]">Sign in to continue</p>
         </div>
-        <form onSubmit={handleLogin} className="sign-in-form flex justify-center items-center bg-[#83B943] flex-col mt-[8rem] mb-[8rem] mx-[auto] py-[2rem] px-[1px] w-[80%] sm:w-[60%] md:w-[50%] lg:w-[40%] xl:w-[30%] rounded-xl">
-            <div className="header text-center text-white">
-            <h1 className="text-[20px]">Welcome Back</h1>
-            <p className="text-white mt-1 text-sm mb-3">
-                Don't have an account? <Link to="/register" className="underline font-bold">Start for free</Link>
-            </p>
-            </div>
-            {/* <div className="continue-with-google flex justify-center items-center w-[80%] p-1 rounded cursor-pointer my-[1rem] gap-2">
-                <i className="ri-google-fill"></i>
-                <p className="text-sm">Continue with Google</p>
-            </div> */}
-            <GoogleLogin
-            onSuccess={googleResponseMessage}
-            onError={() => {
-                console.log('Login Failed');
-            }}
-            />
-            {/* {error && <p className="login-register-error mt-3">{error}</p>} */}
-            <div className="center-line flex justify-center items-center">
-            <div className="line1 flex justify-center items-center gap-2 mt-2">
-                <p className="or_line"></p>
-                <p>or</p>
-                <p className="or_line"></p>
-            </div>
-            </div>
-            <div className="inputs w-[80%]">
-            <div className="flex items-center mt-5">
-                <label><i className="fa-solid fa-envelope text-xl text-white"></i></label>
-                <input type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" 
-                className="w-full px-[10px] py-[7px] text-white bg-transparent mt-1 border-0 outline-none"/>
-            </div>
-            <div className="flex items-center my-[2.5rem]">
-                <label><i className="ri-lock-2-fill text-xl text-white"></i></label>
+        <form onSubmit={handleLogin} className="w-[95%] md:w-[50%] md:mt-[0] mt-[2rem] px-[1.5rem] py-5 md:px-[2.5rem]">
+          <h1 className="text-[20px] text-[#B3B3B3] font-[700]">Sign in to continue</h1>
+          <div className="flex items-center mt-5" style={{ borderBottom:"1px solid #333" }}>
+                <label><i className="fa-solid fa-envelope text-sm"></i></label>
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" 
+                className="w-full px-[10px] py-[7px] bg-transparent mt-1 border-0 outline-none"/>
+          </div>
+            <div className="flex items-center my-5" style={{ borderBottom:"1px solid #000" }}>
+                <label><i className="ri-lock-2-fill text-sm"></i></label>
                 <input
                 type={inputType}
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className="w-full px-[10px] py-[7px] text-white bg-transparent mt-1 border-0 outline-none"
+                className="w-full px-[10px] py-[7px] bg-transparent mt-1 border-0 outline-none"
                 />
                 {!showPassword ? (
                     <i className="fa-regular fa-eye cursor-pointer" onClick={toggleInput}></i>
                     ) : (
                     <i className="fa-regular fa-eye-slash cursor-pointer" onClick={toggleInput}></i>
                     )}
-            </div>
-            </div>
-            {loading ? <i className="fa-solid fa-gear fa-spin mb-4 text-lg"></i> : <input type="submit" value="Login" className="bg-[#fff] w-[80%] mb-5 py-2 rounded-[6px] text-[#83B943] cursor-pointer"/>}
+          </div>
+          {loading ? <button className="bg-[#83B943] w-full mt-5 py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> : <input type="submit" value="Sign In" className="bg-[#83B943] w-full mt-5 py-2 rounded-[6px] text-[#fff] cursor-pointer"/>}
+          
+          <div className="flex mt-2 mb-8 items-center justify-between" style={{ borderBottom:"none" }}>
+            <Link to="/forgotpassword" className="text-sm text-[#83B943]">Forgot Password?</Link>
+            <p className="text-sm">Need an account? <Link to="/register" className="text-sm text-[#83B943]">Sign Up</Link> </p>
             
-            <Link to="/forgotpassword" className="text-sm text-white">Forgot Password?</Link>
-      </form>
+          </div>
+          <div className="flex justify-center">
+            <GoogleLogin
+                onSuccess={googleResponseMessage}
+                onError={() => {
+                    console.log('Login Failed');
+                }}
+                />
+            </div>
+        </form>
+        <a href="https://wa.me/+2347056514643" target="_blank" className="whatsapp fixed bottom-2 right-2 bg-green-500 py-2 px-3 rounded-full text-white text-sm">
+          <div className="flex items-center gap-4">
+            <i class="ri-whatsapp-line text-2xl"></i>
+          </div>
+        </a>
+      </div>
+
+      {error && <ErrorAlert error={error} setError={setError}/>}
+      {success && <SuccessAlert success={success} setSuccess={setSuccess}/>}
+      
     </div>
   )
 }
