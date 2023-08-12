@@ -41,21 +41,23 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal}) => {
     },[])
 
     async function logoutUser(){
-        setLogOutLoader(true)
-        console.log(JSON.stringify({refresh:user.refresh}))
-        const response = await fetch("https://avda.pythonanywhere.com/api/v1/logout/", {
-            method:"POST",
-            body: JSON.stringify({refresh:user.refresh}),
-            headers:{
-                "Content-Type":"application/json"
-            }
-        })
-        const data = await response.json()
-        if(response.ok){
-            localStorage.clear()
-            navigate("/")
-        }
-        console.log(data)
+        localStorage.clear()
+        navigate("/")
+        // setLogOutLoader(true)
+        // console.log(JSON.stringify({refresh:user.refresh}))
+        // const response = await fetch("https://avda.pythonanywhere.com/api/v1/logout/", {
+        //     method:"POST",
+        //     body: JSON.stringify({refresh:user.refresh}),
+        //     headers:{
+        //         "Content-Type":"application/json"
+        //     }
+        // })
+        // const data = await response.json()
+        // if(response.ok){
+        //     localStorage.clear()
+        //     navigate("/")
+        // }
+        // console.log(data)
     }
 
     function copyWalletAddress(){
