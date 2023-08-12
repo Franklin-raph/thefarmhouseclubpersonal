@@ -4,12 +4,12 @@ import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import stellar from "../../assets/images/Stellar_Symbol.png"
 
-const LoggedInNav = ({fundAccount, setFundAccountModal}) => {
+const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal}) => {
 
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem("user"))
     const [userModal, setUserModal] = useState(false)
-    const [walletModal, setWalletModal] = useState(false)
+    // const [walletModal, setWalletModal] = useState(false)
     const [walletConnected, setWalletConnected] = useState(false)
     const [showCheckIcon, setShowCheckIcon] = useState(false)
     const [logOutLoader, setLogOutLoader] = useState(false)
@@ -87,7 +87,7 @@ const LoggedInNav = ({fundAccount, setFundAccountModal}) => {
             </ul>
             <div>
                 {!fundAccount ? 
-                    <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setWalletModal(!walletModal)}>
+                    <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setWalletModal(true)}>
                         Connect
                     </button>
                 : 
@@ -130,17 +130,6 @@ const LoggedInNav = ({fundAccount, setFundAccountModal}) => {
                     <p className='text-sm'>Logout</p>
                 </div>
                 }
-            </div>
-        }
-
-        {walletModal && 
-            <div className="walletModal bg-slate-200 fixed right-16 rounded-md p-4 w-[15%]">
-                <div className='flex item-center gap-2 mb-3 cursor-pointer' onClick={()=>setWalletConnected(!walletConnected)}>
-                    {/* <i class="ri-wallet-line"></i> */}
-                    <img src={stellar} alt="" width={"12%"} />
-                    <p className='font-bold text-md'>Stellar</p>
-                </div>
-                <p className='border-t-[1px] border-slate-300 pt-2 cursor-pointer'>Disconnect my wallet</p>
             </div>
         }
     </div>

@@ -1,4 +1,4 @@
-import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
+import logo from "../../assets/images/Asset-2.-300x47.png"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { GoogleLogin } from '@react-oauth/google';
@@ -124,36 +124,132 @@ console.log(response)
   }
 
   return (
-    <div className="flex items-center justify-center flex-col w-full register">
-        {/* <p>back</p> */}
-        <div className="bg-[#fff] w-[15%] fixed top-[7%] sm:w-[10%] md:w-[8%] lg:w-[6%] rounded-full p-3 cursor-pointer" onClick={() => navigate("/")}>
-            <img src={logo} alt="" className="w-full"/>
+    <div className="px-[1rem] lg:px-[5rem] py-[5rem] register">
+      <div className=" mb-[5rem]" onClick={() => navigate("/")}>
+            <img src={logo} alt="" className=""/>
+      </div>
+      <div className="flex flex-col md:flex-row items-center md:items-start justify-between justify-center">
+        <div className="w-[90%] md:w-[55%]">
+          <h1 className="font-bold text-[27px] xl:text-[50px] text-[#006340]">Begin your AGRI Defi investment pathway</h1>
         </div>
-        <form onSubmit={handleUserRegister} className="sign-in-form flex justify-center items-center bg-[#83B943] flex-col rounded-xl pb-7 ">
+        <form onSubmit={handleUserRegister} className="w-[90%] md:w-[50%] mt-[2rem] px-[1.5rem] md:[2.5rem]">
+          <h1 className="text-[20px] text-[#B3B3B3] font-[700]">Create an account</h1>
+          <div className="flex items-center mt-5">
+                <label><i className="fa-solid fa-envelope text-sm"></i></label>
+                <input type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" 
+                className="w-full px-[10px] py-[7px] bg-transparent mt-1 border-0 outline-none"/>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-0 sm:gap-10" style={{ border:"none" }}>
+            <div className="flex items-center mt-5">
+                <label><i className="fa-solid fa-user text-sm text-white"></i></label>
+                <input type="text" onChange={(e) => setFirstName(e.target.value)} placeholder="First Name" 
+                className="w-full px-[10px] py-[7px] bg-transparent mt-1 border-0 outline-none"/>
+            </div>
+            <div className="flex items-center mt-5">
+                <label><i className="fa-solid fa-user text-sm text-white"></i></label>
+                <input type="text" onChange={(e) => setLastName(e.target.value)} placeholder="Last Name" 
+                className="w-full px-[10px] py-[7px] bg-transparent mt-1 border-0 outline-none"/>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-0 sm:gap-10" style={{ border:"none" }}>
+            <div className="flex items-center mt-5">
+                <label><i className="fa-solid fa-user text-sm"></i></label>
+                <input type="text" onChange={(e) => setUserName(e.target.value)} placeholder="Username" 
+                className="w-full px-[10px] py-[7px] text-black bg-transparent mt-1 border-0 outline-none"/>
+            </div>
+            <div className="flex items-center mt-5">
+                <label><i className="fa-solid fa-phone text-sm"></i></label>
+                <input type="text" onChange={(e) => setUserName(e.target.value)} placeholder="+23480000000" 
+                className="w-full px-[10px] py-[7px] text-black bg-transparent mt-1 border-0 outline-none"/>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-0 sm:gap-10" style={{ border:"none" }}>
+            <div className="flex items-center my-5">
+                <label><i className="ri-lock-2-fill text-sm"></i></label>
+                <input
+                type={inputType}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                className="w-full px-[10px] py-[7px] bg-transparent mt-1 border-0 outline-none"
+                />
+                {!showPassword ? (
+                    <i className="fa-regular fa-eye cursor-pointer" onClick={toggleInput}></i>
+                    ) : (
+                    <i className="fa-regular fa-eye-slash cursor-pointer" onClick={toggleInput}></i>
+                    )}
+            </div>
+            <div className="flex items-center my-5">
+                <label><i className="ri-lock-2-fill text-sm"></i></label>
+                <input
+                type={inputType}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm Password"
+                className="w-full px-[10px] py-[7px] bg-transparent mt-1 border-0 outline-none"
+                />
+                {!showPassword ? (
+                    <i className="fa-regular fa-eye cursor-pointer" onClick={toggleInput}></i>
+                    ) : (
+                    <i className="fa-regular fa-eye-slash cursor-pointer" onClick={toggleInput}></i>
+                    )}
+            </div>
+          </div>
+          {loading ? <button className="bg-[#83B943] w-full my-5 py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> : <input type="submit" value="Sign Up" className="bg-[#83B943] w-full my-5 py-2 rounded-[6px] text-[#fff] cursor-pointer"/>}
+          <GoogleLogin
+            onSuccess={googleResponseMessage}
+            onError={() => {
+                console.log('Login Failed');
+            }}
+            />
+        </form>
+        <a href="https://wa.me/+2347056514643" target="_blank" className="whatsapp fixed bottom-2 right-2 bg-green-500 py-2 px-3 rounded-full text-white text-sm">
+          <div className="flex items-center gap-4">
+            {/* <p>Chat with us</p> */}
+            <i class="ri-whatsapp-line text-2xl"></i>
+          </div>
+        </a>
+      </div>
+
+      {error &&
+          <div className="successModalBg">
+            
+            <div className="failureModal flex items-center justify-center flex-col gap-10" style={{ position:"relative" }}>
+               <i class="ri-close-fill absolute top-[5px] right-[5px] cursor-pointer" style={{ color:"#333", fontSize:"22px" }} onClick={() => setError(false)}></i>
+               <svg class="cancel" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <path class="check__cancel" fill="none" d="M14.1 14.1l23.8 23.8 m0,-23.8 l-23.8,23.8" />
+                </svg>
+               <p style={{ color:"black" }}>{error}</p>
+             </div>
+          </div>
+
+          
+          // <div className="successModalBg">
+          //   <div className="failureModal" style={{ position:"relative" }}>
+          //     <i class="ri-close-fill absolute top-[5px] right-[5px]" style={{ color:"#333", fontSize:"20px" }} onClick={() => setError(false)}></i>
+          //     <i className="ri-close-circle-line"></i>
+          //     <p style={{ color:"black" }}>{error}</p>
+          //   </div>
+          // </div>
+      }
+      
+        {/* <form onSubmit={handleUserRegister} className="sign-in-form flex justify-center items-center bg-[#83B943] flex-col rounded-xl pb-7 ">
             <div className="header text-center text-white">
               <h1 className="text-[20px]">Welcome Back</h1>
               <p className="text-white my-1 text-sm">
                   Already have an account? <Link to="/login" className="underline font-bold">Continue to login</Link>
               </p>
             </div>
-            {/* <div className="continue-with-google flex justify-center items-center w-[80%] p-1 rounded cursor-pointer my-[1rem] gap-2">
-            <i className="ri-google-fill"></i>
-            <p className="text-sm">Continue with Google</p>
-            </div> */}
             <GoogleLogin
             onSuccess={googleResponseMessage}
             onError={() => {
                 console.log('Login Failed');
             }}
             />
-            {/* {error && <p className="login-register-error mt-2">{error}</p>} */}
 
             {error &&
               <div className="successModalBg">
                 <div className="failureModal">
                   <i className="ri-close-circle-line"></i>
                   <p style={{ color:"black" }}>{error}</p>
-                  {/* <button onClick={()=> navigate("/login")}>Continue to login</button> */}
                 </div>
               </div>
               }
@@ -216,7 +312,7 @@ console.log(response)
             </div>
             </div>
             {loading ? <i className="fa-solid fa-gear fa-spin mb-4 text-lg"></i> : <input type="submit" value="Sign Up" className="bg-[#fff] w-[80%] mb-5 py-2 rounded-[6px] text-[#83B943] cursor-pointer"/>}
-      </form>
+      </form> */}
       {success &&
       <div className="successModalBg">
         <div className="successModal">

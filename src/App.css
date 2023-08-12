@@ -3,7 +3,86 @@ html, body{
   font-family: "Poppins", sans-serif !important;
 }
 
-.register form::-webkit-scrollbar {
+:root{
+  Base-Color:#1AC888;
+  Lighter-green: #33BFA5;
+  Darker-green: #009C6B;
+  Deeper-green:#006340;
+  Deeper-green:#006340c2;
+}
+
+form label{
+  display: block;
+}
+
+.register form{
+  box-shadow: 0 0 30px #0063405c;
+  border-radius: 10px;
+  padding: 2.5rem;
+}
+
+.register form i{
+  color: #333;
+}
+
+.register form div{
+  border-bottom: 1px solid #333;
+}
+
+
+
+
+/* ANIMATED CANCELMARK STARTS */
+.cancel {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #ffffff;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #ec4848;
+  animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+}
+
+
+.check__cancel {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+      stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+
+  0%,
+  100% {
+      transform: none;
+  }
+
+  50% {
+      transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+      box-shadow: inset 0px 0px 0px 30px #ec4848;
+  }
+}
+
+/* ANIMATED CANCELMARK STARTS */
+
+
+
+
+/* .register form::-webkit-scrollbar {
   width: 6px;
   background: #fff;
 }
@@ -11,7 +90,7 @@ html, body{
 .register form::-webkit-scrollbar-thumb {
   background: #69bfad;
   border-radius: 10px;
-}
+} */
 
 .landingPage nav a{
   color: #fff;
@@ -109,7 +188,7 @@ footer i{
 }
 
 .login, .register{
-  background:url("./assets/images/FinalScenne-01..png"),linear-gradient(170deg,#f2fffd 20%,#69bfad 100%);
+  /* background:url("./assets/images/FinalScenne-01..png"),linear-gradient(170deg,#f2fffd 20%,#69bfad 100%); */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -123,17 +202,17 @@ footer i{
   height: 100vh;
 }
 
-input::placeholder{
+/* input::placeholder{
   color: #ffffff55 !important;
-}
+} */
 
-.marketCard .body input::placeholder{
+/* .marketCard .body input::placeholder{
   color: #6f6f6f !important;
-}
+} */
 
 .register{
-  height: 100vh;
-  overflow: hidden;
+  /* height: 100vh;
+  overflow: hidden; */
 }
 
 .login-register-error{
@@ -145,19 +224,12 @@ input::placeholder{
   font-size: 14px;
 }
 
-.register form{
-  width: 30%;
-  padding-top: 20rem;
-  height: 70% !important;
-  overflow-y: scroll;
-}
-
 br {
   content: " ";
 }
 
 .register form{
-  width: 30%;
+  /* width: 30%; */
   /* padding: 0 1rem; */
 }
 
@@ -293,14 +365,14 @@ br {
   }
 
   .register form{
-    width: 40%;
+    /* width: 40%; */
   }
 }
 
 @media screen and (max-width:992px) {
 
   .register form{
-    width: 45%;
+    /* width: 45%; */
   }
 
   .landingPage main{
@@ -403,7 +475,7 @@ br {
   }
 
   .register form{
-    width: 50%;
+    /* width: 50%; */
   }
 
   .successModal, .failureModal{
@@ -423,7 +495,7 @@ br {
   }
 
   .register form{
-    width: 60%;
+    /* width: 60%; */
   }
 }
 
@@ -464,7 +536,7 @@ br {
   }
 
   .register form{
-    width: 80%;
+    /* width: 80%; */
   }
 }
 
@@ -486,7 +558,7 @@ br {
   }
 
   .register form{
-    width: 90%;
+    /* width: 90%; */
   }
 }
 
