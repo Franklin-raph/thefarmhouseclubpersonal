@@ -9,11 +9,9 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal}) => {
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem("user"))
     const [userModal, setUserModal] = useState(false)
-    // const [walletModal, setWalletModal] = useState(false)
     const [walletConnected, setWalletConnected] = useState(false)
     const [showCheckIcon, setShowCheckIcon] = useState(false)
     const [logOutLoader, setLogOutLoader] = useState(false)
-    // console.log(user.refresh)
     
     useEffect(() => {
         // console.log(user)
@@ -38,26 +36,34 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal}) => {
             navClose.style.display = "none"
             navOpen.style.display = "block"
         })
+        checkTokenStatus()
     },[])
 
     async function logoutUser(){
-        localStorage.clear()
-        navigate("/")
-        // setLogOutLoader(true)
-        // console.log(JSON.stringify({refresh:user.refresh}))
-        // const response = await fetch("https://avda.pythonanywhere.com/api/v1/logout/", {
-        //     method:"POST",
-        //     body: JSON.stringify({refresh:user.refresh}),
-        //     headers:{
-        //         "Content-Type":"application/json"
-        //     }
-        // })
-        // const data = await response.json()
-        // if(response.ok){
-        //     localStorage.clear()
-        //     navigate("/")
-        // }
-        // console.log(data)
+        setLogOutLoader(true)
+        console.log(JSON.stringify({refresh:user.refresh}))
+        const response = await fetch("https://avda.pythonanywhere.com/api/v1/logout/", {
+            method:"POST",
+            body: JSON.stringify({refresh:user.refresh}),
+            headers:{
+                "Content-Type":"application/json"
+            }
+        })
+        const data = await response.json()
+        if(response.ok){
+            localStorage.clear()
+            navigate("/")
+        }
+    }
+
+    async function checkTokenStatus(){
+        console.log("Checking Token Status")
+        const response = await fetch(`https://avda.pythonanywhere.com/api/v1/token-status/${user.access}`)
+        const data = await response.json()
+        if(!response.ok){
+            localStorage.clear()
+            navigate("/")
+        }
     }
 
     function copyWalletAddress(){

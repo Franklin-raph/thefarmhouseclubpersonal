@@ -53,7 +53,6 @@ const Login = ({baseUrl}) => {
       };
 
       async function handleLogin(e){
-        console.log(JSON.stringify({email:email, password:password}))
         e.preventDefault()
         if(!email || !password){
             setError("Please fill out all fields")
