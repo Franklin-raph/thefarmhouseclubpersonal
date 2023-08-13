@@ -326,7 +326,7 @@ footer i{
   font-size: 14px;
 }
 
-.successModalBg, .errorModalBg, .otp-input-field-bg, .changePasswordModalBg{
+.successModalBg, .errorModalBg, .otp-input-field-bg, .changePasswordModalBg, .twoFactorModalBg{
   position: fixed;
   top: 50%;
   left: 50%;
@@ -340,7 +340,7 @@ footer i{
   z-index: 99;
 }
 
-.successModal, .failureModal, .otp-input, .changPasswordModal{
+.successModal, .failureModal, .otp-input, .changPasswordModal, .twoFactorModal{
   background-color: #fff;
   color: #000;
   padding: 2rem;

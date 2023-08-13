@@ -6,15 +6,17 @@ const UserProfile = ({baseUrl}) => {
   const user = JSON.parse(localStorage.getItem("user"))
   const [showProfile, setShowProfile] = useState(true)
   const [show2Fa, setShow2Fa] = useState(false)
-  const [showAccountUpdate, setAccountUpdate] = useState(false)
   const [myProfile, setMyProfile] = useState({})
-  const [email, setEmail] = useState("igboekwulusifranklin@gmail.com")
-  const [password, setPassword] = useState("1234567890")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
   const [loader, setLoader] = useState(false)
   const [changePasswordModal, setChangePasswordModal] = useState(false)
-  const [twoFactorCheckBox, setTwoFactorCheckBox] = useState()
+  const [twoFactorModal, setTwoFactorModal] = useState(false)
+  const [twoFactorSuccessMessage, setTwoFactorSuccessMessage] = useState(false)
+  const [confirmTwoFactorTurnOff, setConfirmTwoFactorTurnOff] = useState(false)
+  const [btns, setbtns] = useState()
   const navigate = useNavigate()
 
     const {id} = useParams()
@@ -22,8 +24,7 @@ const UserProfile = ({baseUrl}) => {
       console.log(user)
       if(!user) navigate("/login")
       getUserProfile()
-  },[])
-  console.log(twoFactorCheckBox)
+  },[btns])
 
 
     async function getUserProfile(){
@@ -32,16 +33,10 @@ const UserProfile = ({baseUrl}) => {
           Authorization: `Bearer ${user.access}`
         }
       })
-      console.log(response)
       const data = await response.json()
+      console.log(response, data)
       setMyProfile(data)
-    }
-
-    const checkHandler = () => {
-      setTwoFactorCheckBox(!twoFactorCheckBox)
-      if(twoFactorCheckBox === true){
-        console.log("true from 2fa")
-      }
+      setbtns(data.has2fa)
     }
 
     async function activateTwoFactorAuth(){
@@ -62,6 +57,7 @@ const UserProfile = ({baseUrl}) => {
         })
         if(resp) setLoader(false)
         const data = await resp.json()
+      console.log(data)
       if(!resp.ok){
         setError(data.detail)
         setTimeout(()=> {
@@ -70,11 +66,17 @@ const UserProfile = ({baseUrl}) => {
       }
       if(resp.ok){
         setSuccess(data.detail)
+        setbtns(data.has2fa)
+        setTwoFactorSuccessMessage(data.detail)
+        setTwoFactorModal(false)
+        setConfirmTwoFactorTurnOff(false)
+
         setTimeout(()=> {
           setError("")
         },4000)
       }
-        console.log(resp, data)
+      setTwoFactorModal(false)
+      // set
       }
       
     }
@@ -89,31 +91,21 @@ const UserProfile = ({baseUrl}) => {
         <LoggedInNav />
         <div className="userProfileDetailsContainer">
           <div className='fixed bg-white w-full py-8'>
-            <div className='userProfileNav flex items-center gap-5 py-3 w-[16%] px-5 rounded-full bg-[#F5F6FA]'>
+            <div className='userProfileNav inline-flex items-center gap-5 py-2 px-4 rounded-full bg-[#F5F6FA]'>
               <div className='cursor-pointer flex items-center gap-2' onClick={()=> {
                 setShow2Fa(false)
                 setShowProfile(true)
-                setAccountUpdate(false)
-              }}>
-                {/* <i class="ri-user-3-line"></i> */}
-                <p>Account</p>
-                </div>
-              <div className='cursor-pointer flex items-center gap-2' onClick={()=> {
-                setShow2Fa(false)
-                setShowProfile(false)
-                setAccountUpdate(true)
-              }}>
-                {/* <i class="ri-pencil-fill"></i> */}
-                {/* <p>Account Update</p> */}
+                console.log(`show-2fa => ${show2Fa}, show-profile => ${showProfile}`)
+                }}>
+                {showProfile ? <p className='text-[#1AC888] p-2 rounded-full bg-white'>ACCOUNT</p>:<p>ACCOUNT</p>}
               </div>
               <div className='cursor-pointer flex items-center gap-2' onClick={()=> {
                 setShow2Fa(true)
                 setShowProfile(false)
-                setAccountUpdate(false)
-              }}>
-                {/* <i class="ri-key-2-line"></i> */}
-                <p>Security</p>
-                </div>
+                console.log(`show-2fa => ${show2Fa}, show-profile => ${showProfile}`)
+                }}>
+                {setShow2Fa ? <p className='text-[#1AC888] p-2 rounded-full bg-white'>SECURITY</p>:<p>SECURITY</p>}
+              </div>
             </div>
           </div>
 
@@ -167,15 +159,6 @@ const UserProfile = ({baseUrl}) => {
               </div>
 
               <button className='text-[#fff] bg-[#1AC888] w-auto mt-5 py-3 px-5 rounded-md'>Save Changes</button>
-
-              {/* <div className='my-2'>
-                <label>Has 2-Factor Set Up</label>
-                {myProfile && 
-                  myProfile.has2fa === false ? <p className='border border-gray-300 w-[50%] rounded-md px-2 py-1'>False</p> 
-                  : 
-                  <p className='border border-gray-300 w-[50%] rounded-md px-2 py-1'>True</p>
-                }
-              </div> */}
             </div>
               
           }
@@ -207,9 +190,9 @@ const UserProfile = ({baseUrl}) => {
                     <h1 className='font-[600] text-xl text-[#006340] mb-2'>Two-Factor Authentication</h1>
                     <p className='text-[14px] text-[#46695c]'>Protect your farmhouseclub account from unauthorized transactions using a software token.</p>
                   </div>
-                  <label class="switch">
-                    <input type="checkbox" value={myProfile && myProfile.has2fa} onChange={checkHandler}/>
-                    <span class="slider round"></span>
+                  <label class="switch flex items-center">
+                    {myProfile && myProfile.has2fa ? <button className='bg-gray-300 text-white py-1 px-2 cursor-not-allowed'>ON</button> : <button className='bg-green-500 text-white py-1 px-2' onClick={e => setTwoFactorModal(true)}>ON</button>}
+                    {myProfile && myProfile.has2fa ? <button className='bg-red-500 text-white py-1 px-2' onClick={() => setConfirmTwoFactorTurnOff(true)}>OFF</button> : <button className='bg-gray-300 cursor-not-allowed text-white py-1 px-2' cursor-not-allowed>OFF</button>}
                   </label>
                 </div>
               </div>
@@ -249,19 +232,54 @@ const UserProfile = ({baseUrl}) => {
                 </div>
               </div>
               }
+          </div>
+          }
 
-            {/* <div className='my-2'>
-              <label>Has 2-Factor Set Up</label>
-              {myProfile && 
-                myProfile.has2fa === false ? <p className='border border-gray-300 w-[50%] rounded-md px-2 py-1'>False</p> 
-                : 
-                <p className='border border-gray-300 w-[50%] rounded-md px-2 py-1'>True</p>
+          {confirmTwoFactorTurnOff &&
+          <div className="twoFactorModalBg">
+            <div className="twoFactorModal relative">
+              <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setConfirmTwoFactorTurnOff(false)}></i>
+              <p className='mb-5 font-medium text-lg'>Are you sure you want to turn off two-factor authentication on this account?</p>
+              {
+              loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
+              : 
+              <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={activateTwoFactorAuth}>Yes, Continue</button>
               }
-            </div> */}
+            </div>
           </div>
           }
           
         </div>
+        {twoFactorModal && 
+          <div className="twoFactorModalBg">
+            <div className="twoFactorModal relative">
+            <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setTwoFactorModal(false)}></i>
+              <h1 className='font-[500] mb-1'>Two-Factor Authentication</h1>
+              <p className='text-sm text-center'>2FA adds an extra layer of security to your account by generating a secure code on your device for approving transactions and sign in.</p>
+              <div className='text-start my-5'>
+                <label className='block text-[17px] mb-2'>Email</label>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]' />
+              </div>
+              <div className='text-start my-5'>
+                <label className='block text-[17px] mb-2'>Password</label>
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]' />
+              </div>
+              {
+              loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
+              : 
+              <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={activateTwoFactorAuth}>Submit</button>
+              }
+            </div>
+          </div>
+        }
+        {twoFactorSuccessMessage && 
+        <div className="twoFactorModalBg">
+          <div className="twoFactorModal relative">
+            <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setTwoFactorSuccessMessage(false)}></i>
+            <p>{twoFactorSuccessMessage}</p> 
+          </div>
+        </div>
+        }
     </div>
   )
 }
