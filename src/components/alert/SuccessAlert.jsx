@@ -11,6 +11,7 @@ const SuccessAlert = ({success, setSuccess}) => {
                     <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
                 </svg>
                 <p style={{ color:"black" }}>{success}</p>
+                {/* <button onClick={()=> navigate}>Continue to login</button> */}
             </div>
         </div>
     </div>

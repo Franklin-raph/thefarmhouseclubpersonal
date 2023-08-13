@@ -8,7 +8,20 @@ html, body{
   Lighter-green: #33BFA5;
   Darker-green: #009C6B;
   Deeper-green:#006340;
-  Deeper-green:#006340c2;
+  Deeper-green:#46695c;
+  Deeper-green:#3e3e3e43;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 form label{
@@ -18,7 +31,6 @@ form label{
 .register form{
   box-shadow: 0 0 30px #0063405c;
   border-radius: 10px;
-  /* padding: 2.5rem; */
 }
 
 .register form i{
@@ -126,17 +138,74 @@ form label{
 /* ANIMATED CHECKMARK ENDS */
 
 
+/* TOGGLE SWITCH STARTS */
+/* The switch - the box around the slider */
 
-
-/* .register form::-webkit-scrollbar {
-  width: 6px;
-  background: #fff;
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 55px;
+  height: 28px;
 }
 
-.register form::-webkit-scrollbar-thumb {
-  background: #69bfad;
-  border-radius: 10px;
-} */
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 21px;
+  width: 21px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #00ff8c;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #00ff8c;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* TOGGLE SWITCH ENDS */
+
+
 
 .landingPage nav a{
   color: #fff;
@@ -248,19 +317,6 @@ footer i{
   height: 100vh;
 }
 
-/* input::placeholder{
-  color: #ffffff55 !important;
-} */
-
-/* .marketCard .body input::placeholder{
-  color: #6f6f6f !important;
-} */
-
-.register{
-  /* height: 100vh;
-  overflow: hidden; */
-}
-
 .login-register-error{
   background-color: #F8D7DA !important;
   border: 1px solid #f5c2c7;
@@ -270,17 +326,7 @@ footer i{
   font-size: 14px;
 }
 
-br {
-  content: " ";
-}
-
-.register form{
-  /* width: 30%; */
-  /* padding: 0 1rem; */
-}
-
-
-.successModalBg, .errorModalBg{
+.successModalBg, .errorModalBg, .otp-input-field-bg, .changePasswordModalBg{
   position: fixed;
   top: 50%;
   left: 50%;
@@ -294,7 +340,7 @@ br {
   z-index: 99;
 }
 
-.successModal, .failureModal{
+.successModal, .failureModal, .otp-input, .changPasswordModal{
   background-color: #fff;
   color: #000;
   padding: 2rem;
@@ -303,6 +349,14 @@ br {
   text-align: center;
   margin: auto;
   font-size: 20px;
+}
+
+.otp-input input{
+  border: 1px solid #000000;
+}
+
+.changPasswordModal input{
+  border: 1px solid rgba(10, 46, 101, 0.263)
 }
 
 .successModal i{
@@ -351,8 +405,7 @@ br {
 
 .userProfileDetailsContainer{
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  padding: 5rem;
+  padding:3rem 5rem;
 }
 
 .userProfileDetails div{

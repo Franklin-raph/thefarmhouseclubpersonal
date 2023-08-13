@@ -5,8 +5,9 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useEffect } from "react";
 import ErrorAlert from "../../components/alert/ErrorAlert";
 import SuccessAlert from "../../components/alert/SuccessAlert";
+import VerificationModal from "../../components/verificationModal/VerificationModal";
 
-const Login = () => {
+const Login = ({baseUrl}) => {
     const [email, setEmail] = useState("igboekwulusifranklin@gmail.com")
     const [password, setPassword] = useState("1234567890")
     const [inputType, setInputType] = useState("password");
@@ -20,6 +21,22 @@ const Login = () => {
     console.log(user)
 
     useEffect(() => {
+        
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
         if(user){
             console.log(true)
             navigate("/")
@@ -46,7 +63,7 @@ const Login = () => {
             return
         }else {
             setLoading(true)
-            const response = await fetch("https://avda.pythonanywhere.com/api/v1/login/", {
+            const response = await fetch(`${baseUrl}/login/`, {
             method: "POST",
             body: JSON.stringify({email:email, password:password}),
             headers:{
@@ -75,7 +92,6 @@ const Login = () => {
                 console.log(data)
                 setSuccess(data.detail)
                 localStorage.setItem("_2fa", JSON.stringify({email, password}))
-                // navigate("/twofactorlogin")
             }
         }
       }
@@ -92,7 +108,7 @@ const Login = () => {
 
       async function handleLoginFromGoogleResponse(email){
         setLoading(true)
-        const response = await fetch("https://avda.pythonanywhere.com/api/v1/google-login/", {
+        const response = await fetch(`${baseUrl}/google-login/`, {
             method:"POST",
             body: JSON.stringify({email:email}),
             headers:{
@@ -103,9 +119,16 @@ const Login = () => {
         console.log(response)
         if(response) setLoading(false)
 
-        if(response.ok) {
+        if(response.status === 200) {
+            console.log(data)
             localStorage.setItem("user", JSON.stringify(data))
             navigate("/dashboard")
+        }
+        
+        if(response.status === 202){
+            console.log(data)
+            setSuccess(true)
+            localStorage.setItem("_2fa", JSON.stringify({email, password}))
         }
 
         if(!response.ok){
@@ -171,7 +194,11 @@ const Login = () => {
       </div>
 
       {error && <ErrorAlert error={error} setError={setError}/>}
-      {success && <SuccessAlert success={success} setSuccess={setSuccess}/>}
+      {/* {success && <SuccessAlert success={success} setSuccess={setSuccess}/>} */}
+
+      {success && <VerificationModal email={email} password={password} setSuccess={setSuccess} baseUrl={baseUrl} setError={setError}/>}
+
+      
       
     </div>
   )
