@@ -41,6 +41,7 @@ form label{
 .darkMode{
   color: #fff;
   background-color: hsl(207, 26%, 17%);
+  transition: .5s;
 }
 
 .darkMode input{
@@ -50,6 +51,7 @@ form label{
 .lightMode{
   color: #000;
   background-color: hsl(0, 0%, 100%);
+  transition: .5s;
 }
 
 
@@ -221,8 +223,6 @@ input:checked + .slider:before {
 
 /* TOGGLE SWITCH ENDS */
 
-
-
 .landingPage nav a{
   color: #fff;
 }
@@ -296,10 +296,6 @@ footer i{
   box-shadow: 0 0 20px #0000007b;
 }
 
-.sign-in-form a {
-  /* color: #83B943; */
-}
-
 .sign-in-form .inputs div{
   border-bottom: 1px solid #ffffff;
 }
@@ -319,7 +315,6 @@ footer i{
 }
 
 .login, .register{
-  /* background:url("./assets/images/FinalScenne-01..png"),linear-gradient(170deg,#f2fffd 20%,#69bfad 100%); */
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -425,10 +420,6 @@ footer i{
   padding:3rem 5rem;
 }
 
-.userProfileDetails div{
-/* color: #bfe7df; */
-}
-
 .marketCardContainer{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -470,6 +461,10 @@ footer i{
   cursor: pointer;
 }
 
+.mobileNavLoggedInNav{
+  display: none;
+}
+
 @media screen and (max-width:1244px) {
   .landingPage main{
     padding-left: 35px;
@@ -485,22 +480,41 @@ footer i{
   }
 }
 
+@media screen and (max-width:1200px) {
+  .desktopLoggedInNav{
+    display: none !important;
+  }
+
+  .mobileNavLoggedInNav{
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #deeefe;
+    left: 0;
+    padding: 1rem;
+    z-index: 99;
+  }
+
+  .userProfileDetails{
+    padding-left: 0 !important;
+    margin-bottom: 4rem;
+  }
+
+  #dashboard{
+    right: 0;
+    left: 0;
+  }
+
+  #userProfileNavContainer{
+    left: 5%;
+  }
+}
+
 @media screen and (max-width:992px) {
-
-  .register form{
-    /* width: 45%; */
-  }
-
-  .landingPage main{
-    /* flex-direction: column-reverse; */
-  }
-
-  .landingPage main .coin1{
-    /* width: 30%; */
-  }
-
   .landingPage main .coin2{
-    /* width: 25%; */
     right: 50px;
   }
 
@@ -512,31 +526,14 @@ footer i{
 
 @media screen and (max-width:768px) {
 
-  nav ul{
-    position: fixed;
-    background-color: #84b943f7;
-    width: 100%;
-    height: 100vh;
+  .mobileNavLoggedInNav{
+    padding: .5rem 1rem;
+  }
+
+  .mobileNavLoggedInNav li{
     flex-direction: column;
-    top: 0;
-    left: -200%;
-    z-index: 9;
-    justify-content: center !important;
-    align-items: flex-start !important;
-    gap: 10px !important;
-    padding: 2rem;
-    transition: .5s;
+    gap: 1px;
   }
-
-  .fa-xmark{
-    display: none;
-  }
-
-  nav ul li{
-    font-size: 2rem;
-    font-weight: 600;
-  }
-
   
 .toggler{
   display: block;

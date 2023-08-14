@@ -44,7 +44,7 @@ const Dashboard = ({changemode, mode}) => {
     <div className='market h-[100vh]'>
         {/* <Navbar /> */}
         <LoggedInNav fundAccount={fundAccount} setFundAccountModal={setFundAccountModal} setWalletModal={setWalletModal} changemode={changemode} mode={mode}/>
-        <div className='py-2 px-5 relative left-[7%] top-[10%]'>
+        <div className='py-2 px-5 relative left-[7%] top-[10%]' id='dashboard'>
             <h3 className='font-bold text-xl text-gray-500 mt-[5rem] text-center mb-[9rem]'>Welcome {user && user.user.username}, to Your Farmhouse Club Dashboard</h3>
             <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>
                 <div className="connectWalletBox bg-[#84b943f7] w-full rounded-md py-5 text-white">

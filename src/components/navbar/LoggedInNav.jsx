@@ -84,7 +84,7 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal, changemo
                 <i className="fa-solid fa-bars"></i>
                 <i className="fa-solid fa-xmark"></i>
             </div>
-            <ul className="flex items-start gap-[30px] pl-5 fixed  flex-col top-[12%] bg-[#F4F7FA] left-0 h-screen w-[15%] pt-[3rem]">
+            <ul className="desktopLoggedInNav flex items-start gap-[30px] pl-5 fixed flex-col top-[12%] bg-[#F4F7FA] left-0 h-screen w-[15%] pt-[3rem]">
                 <p className='mb-5'>Hi, <span>{user && user.user.first_name}</span> </p>
                 <li className='flex items-center gap-2 text-[#46695c]'>
                     <i class="ri-dashboard-3-line text-xl"></i>
@@ -117,9 +117,43 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal, changemo
                     </li>
                     }
                 </div>
+            </ul>
+
+            <ul className="mobileNavLoggedInNav">
+                {/* <p className='mb-5'>Hi, <span>{user && user.user.first_name}</span> </p> */}
+                <li className='flex items-center gap-2 text-[#46695c]'>
+                    <i class="ri-dashboard-3-line text-xl"></i>
+                    <Link to="/dashboard">Dashboard</Link>
+                </li>
+                <li className='flex items-center gap-2 text-[#46695c]'>
+                    <i class="ri-store-2-fill text-xl"></i>
+                    <Link to="/markets">Market</Link>
+                </li>
+                <li className='flex items-center gap-2 text-[#46695c]'>
+                    <i class="ri-government-line text-xl"></i>
+                    <Link to="/governance">Governance</Link>
+                </li>
+                {/* <div className='fixed bottom-0 pb-3 w-full' > */}
+                    {mode === "lightMode" ? 
+                    <li className='flex items-center gap-2 text-[#46695c] cursor-pointer' onClick={changemode}>
+                        <i className="ri-moon-line text-xl"></i>
+                        <p className='text-sm'>Dark Mode</p>
+                    </li>
+                    : 
+                    <li className='flex items-center gap-2 text-[#46695c] cursor-pointer' onClick={changemode}>
+                        <i class="ri-sun-line  text-xl"></i>
+                        <p className='text-sm'>Light Mode</p>
+                    </li>
+                    }
+                    {logOutLoader ? <i className="fa-solid fa-gear fa-spin mb-4 text-lg"></i> : 
+                    <li className='flex items-center gap-2 text-[#46695c] cursor-pointer' onClick={logoutUser}>
+                        <i class="ri-logout-box-line text-xl"></i>
+                        <p className='text-sm'>Logout</p>
+                    </li>
+                    }
+                {/* </div> */}
                 
             </ul>
-            <div>My Profile</div>
             <div>
                 {!fundAccount ? 
                     <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setWalletModal(true)}>

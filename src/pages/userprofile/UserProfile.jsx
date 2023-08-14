@@ -90,7 +90,7 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
     <div>
         <LoggedInNav changemode={changemode} mode={mode}/>
         <div className="userProfileDetailsContainer">
-          <div className='fixed bg-white w-full py-8 top-[12.5%] left-[16%]'>
+          <div className='fixed bg-white w-full py-8 top-[12.5%] left-[16%]' id='userProfileNavContainer'>
             <div className='userProfileNav inline-flex items-center gap-5 py-2 px-4 rounded-full bg-[#F5F6FA]'>
               <div className='cursor-pointer flex items-center gap-2' onClick={()=> {
                 setShow2Fa(false)
