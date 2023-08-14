@@ -8,11 +8,10 @@ const Markets = () => {
   return (
     <div className='market h-[100vh]'>
         <LoggedInNav />
-        <div className="text-center">
-          <h1 className='font-bold text-3xl mt-[4rem] mb-3'>The Farm House Club Market Place</h1>
+        <div className='py-2 px-5 relative left-[7%] top-[17%] text-center'>
+          <h1 className='font-bold text-3xl'>The Farm House Club Market Place</h1>
         </div>
-        <div className="marketCardContainer">
-          
+        <div className="marketCardContainer mt-[7rem] relative left-[18%] w-[75%]">
           <div className="marketCard w-full cursor-pointer" onClick={()=> navigate("/marketinfo/123")}>
             <img src={cardImage1} alt="" className='firstImage'/>
               <div className="body">

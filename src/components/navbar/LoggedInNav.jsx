@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import logo from "../../assets/images/Asset-2.-300x47.png"
 import { useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import stellar from "../../assets/images/Stellar_Symbol.png"
 
-const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal}) => {
+const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal, changemode, mode}) => {
 
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem("user"))
@@ -12,8 +12,10 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal}) => {
     const [walletConnected, setWalletConnected] = useState(false)
     const [showCheckIcon, setShowCheckIcon] = useState(false)
     const [logOutLoader, setLogOutLoader] = useState(false)
+    // const {}
     
     useEffect(() => {
+        console.log(mode)
         // console.log(user)
         // if(user === null){
         //     navigate("/login")
@@ -71,10 +73,10 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal}) => {
         setShowCheckIcon(true)
         setTimeout(()=>{setShowCheckIcon(false)},5000)
     }
-
+// active color = 1AC888
   return (
     <div>
-         <nav className="flex items-center justify-between px-[16px] py-5">
+         <nav className="flex items-center justify-between px-[16px] py-5 bg-[#F4F7FA] fixed w-full z-[2]">
             <a href="/" className="w-[12rem] flex items-center gap-1">
                 <img src={logo} alt="" />
             </a>
@@ -82,17 +84,42 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal}) => {
                 <i className="fa-solid fa-bars"></i>
                 <i className="fa-solid fa-xmark"></i>
             </div>
-            <ul className="flex items-center justify-between gap-[30px]">
-                <li>
+            <ul className="flex items-start gap-[30px] pl-5 fixed  flex-col top-[12%] bg-[#F4F7FA] left-0 h-screen w-[15%] pt-[3rem]">
+                <p className='mb-5'>Hi, <span>{user && user.user.first_name}</span> </p>
+                <li className='flex items-center gap-2 text-[#46695c]'>
+                    <i class="ri-dashboard-3-line text-xl"></i>
                     <Link to="/dashboard">Dashboard</Link>
                 </li>
-                <li>
+                <li className='flex items-center gap-2 text-[#46695c]'>
+                    <i class="ri-store-2-fill text-xl"></i>
                     <Link to="/markets">Market</Link>
                 </li>
-                <li>
+                <li className='flex items-center gap-2 text-[#46695c]'>
+                    <i class="ri-government-line text-xl"></i>
                     <Link to="/governance">Governance</Link>
                 </li>
+                <div className='fixed bottom-0 pb-3 w-full' >
+                    {mode === "lightMode" ? 
+                    <li className='flex items-center gap-2 text-[#46695c] mb-3 cursor-pointer' onClick={changemode}>
+                        <i className="ri-moon-line text-xl"></i>
+                        <p className='text-sm'>Dark Mode</p>
+                    </li>
+                    : 
+                    <li className='flex items-center gap-2 text-[#46695c] mb-3 cursor-pointer' onClick={changemode}>
+                        <i class="ri-sun-line  text-xl"></i>
+                        <p className='text-sm'>Light Mode</p>
+                    </li>
+                    }
+                    {logOutLoader ? <i className="fa-solid fa-gear fa-spin mb-4 text-lg"></i> : 
+                    <li className='flex items-center gap-2 text-[#46695c] cursor-pointer' onClick={logoutUser}>
+                        <i class="ri-logout-box-line text-xl"></i>
+                        <p className='text-sm'>Logout</p>
+                    </li>
+                    }
+                </div>
+                
             </ul>
+            <div>My Profile</div>
             <div>
                 {!fundAccount ? 
                     <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setWalletModal(true)}>
@@ -113,7 +140,7 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal}) => {
             </div>
         </nav>
         {userModal && 
-            <div className="userModal bg-slate-200 fixed right-4 rounded-md p-2 z-10">
+            <div className="userModal bg-slate-200 fixed right-4 rounded-md p-2 z-10 mt-[5rem]">
                 <div className='flex items-center gap-2 cursor-pointer'>
                     <i className="ri-user-3-line ml-3 py-1 px-2  bg-slate-500 rounded-full text-white"></i>
                     {user  && <p className='text-sm' onClick={()=> navigate(`/myprofile/${user && user.user.id}`)}>My Profile</p>}
@@ -126,18 +153,7 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal}) => {
                         :
                         <i class="ri-checkbox-circle-line ml-3 py-1 px-2 text-green-500 bg-white text-lg rounded-full"></i>
                     }
-                    
                 </div>
-                <div className='flex items-center gap-2 cursor-pointer pb-2'>
-                    <i className="ri-moon-line ml-3 py-1 px-2  bg-slate-500 rounded-full text-white"></i>
-                    <p className='text-sm'>Dark Mode</p>
-                </div>
-                {logOutLoader ? <i className="fa-solid fa-gear fa-spin mb-4 text-lg"></i> : 
-                <div className='flex items-center gap-2 cursor-pointer border-t-[1px] border-slate-300 pt-2' onClick={logoutUser}>
-                    <i class="ri-logout-box-line ml-3 py-1 px-2 bg-slate-500 rounded-full text-white"></i>
-                    <p className='text-sm'>Logout</p>
-                </div>
-                }
             </div>
         }
     </div>

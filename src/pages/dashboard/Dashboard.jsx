@@ -5,7 +5,7 @@ import stellar from "../../assets/images/Stellar_Symbol.png"
 import Navbar from '../../components/navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
 
-const Dashboard = () => {
+const Dashboard = ({changemode, mode}) => {
 
   const user = JSON.parse(localStorage.getItem("user"))
 
@@ -43,9 +43,9 @@ const Dashboard = () => {
   return (
     <div className='market h-[100vh]'>
         {/* <Navbar /> */}
-        <LoggedInNav fundAccount={fundAccount} setFundAccountModal={setFundAccountModal} setWalletModal={setWalletModal}/>
-        <div className='py-2 px-5'>
-            <h3 className='font-bold text-xl text-gray-500 mt-[5rem] text-center'>Welcome {user && user.user.username}, to Your Farmhouse Club Dashboard</h3>
+        <LoggedInNav fundAccount={fundAccount} setFundAccountModal={setFundAccountModal} setWalletModal={setWalletModal} changemode={changemode} mode={mode}/>
+        <div className='py-2 px-5 relative left-[7%] top-[10%]'>
+            <h3 className='font-bold text-xl text-gray-500 mt-[5rem] text-center mb-[9rem]'>Welcome {user && user.user.username}, to Your Farmhouse Club Dashboard</h3>
             <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>
                 <div className="connectWalletBox bg-[#84b943f7] w-full rounded-md py-5 text-white">
                     <img src={AVDACoin} alt="" style={{ width:"15%", margin:"-7rem auto 0" }}/>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import LoggedInNav from '../../components/navbar/LoggedInNav'
 import { useParams, useNavigate } from 'react-router-dom'
 
-const UserProfile = ({baseUrl}) => {
+const UserProfile = ({baseUrl, changemode, mode}) => {
   const user = JSON.parse(localStorage.getItem("user"))
   const [showProfile, setShowProfile] = useState(true)
   const [show2Fa, setShow2Fa] = useState(false)
@@ -88,29 +88,29 @@ const UserProfile = ({baseUrl}) => {
 
   return (
     <div>
-        <LoggedInNav />
+        <LoggedInNav changemode={changemode} mode={mode}/>
         <div className="userProfileDetailsContainer">
-          <div className='fixed bg-white w-full py-8'>
+          <div className='fixed bg-white w-full py-8 top-[12.5%] left-[16%]'>
             <div className='userProfileNav inline-flex items-center gap-5 py-2 px-4 rounded-full bg-[#F5F6FA]'>
               <div className='cursor-pointer flex items-center gap-2' onClick={()=> {
                 setShow2Fa(false)
                 setShowProfile(true)
                 console.log(`show-2fa => ${show2Fa}, show-profile => ${showProfile}`)
                 }}>
-                {showProfile ? <p className='text-[#1AC888] p-2 rounded-full bg-white'>ACCOUNT</p>:<p>ACCOUNT</p>}
+                {showProfile ? <p className='text-[#1AC888] text-[14px] p-2 rounded-full bg-white'>ACCOUNT</p>:<p className='text-[14px]'>ACCOUNT</p>}
               </div>
               <div className='cursor-pointer flex items-center gap-2' onClick={()=> {
                 setShow2Fa(true)
                 setShowProfile(false)
                 console.log(`show-2fa => ${show2Fa}, show-profile => ${showProfile}`)
                 }}>
-                {setShow2Fa ? <p className='text-[#1AC888] p-2 rounded-full bg-white'>SECURITY</p>:<p>SECURITY</p>}
+                {setShow2Fa ? <p className='text-[#1AC888] p-2 rounded-full bg-white text-[14px]'>SECURITY</p>:<p className='text-[14px]'>SECURITY</p>}
               </div>
             </div>
           </div>
 
           {showProfile && 
-            <div className='userProfileDetails pl-5 mt-20'>
+            <div className='userProfileDetails pl-[9rem] mt-[7rem]'>
               <h1 className='text-2xl my-[2.5rem] text-[rgba(10,46,101,.3)] font-medium border-b border-gray-200 pb-5'>Personalize</h1>
               <div className='my-3 flex items-center gap-4'>
                 <i className="ri-user-3-line text-3xl px-3 py-2 bg-slate-500 rounded-full text-white cursor-pointer"></i>
@@ -164,7 +164,7 @@ const UserProfile = ({baseUrl}) => {
           }
 
           {show2Fa && 
-            <div className='userProfileDetails pl-5 mt-20'>
+            <div className='userProfileDetails pl-[9rem] mt-20'>
               <div>
                 <h1 className='text-2xl my-[2.5rem] text-[rgba(10,46,101,.3)] font-medium border-b border-gray-200 pb-5'>Verified Information</h1>
                 <div className='my-9 flex gap-10 items-center'>

@@ -12,11 +12,23 @@ import Governance from './pages/governance/Governance';
 import UserProfile from './pages/userprofile/UserProfile';
 import MarketInfo from './pages/marketInfo/MarketInfo';
 import PasswordReset from './authentication/passwordReset/PasswordReset';
-// import TwoFactorLogin from './pages/twofactor/TwoFactorLogin';
 
 console.log("igboekwulusifranklin@gmail.com")
 
 function App() {
+
+  const [mode, setMode] = useState("lightMode")
+
+  function changemode(){
+    console.log(mode)
+    if(mode === 'lightMode'){
+      setMode('darkMode')
+    }else{
+      setMode('lightMode')
+    }
+    return mode
+  }
+
 useEffect(() => {
   // localStorage.clear()
 },[])
@@ -26,20 +38,22 @@ useEffect(() => {
 
   return (
     <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<LandingPage />} />
-      <Route path='/login' element={<Login baseUrl={baseUrl}/>} />
-      <Route path='/register' element={<Register baseUrl={baseUrl}/>} />
-      <Route path='/forgotpassword' element={<ForgotPassword baseUrl={baseUrl}/>} />
-      <Route path='/dashboard' element={<Dashboard baseUrl={baseUrl}/>} />
-      <Route path='/governance' element={<Governance baseUrl={baseUrl}/>} />
-      <Route path='/verifyemail/:token/:uuid' element={<VerifyEmail baseUrl={baseUrl}/>} />
-      <Route path='/myprofile/:id' element={<UserProfile baseUrl={baseUrl}/>} />
-      <Route path='/markets' element={<Markets baseUrl={baseUrl}/>} />
-      <Route path='/marketinfo/:id' element={<MarketInfo baseUrl={baseUrl}/>} />
-      {/* <Route path='/twofactorlogin' element={<TwoFactorLogin baseUrl={baseUrl}/>} /> */}
-      <Route path='/resetpassword/:uuid/:token' element={<PasswordReset baseUrl={baseUrl}/>} />
-    </Routes>
+    <div className={mode}>
+      <Routes>
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/login' element={<Login baseUrl={baseUrl}/>} />
+        <Route path='/register' element={<Register baseUrl={baseUrl}/>} />
+        <Route path='/forgotpassword' element={<ForgotPassword baseUrl={baseUrl}/>} />
+        <Route path='/dashboard' element={<Dashboard baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
+        <Route path='/governance' element={<Governance baseUrl={baseUrl}/>} />
+        <Route path='/verifyemail/:token/:uuid' element={<VerifyEmail baseUrl={baseUrl}/>} />
+        <Route path='/myprofile/:id' element={<UserProfile baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
+        <Route path='/markets' element={<Markets baseUrl={baseUrl}/>} />
+        <Route path='/marketinfo/:id' element={<MarketInfo baseUrl={baseUrl}/>} />
+        {/* <Route path='/twofactorlogin' element={<TwoFactorLogin baseUrl={baseUrl}/>} /> */}
+        <Route path='/resetpassword/:uuid/:token' element={<PasswordReset baseUrl={baseUrl}/>} />
+      </Routes>
+    </div>
     </BrowserRouter>
   )
 }

@@ -1,6 +1,7 @@
 
 html, body{
   font-family: "Poppins", sans-serif !important;
+  overflow-x: hidden;
 }
 
 :root{
@@ -36,6 +37,21 @@ form label{
 .register form i{
   color: #333;
 }
+
+.darkMode{
+  color: #fff;
+  background-color: hsl(207, 26%, 17%);
+}
+
+.darkMode input{
+  color: #000;
+}
+
+.lightMode{
+  color: #000;
+  background-color: hsl(0, 0%, 100%);
+}
+
 
 /* ANIMATED CANCELMARK STARTS */
 .cancel {
@@ -379,7 +395,7 @@ footer i{
 }
 
 .market{
-  background: linear-gradient(170deg,#f2fffd 20%,#69bfac 100%);;
+  /* background: linear-gradient(170deg,#f2fffd 20%,#69bfac 100%); */
 }
 
 /* dashboard */
@@ -394,6 +410,7 @@ footer i{
   justify-content: center;
   align-items: center;
   background-color: #333333bc;
+  z-index: 9;
 }
 
 .walletsModal{
@@ -414,7 +431,7 @@ footer i{
 
 .marketCardContainer{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   padding: 1rem;
 }
