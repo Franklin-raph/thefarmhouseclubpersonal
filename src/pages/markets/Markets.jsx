@@ -2,9 +2,15 @@ import LoggedInNav from '../../components/navbar/LoggedInNav'
 import cardImage1 from '../../assets/images/cover.jpeg'
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const Markets = () => {
+  const user = JSON.parse(localStorage.getItem("user"))
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if(!user) navigate("/")
+  },[])
   return (
     <div className='market h-[100vh]'>
         <LoggedInNav />

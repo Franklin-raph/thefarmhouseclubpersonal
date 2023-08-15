@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import logo from "../../assets/images/Asset-2.-300x47.png"
 import { useEffect } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom"
 import stellar from "../../assets/images/Stellar_Symbol.png"
 
-const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal, changemode, mode}) => {
+const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWalletModal, changemode, mode}) => {
 
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem("user"))
@@ -12,10 +12,22 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal, changemo
     const [walletConnected, setWalletConnected] = useState(false)
     const [showCheckIcon, setShowCheckIcon] = useState(false)
     const [logOutLoader, setLogOutLoader] = useState(false)
+    const checkIfWalletAddressIsFunded = localStorage.getItem("isWalletAddressFunded")
+    const [locationName, setLocationName] = useState()
+    const location = useLocation();
     // const {}
     
     useEffect(() => {
-        console.log(mode)
+        console.log(location.pathname)
+        if(location.pathname === "/dashboard"){
+            setLocationName("Dashboard")
+        }else if(location.pathname === "/markets"){
+            setLocationName("Markets")
+        }else if(location.pathname === "/governance"){
+            setLocationName("Governance")
+        }else if(location.pathname === "/swap"){
+            setLocationName("Swap")
+        }
         // console.log(user)
         // if(user === null){
         //     navigate("/login")
@@ -85,7 +97,7 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal, changemo
                 <i className="fa-solid fa-xmark"></i>
             </div>
             <ul className="desktopLoggedInNav flex items-start gap-[30px] pl-5 fixed flex-col top-[12%] bg-[#F4F7FA] left-0 h-screen w-[15%] pt-[3rem]">
-                <p className='mb-5'>Hi, <span>{user && user.user.first_name}</span> </p>
+                <p className='mb-5 text-xl font-bold text-[#888]'>Hi, <span>{user && user.user.first_name}</span> </p>
                 <li className='flex items-center gap-2 text-[#46695c]'>
                     <i class="ri-dashboard-3-line text-xl"></i>
                     <Link to="/dashboard">Dashboard</Link>
@@ -98,7 +110,11 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal, changemo
                     <i class="ri-government-line text-xl"></i>
                     <Link to="/governance">Governance</Link>
                 </li>
-                <div className='fixed bottom-0 pb-3 w-full' >
+                <li className='flex items-center gap-2 text-[#46695c]'>
+                    <i class="ri-exchange-funds-line text-xl"></i>
+                    <Link to="/swap">Swap</Link>
+                </li>
+                <div className='fixed bottom-0 pb-3'>
                     {mode === "lightMode" ? 
                     <li className='flex items-center gap-2 text-[#46695c] mb-3 cursor-pointer' onClick={changemode}>
                         <i className="ri-moon-line text-xl"></i>
@@ -133,6 +149,10 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal, changemo
                     <i class="ri-government-line text-xl"></i>
                     <Link to="/governance">Governance</Link>
                 </li>
+                <li className='flex items-center gap-2 text-[#46695c]'>
+                    <i class="ri-government-line text-xl"></i>
+                    <Link to="/swap">Swap</Link>
+                </li>
                 {/* <div className='fixed bottom-0 pb-3 w-full' > */}
                     {mode === "lightMode" ? 
                     <li className='flex items-center gap-2 text-[#46695c] cursor-pointer' onClick={changemode}>
@@ -154,22 +174,17 @@ const LoggedInNav = ({fundAccount, setFundAccountModal, setWalletModal, changemo
                 {/* </div> */}
                 
             </ul>
+            <p className='font-bold text-[#888] text-[18px]'> {locationName} </p>
             <div>
-                {!fundAccount ? 
+                {!checkIfWalletAddressIsFunded ? 
                     <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setWalletModal(true)}>
                         Connect
                     </button>
                 : 
                     <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setFundAccountModal(true)}>
-                        Fund Account
+                        {user && user.public_key.slice(0, 4)}...${user.public_key.slice(-4)}
                     </button>
                 }
-                
-                {/* {user &&
-                    <button className='border border-teal-500 py-1 px-2 rounded'>
-                        {user.public_key.slice(0, 9)}...${user.public_key.slice(-9)}
-                    </button>
-                } */}
                 <i className="ri-user-3-line text-lg ml-3 p-2 bg-slate-500 rounded-full text-white cursor-pointer" onClick={()=> setUserModal(!userModal)}></i>
             </div>
         </nav>

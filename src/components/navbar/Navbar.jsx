@@ -34,7 +34,7 @@ const Navbar = () => {
                 <i className="fa-solid fa-bars"></i>
                 <i className="fa-solid fa-xmark"></i>
             </div>
-            <ul className="flex items-center justify-between gap-[30px]">
+            {/* <ul className="flex items-center justify-between gap-[30px]">
                 <li>
                     <a href="/dashboard">Dashboard</a>
                 </li>
@@ -47,7 +47,7 @@ const Navbar = () => {
                 <li className="login-btn">
                     <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Login</button>
                 </li>
-            </ul>
+            </ul> */}
             <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700 nav-login">Login</button>
         </nav>
     </div>

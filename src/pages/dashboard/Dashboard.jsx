@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import LoggedInNav from '../../components/navbar/LoggedInNav'
-import AVDACoin from "../../assets/images/advaDashboardToken.png"
+import AVDACoin from "../../assets/images/advatoken.png"
 import stellar from "../../assets/images/Stellar_Symbol.png"
 import Navbar from '../../components/navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
@@ -16,12 +16,14 @@ const Dashboard = ({changemode, mode}) => {
   const [openBankTransfer, setOpenBankTransfer] = useState(false)
   const [openCryptoTransfer, setOpenCryptoTransfer] = useState(false)
   const [openBankInstrumentsTransfer, setOpenInstrumentsTransfer] = useState(false)
+  const [isWalletAddressFunded, setIsWalletAddressFunded] = useState(false)
   const [error, setError] = useState("")
 
   const navigate = useNavigate()
 
   useEffect(() => {
     if(!user) navigate("/")
+    console.log(localStorage.getItem("public_key"))
   },[])
 
   async function connectAccount(){
@@ -37,6 +39,11 @@ const Dashboard = ({changemode, mode}) => {
           setError("Unfunded account. Please fund your account")
           setFundAccount(true)
       }
+
+      if(response.ok){
+        localStorage.setItem("isWalletAddressFunded", true)
+        setIsWalletAddressFunded(true)
+      }
       console.log(data)
   }
 
@@ -44,9 +51,17 @@ const Dashboard = ({changemode, mode}) => {
     <div className='market h-[100vh]'>
         {/* <Navbar /> */}
         <LoggedInNav fundAccount={fundAccount} setFundAccountModal={setFundAccountModal} setWalletModal={setWalletModal} changemode={changemode} mode={mode}/>
-        <div className='py-2 px-5 relative left-[7%] top-[10%]' id='dashboard'>
-            <h3 className='font-bold text-xl text-gray-500 mt-[5rem] text-center mb-[9rem]'>Welcome {user && user.user.username}, to Your Farmhouse Club Dashboard</h3>
-            <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>
+        <div className='py-2 px-5 relative left-[7%] top-[10%] flex justify-center items-center flex-col' id='dashboard'>
+          <img src={AVDACoin} alt="" style={{ width:"25%", margin:"auto", marginTop:"3rem" }}/>
+          {/* <div className="r"> */}
+            <button className='bg-[#39A971] text-white px-4 py-2 rounded-md flex justify-center items-center mt-9 ml-[-9rem]'>
+              <i class="ri-add-fill mr-3 text-3xl"></i>
+              <p className='text-xl'>Fund Wallet</p>
+            </button>
+          {/* </div> */}
+          
+            {/* <h3 className='font-bold text-2xl text-gray-500 mt-[1rem] text-left mb-[9rem] ml-[6rem]'>Dashboard</h3> */}
+            {/* <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>
                 <div className="connectWalletBox bg-[#84b943f7] w-full rounded-md py-5 text-white">
                     <img src={AVDACoin} alt="" style={{ width:"15%", margin:"-7rem auto 0" }}/>
                     <h3 className='font-bold'>Please, {fundAccount ? "fund" : "connect"} your account</h3>
@@ -59,7 +74,7 @@ const Dashboard = ({changemode, mode}) => {
                       <button className="bg-[#fff] w-[auto] mb-5 py-2 px-4 rounded-[6px] text-[#83B943] cursor-pointer" onClick={()=> setWalletModal(true)}>Connect Account</button>
                     }
                 </div>
-            </div>
+            </div> */}
         </div>
         {walletModal && 
             <div className="walletsModalBg">

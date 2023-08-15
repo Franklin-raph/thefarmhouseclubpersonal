@@ -1,6 +1,6 @@
 import './App.css'
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import LandingPage from './landingPage/LandingPage'
 import Login from './authentication/login/Login';
 import Register from './authentication/register/Register';
@@ -12,6 +12,7 @@ import Governance from './pages/governance/Governance';
 import UserProfile from './pages/userprofile/UserProfile';
 import MarketInfo from './pages/marketInfo/MarketInfo';
 import PasswordReset from './authentication/passwordReset/PasswordReset';
+import Swap from './pages/swap/Swap';
 
 console.log("igboekwulusifranklin@gmail.com")
 
@@ -37,7 +38,7 @@ useEffect(() => {
   const baseUrl = "https://avda.pythonanywhere.com/api/v1"
 
   return (
-    <BrowserRouter>
+    <HashRouter>
     <div className={mode}>
       <Routes>
         <Route path='/' element={<LandingPage />} />
@@ -50,11 +51,11 @@ useEffect(() => {
         <Route path='/myprofile/:id' element={<UserProfile baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
         <Route path='/markets' element={<Markets baseUrl={baseUrl}/>} />
         <Route path='/marketinfo/:id' element={<MarketInfo baseUrl={baseUrl}/>} />
-        {/* <Route path='/twofactorlogin' element={<TwoFactorLogin baseUrl={baseUrl}/>} /> */}
+        <Route path='/swap' element={<Swap baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
         <Route path='/resetpassword/:uuid/:token' element={<PasswordReset baseUrl={baseUrl}/>} />
       </Routes>
     </div>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
