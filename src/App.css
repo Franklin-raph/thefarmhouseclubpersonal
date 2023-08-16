@@ -508,6 +508,14 @@ footer i{
   display: none;
 }
 
+.ri-phone-line{
+  display: none;
+}
+
+.togglers{
+  display: none;
+}
+
 @media screen and (max-width:1244px) {
   .landingPage main{
     padding-left: 35px;
@@ -535,7 +543,7 @@ footer i{
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    background-color: #deeefe;
+    background-color: #F4F7FA;
     left: 0;
     padding: 1rem;
     z-index: 99;
@@ -599,10 +607,6 @@ footer i{
     flex-direction: column;
     gap: 1px;
   }
-  
-.toggler{
-  display: block;
-}
 
   .nav-login{
     display: none;
@@ -698,16 +702,48 @@ footer i{
     margin-left: auto;
     margin-right: auto;
   }
+
+  .ri-phone-line{
+    display: block;
+  }
+
+  .togglingNav{
+    position: fixed;
+    background-color: #F4F7FA;
+    right: 3%;
+    bottom: -20%;
+    transition: .5s;
+    padding: 20px;
+    flex-direction: column;
+    box-shadow: 0 0 20px #c2c2c2;
+  }
+
+  .togglers{
+    display: block;
+  }
+
+  .togglers .ri-close-fill{
+    display: none;
+  }
+
+  .togglingNav p{
+    display: none;
+  }
 }
 
 @media screen and (max-width:480px) {
+
+  .mobileNavLoggedInNav p{
+    display: none;
+  }
+
   .landingPage main .text-div{
     width: 95%;
     padding-bottom: 5rem;
   }
 
   .landingPage main .text-div h1{
-    font-size: 25px;
+    font-size: 20px;
   }
 
   .landingPage main .coin1{
@@ -759,7 +795,7 @@ footer i{
   }
 
   #dashboard .connectWalletBox button{
-    margin-top: 1.7rem;
+    margin-top: 3.7rem;
   }
 
   #dashboard .connectWalletBox button p{

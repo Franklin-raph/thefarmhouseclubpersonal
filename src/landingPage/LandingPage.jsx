@@ -19,21 +19,21 @@ const LandingPage = () => {
             console.log(true)
             navigate("/")
         }
-        const nav = document.querySelector("nav ul")
-        const navOpen = document.querySelector(".fa-bars")
-        const navClose = document.querySelector(".fa-xmark")
+        // const nav = document.querySelector("nav ul")
+        // const navOpen = document.querySelector(".fa-bars")
+        // const navClose = document.querySelector(".fa-xmark")
 
-        navOpen.addEventListener("click", ()=>{
-            nav.style.left = 0
-            navClose.style.display = "block"
-            navOpen.style.display = "none"
-        })
+        // navOpen.addEventListener("click", ()=>{
+        //     nav.style.left = 0
+        //     navClose.style.display = "block"
+        //     navOpen.style.display = "none"
+        // })
 
-        navClose.addEventListener("click", ()=>{
-            nav.style.left = "-200%"
-            navClose.style.display = "none"
-            navOpen.style.display = "block"
-        })
+        // navClose.addEventListener("click", ()=>{
+        //     nav.style.left = "-200%"
+        //     navClose.style.display = "none"
+        //     navOpen.style.display = "block"
+        // })
     },[])
 
 
@@ -56,7 +56,7 @@ const LandingPage = () => {
                 <img src={coin2} alt="" className="w-[40%] ml-auto absolute top-[100px] right-0 coin2 z-10"/>
             </div>
         </main>
-        <footer className="flex justify-between items-center px-[16px] py-4">
+        <footer className="flex justify-between items-center px-[16px] py-2">
             <ul className="flex justify-between items-center gap-5">
                 <li>
                     <a href="#">Terms</a>

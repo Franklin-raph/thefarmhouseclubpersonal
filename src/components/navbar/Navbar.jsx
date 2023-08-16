@@ -7,21 +7,21 @@ const Navbar = () => {
     const navigate = useNavigate()
     
     useEffect(() => {
-        const nav = document.querySelector("nav ul")
-        const navOpen = document.querySelector(".fa-bars")
-        const navClose = document.querySelector(".fa-xmark")
+        // const nav = document.querySelector("nav ul")
+        // const navOpen = document.querySelector(".fa-bars")
+        // const navClose = document.querySelector(".fa-xmark")
 
-        navOpen.addEventListener("click", ()=>{
-            nav.style.left = 0
-            navClose.style.display = "block"
-            navOpen.style.display = "none"
-        })
+        // navOpen.addEventListener("click", ()=>{
+        //     nav.style.left = 0
+        //     navClose.style.display = "block"
+        //     navOpen.style.display = "none"
+        // })
 
-        navClose.addEventListener("click", ()=>{
-            nav.style.left = "-200%"
-            navClose.style.display = "none"
-            navOpen.style.display = "block"
-        })
+        // navClose.addEventListener("click", ()=>{
+        //     nav.style.left = "-200%"
+        //     navClose.style.display = "none"
+        //     navOpen.style.display = "block"
+        // })
     },[])
 
   return (
@@ -30,10 +30,10 @@ const Navbar = () => {
             <a href="/" className="w-[12rem] flex items-center gap-1">
                 <img src={logo} alt="" />
             </a>
-            <div className="toggler relative z-50">
+            {/* <div className="toggler relative z-50">
                 <i className="fa-solid fa-bars"></i>
                 <i className="fa-solid fa-xmark"></i>
-            </div>
+            </div> */}
             {/* <ul className="flex items-center justify-between gap-[30px]">
                 <li>
                     <a href="/dashboard">Dashboard</a>
@@ -44,11 +44,11 @@ const Navbar = () => {
                 <li>
                     <a href="/governance">Governance</a>
                 </li>
-                <li className="login-btn">
-                    <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Login</button>
-                </li>
             </ul> */}
-            <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700 nav-login">Login</button>
+            {/* <li className="login-btn">
+                <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Login</button>
+            </li> */}
+            <button onClick={() => navigate("/login")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Login</button>
         </nav>
     </div>
   )

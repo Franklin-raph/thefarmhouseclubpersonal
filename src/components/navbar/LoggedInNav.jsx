@@ -28,6 +28,10 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
         }else if(location.pathname === "/swap"){
             setLocationName("Swap")
         }
+
+        // document.querySelector(".navToggle").addEventListener("click", ()=>{
+        //     document.querySelector(".togglingNav").classList.toggle("show-nav")
+        // })
         // console.log(user)
         // if(user === null){
         //     navigate("/login")
@@ -35,21 +39,23 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
         // if(user) {
         //     navigate("/dashboard")
         // }
-        // const nav = document.querySelector("nav ul")
-        // const navOpen = document.querySelector(".fa-bars")
-        // const navClose = document.querySelector(".fa-xmark")
+        const nav = document.querySelector(".togglingNav")
+        const navOpen = document.querySelector(".ri-menu-line")
+        const navClose = document.querySelector(".ri-close-fill")
 
-        // navOpen.addEventListener("click", ()=>{
-        //     nav.style.left = 0
-        //     navClose.style.display = "block"
-        //     navOpen.style.display = "none"
-        // })
+        console.log(nav, navOpen, navClose)
 
-        // navClose.addEventListener("click", ()=>{
-        //     nav.style.left = "-200%"
-        //     navClose.style.display = "none"
-        //     navOpen.style.display = "block"
-        // })
+        navOpen.addEventListener("click", ()=>{
+            nav.style.bottom = "8%"
+            navClose.style.display = "block"
+            navOpen.style.display = "none"
+        })
+
+        navClose.addEventListener("click", ()=>{
+            nav.style.bottom = "-30%"
+            navClose.style.display = "none"
+            navOpen.style.display = "block"
+        })
         checkTokenStatus()
     },[])
 
@@ -95,7 +101,7 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
             </a>
             <ul className="desktopLoggedInNav flex items-start gap-[30px] pl-5 fixed flex-col top-[11%] bg-[#F4F7FA] left-0 h-screen w-[15%] pt-[3rem]">
                 <p className='mb-5 text-xl font-bold text-[#888]'>Hi, <span>{user && user.user.first_name}</span> </p>
-                <li className='flex items-center gap-2 text-[#46695c]'>
+                <li className='flex items-center  gap-2 text-[#46695c]'>
                     <i class="ri-dashboard-3-line text-xl"></i>
                     <Link to="/dashboard">Dashboard</Link>
                 </li>
@@ -134,41 +140,57 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
 
             <ul className="mobileNavLoggedInNav">
                 {/* <p className='mb-5'>Hi, <span>{user && user.user.first_name}</span> </p> */}
-                <li className='flex items-center gap-2 text-[#46695c]'>
-                    <i class="ri-dashboard-3-line text-xl"></i>
-                    <Link to="/dashboard">Dashboard</Link>
+                <li className='text-center flex items-center flex-col gap-2 text-[#46695c]'>
+                    <Link to="/dashboard">
+                        <i class="ri-dashboard-3-line text-xl"></i>
+                    </Link>
+                    <p>Dashboard</p>
                 </li>
-                <li className='flex items-center gap-2 text-[#46695c]'>
-                    <i class="ri-store-2-fill text-xl"></i>
-                    <Link to="/markets">Market</Link>
+                <li className='text-center flex items-center flex-col gap-2 text-[#46695c]'>
+                    <Link to="/markets">
+                        <i class="ri-store-2-fill text-xl"></i>
+                    </Link>
+                    <p>Market</p>
                 </li>
-                <li className='flex items-center gap-2 text-[#46695c]'>
-                    <i class="ri-government-line text-xl"></i>
-                    <Link to="/governance">Governance</Link>
+                <li className='text-center flex items-center flex-col gap-2 text-[#46695c]'>
+                    <Link to="/swap">
+                        <i class="ri-exchange-funds-line text-xl"></i>
+                    </Link>
+                    <p>Swap</p>
                 </li>
-                <li className='flex items-center gap-2 text-[#46695c]'>
-                    <i class="ri-government-line text-xl"></i>
-                    <Link to="/swap">Swap</Link>
+                <li className='text-center flex items-center flex-col gap-2 text-[#46695c]'>
+                    <Link to="/governance">
+                        <i class="ri-government-line text-xl"></i>
+                    </Link>
+                    <p>Governance</p>
                 </li>
-                {/* <div className='fixed bottom-0 pb-3 w-full' > */}
+                
+                <div className='flex gap-2 togglingNav' >
                     {mode === "lightMode" ? 
-                    <li className='flex items-center gap-2 text-[#46695c] cursor-pointer' onClick={changemode}>
+                    <li className='flex items-center flex-col gap-2 text-[#46695c] cursor-pointer' onClick={changemode}>
                         <i className="ri-moon-line text-xl"></i>
                         <p className='text-sm'>Dark Mode</p>
                     </li>
                     : 
-                    <li className='flex items-center gap-2 text-[#46695c] cursor-pointer' onClick={changemode}>
+                    <li className='flex items-center flex-col gap-2 text-[#46695c] cursor-pointer' onClick={changemode}>
                         <i class="ri-sun-line  text-xl"></i>
                         <p className='text-sm'>Light Mode</p>
                     </li>
                     }
                     {logOutLoader ? <i className="fa-solid fa-gear fa-spin mb-4 text-lg"></i> : 
-                    <li className='flex items-center gap-2 text-[#46695c] cursor-pointer' onClick={logoutUser}>
+                    <li className='flex items-center flex-col gap-2 text-[#46695c] cursor-pointer' onClick={logoutUser}>
                         <i class="ri-logout-box-line text-xl"></i>
                         <p className='text-sm'>Logout</p>
                     </li>
                     }
-                {/* </div> */}
+                </div>
+
+                {/* <i class="ri-phone-line text-xl "></i> */}
+                <div className="togglers">
+                    <i class="ri-menu-line"></i>
+                    <i class="ri-close-fill"></i>
+                </div>
+                
                 
             </ul>
             <p className='font-bold text-[#888] text-[18px]'> {locationName} </p>
