@@ -4,6 +4,7 @@ import { useState } from "react"
 import { GoogleLogin } from '@react-oauth/google';
 import { useEffect } from "react";
 import ErrorAlert from "../../components/alert/ErrorAlert";
+import welcomeImage from "../../assets/images/c11d05415f5ff082abf5155fa6d98e1f.gif"
 
 const Register = () => {
   const [email, setEmail] = useState("")
@@ -109,10 +110,8 @@ const Register = () => {
     })
     const data = await response.json()
     if(response) setLoading(false)
-console.log(response)
     if(!response.ok){
       setError(data.detail)
-      console.log(data)
       setTimeout(() => {
         setError("")
     },10000)
@@ -220,10 +219,12 @@ console.log(response)
 
       {success &&
       <div className="successModalBg">
-        <div className="successModal">
-          <i className="ri-checkbox-circle-line"></i>
-           <p >{success}</p>
-          <button onClick={()=> navigate("/login")}>Continue to login</button>
+        <div className="successModal relative">
+          <i className="ri-close-fill absolute top-3 right-5 cursor-pointer" style={{ fontSize:"28px", color:"red" }} onClick={()=> setSuccess(true)}></i>
+          <img src={welcomeImage} alt="" />
+           <p>Registeration was successful, a verification message has been sent to your email.</p>
+           {/* <p>{success}</p> */}
+          <button onClick={()=> navigate("/login")} className="bg-[#1AC888]">Continue to login</button>
         </div>
       </div>
       }
