@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import logo from "../../assets/images/Asset-2.-300x47.png"
 import { useEffect } from "react"
 import { Link, useNavigate, useParams, useLocation } from "react-router-dom"
-import stellar from "../../assets/images/Stellar_Symbol.png"
+import logo1 from "../../assets/images/Asset-2.-300x47.png"
+import logo2 from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 
 const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWalletModal, changemode, mode}) => {
 
@@ -35,21 +35,21 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
         // if(user) {
         //     navigate("/dashboard")
         // }
-        const nav = document.querySelector("nav ul")
-        const navOpen = document.querySelector(".fa-bars")
-        const navClose = document.querySelector(".fa-xmark")
+        // const nav = document.querySelector("nav ul")
+        // const navOpen = document.querySelector(".fa-bars")
+        // const navClose = document.querySelector(".fa-xmark")
 
-        navOpen.addEventListener("click", ()=>{
-            nav.style.left = 0
-            navClose.style.display = "block"
-            navOpen.style.display = "none"
-        })
+        // navOpen.addEventListener("click", ()=>{
+        //     nav.style.left = 0
+        //     navClose.style.display = "block"
+        //     navOpen.style.display = "none"
+        // })
 
-        navClose.addEventListener("click", ()=>{
-            nav.style.left = "-200%"
-            navClose.style.display = "none"
-            navOpen.style.display = "block"
-        })
+        // navClose.addEventListener("click", ()=>{
+        //     nav.style.left = "-200%"
+        //     navClose.style.display = "none"
+        //     navOpen.style.display = "block"
+        // })
         checkTokenStatus()
     },[])
 
@@ -89,14 +89,11 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
   return (
     <div>
          <nav className="flex items-center justify-between px-[16px] py-5 bg-[#F4F7FA] fixed w-full z-[2]">
-            <a href="/" className="w-[12rem] flex items-center gap-1">
-                <img src={logo} alt="" />
+            <a href="/" className="w-[12rem] flex items-center gap-1 logo-container">
+                <img src={logo1} alt="" className='logo1' />
+                <img src={logo2} alt="" className='logo2' />
             </a>
-            <div className="toggler relative z-50">
-                <i className="fa-solid fa-bars"></i>
-                <i className="fa-solid fa-xmark"></i>
-            </div>
-            <ul className="desktopLoggedInNav flex items-start gap-[30px] pl-5 fixed flex-col top-[12%] bg-[#F4F7FA] left-0 h-screen w-[15%] pt-[3rem]">
+            <ul className="desktopLoggedInNav flex items-start gap-[30px] pl-5 fixed flex-col top-[11%] bg-[#F4F7FA] left-0 h-screen w-[15%] pt-[3rem]">
                 <p className='mb-5 text-xl font-bold text-[#888]'>Hi, <span>{user && user.user.first_name}</span> </p>
                 <li className='flex items-center gap-2 text-[#46695c]'>
                     <i class="ri-dashboard-3-line text-xl"></i>
@@ -176,7 +173,7 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
             </ul>
             <p className='font-bold text-[#888] text-[18px]'> {locationName} </p>
             <div>
-                {!checkIfWalletAddressIsFunded ? 
+                {/* {!checkIfWalletAddressIsFunded ? 
                     <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setWalletModal(true)}>
                         Connect
                     </button>
@@ -184,7 +181,7 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
                     <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setFundAccountModal(true)}>
                         {user && user.public_key.slice(0, 4)}...${user.public_key.slice(-4)}
                     </button>
-                }
+                } */}
                 <i className="ri-user-3-line text-lg ml-3 p-2 bg-slate-500 rounded-full text-white cursor-pointer" onClick={()=> setUserModal(!userModal)}></i>
             </div>
         </nav>

@@ -4,6 +4,7 @@ import AVDACoin from "../../assets/images/advatoken.png"
 import stellar from "../../assets/images/Stellar_Symbol.png"
 import Navbar from '../../components/navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
+import TextTransition, { presets } from 'react-text-transition';
 
 const Dashboard = ({changemode, mode}) => {
 
@@ -17,13 +18,31 @@ const Dashboard = ({changemode, mode}) => {
   const [openCryptoTransfer, setOpenCryptoTransfer] = useState(false)
   const [openBankInstrumentsTransfer, setOpenInstrumentsTransfer] = useState(false)
   const [isWalletAddressFunded, setIsWalletAddressFunded] = useState(false)
+  const TEXTS = [
+                  'Top Up Your Wallet for Exciting Ventures!', 
+                  'Ignite Your Investments: Top Up Your Wallet and Grow!',
+                  'Dive into Exclusive Agribusiness Investment Opportunities',
+                  'Uncover Top-tier Agribusiness Ventures for Your Portfolio'
+                ];
+
+  const BOLDTEXTS = [
+                  'Your Journey Starts Here',
+                  'Low-Risk, High-Yield Agri Investments'
+                ];
+
   const [error, setError] = useState("")
+  const [index, setIndex] = useState(0);
 
   const navigate = useNavigate()
 
   useEffect(() => {
     if(!user) navigate("/")
-    console.log(localStorage.getItem("public_key"))
+    
+    const intervalId = setInterval(
+      () => setIndex((index) => index + 1),
+      5000, // every 3 seconds
+    );
+    return () => clearTimeout(intervalId);
   },[])
 
   async function connectAccount(){
@@ -49,32 +68,38 @@ const Dashboard = ({changemode, mode}) => {
 
   return (
     <div className='market h-[100vh]'>
+      <div className="balanceContainer">
+        <div className="balances"></div>
+        <div className="balances"></div>
+        <div className="balances"></div>
+      </div>
         {/* <Navbar /> */}
         <LoggedInNav fundAccount={fundAccount} setFundAccountModal={setFundAccountModal} setWalletModal={setWalletModal} changemode={changemode} mode={mode}/>
         <div className='py-2 px-5 relative left-[7%] top-[10%] flex justify-center items-center flex-col' id='dashboard'>
-          <img src={AVDACoin} alt="" style={{ width:"25%", margin:"auto", marginTop:"3rem" }}/>
+          {/* <img src={AVDACoin} alt="" style={{ width:"25%", margin:"auto", marginTop:"3rem", position:"relative", left:"-3%" }}/> */}
           {/* <div className="r"> */}
-            <button className='bg-[#39A971] text-white px-4 py-2 rounded-md flex justify-center items-center mt-9 ml-[-9rem]'>
-              <i class="ri-add-fill mr-3 text-3xl"></i>
-              <p className='text-xl'>Fund Wallet</p>
-            </button>
+            
           {/* </div> */}
           
             {/* <h3 className='font-bold text-2xl text-gray-500 mt-[1rem] text-left mb-[9rem] ml-[6rem]'>Dashboard</h3> */}
-            {/* <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>
-                <div className="connectWalletBox bg-[#84b943f7] w-full rounded-md py-5 text-white">
-                    <img src={AVDACoin} alt="" style={{ width:"15%", margin:"-7rem auto 0" }}/>
-                    <h3 className='font-bold'>Please, {fundAccount ? "fund" : "connect"} your account</h3>
-                    <p className='my-5'>
-                        Please {fundAccount ? "fund" : "connect"} your account to see your staked projects and return on investments.
-                    </p>
-                    {fundAccount ? 
-                      <button className="bg-[#fff] w-[auto] mb-5 py-2 px-4 rounded-[6px] text-[#83B943] cursor-pointer" onClick={()=> setFundAccountModal(true)}>Fund Account</button>
-                        : 
-                      <button className="bg-[#fff] w-[auto] mb-5 py-2 px-4 rounded-[6px] text-[#83B943] cursor-pointer" onClick={()=> setWalletModal(true)}>Connect Account</button>
-                    }
+            <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>
+                <div className="connectWalletBox bg-[#eee] w-full rounded-[10px] py-5 mt-9" style={{ boxShadow:"0 0 25px #ccc" }}>
+                    <img src={AVDACoin} alt="" style={{ width:"20%", margin:"-7rem 0 0 auto" }}/>
+                    <div className='text-start px-9'>
+                      <h3 className='font-bold text-[25px] text-[#888]' style={{ textTransform:"uppercase" }}>
+                        <TextTransition springConfig={presets.wobbly}>{BOLDTEXTS[index % BOLDTEXTS.length]}</TextTransition>
+                      </h3>
+                      <p className='mt-5 text-xl changing-text'>
+                        <TextTransition springConfig={presets.wobbly}>{TEXTS[index % TEXTS.length]}</TextTransition>
+                      </p>
+                      <button className='bg-[#39A971] text-white px-4 py-2 rounded-md flex justify-center items-center mt-4'>
+                        <i class="ri-add-fill mr-3 text-2xl"></i>
+                        <p className='text-xl'>Fund Wallet</p>
+                      </button>
+                    </div>
                 </div>
-            </div> */}
+            </div>
+            
         </div>
         {walletModal && 
             <div className="walletsModalBg">
