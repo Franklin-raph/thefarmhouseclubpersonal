@@ -41,7 +41,31 @@ form label{
 .darkMode{
   color: #fff;
   background-color: hsl(207, 26%, 17%);
-  transition: .5s;
+}
+
+.darkMode .desktopLoggedInNav{
+  background-color: hsl(207, 26%, 17%);
+  border-right: 1px solid #595959;
+}
+
+.darkMode .connectWalletBox, .darkMode .userModal{
+  background-color: hsl(207, 26%, 17%);
+  box-shadow: 0 0 25px hsl(210, 13%, 21%) !important;
+}
+
+.darkMode #userProfileNavContainer{
+  background-color: hsl(207, 26%, 17%);
+  color: hsl(207, 26%, 17%);
+}
+
+.darkMode .userProfileDetails h1{
+  color: #006340;
+}
+
+.darkMode .topnav nav{
+  color: #fff;
+  background-color: hsl(207, 26%, 17%) !important;
+  border-bottom: 1px solid #595959;
 }
 
 .darkMode input{
@@ -51,7 +75,7 @@ form label{
 .lightMode{
   color: #000;
   background-color: hsl(0, 0%, 100%);
-  transition: .5s;
+  /* transition: .5s; */
 }
 
 

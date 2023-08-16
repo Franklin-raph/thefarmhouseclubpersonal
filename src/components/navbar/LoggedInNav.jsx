@@ -93,7 +93,7 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
     }
 // active color = 1AC888
   return (
-    <div>
+    <div className="topnav">
          <nav className="flex items-center justify-between px-[16px] py-5 bg-[#F4F7FA] fixed w-full z-[2]">
             <a href="/" className="w-[12rem] flex items-center gap-1 logo-container">
                 <img src={logo1} alt="" className='logo1' />
