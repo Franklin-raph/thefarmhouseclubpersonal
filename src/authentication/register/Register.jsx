@@ -220,7 +220,7 @@ const Register = () => {
       {success &&
       <div className="successModalBg">
         <div className="successModal relative">
-          <i className="ri-close-fill absolute top-3 right-5 cursor-pointer" style={{ fontSize:"28px", color:"red" }} onClick={()=> setSuccess(true)}></i>
+          <i className="ri-close-fill absolute top-3 right-5 cursor-pointer" style={{ fontSize:"28px", color:"red" }} onClick={()=> setSuccess(false)}></i>
           <img src={welcomeImage} alt="" />
            <p>Registeration was successful, a verification message has been sent to your email.</p>
            {/* <p>{success}</p> */}
