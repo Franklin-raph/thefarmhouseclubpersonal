@@ -83,7 +83,8 @@ const Dashboard = ({changemode, mode}) => {
     const data = await response.json()
     if(response.ok){
       localStorage.setItem("ref_id", JSON.stringify(data))
-      location.href = data.data.authorization_url
+      window.location.replace(data.data.authorization_url)
+      // location.assign(d)
     }
     console.log(response, data, data.authorization_url)
   }
