@@ -95,14 +95,12 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
               <div className='cursor-pointer flex items-center gap-2' onClick={()=> {
                 setShow2Fa(false)
                 setShowProfile(true)
-                console.log(`show-2fa => ${show2Fa}, show-profile => ${showProfile}`)
                 }}>
                 {showProfile ? <p className='text-[#1AC888] text-[14px] p-2 rounded-full bg-white'>ACCOUNT</p>:<p className='text-[14px]'>ACCOUNT</p>}
               </div>
               <div className='cursor-pointer flex items-center gap-2' onClick={()=> {
                 setShow2Fa(true)
                 setShowProfile(false)
-                console.log(`show-2fa => ${show2Fa}, show-profile => ${showProfile}`)
                 }}>
                 {setShow2Fa ? <p className='text-[#1AC888] p-2 rounded-full bg-white text-[14px]'>SECURITY</p>:<p className='text-[14px]'>SECURITY</p>}
               </div>

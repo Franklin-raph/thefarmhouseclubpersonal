@@ -59,6 +59,8 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
         checkTokenStatus()
     },[])
 
+    // setInterval(() => {},300000)
+
     async function logoutUser(){
         setLogOutLoader(true)
         console.log(JSON.stringify({refresh:user.refresh}))
@@ -81,8 +83,9 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
         const response = await fetch(`https://app1.thefarmhouseclub.io/api/v1/token-status/${user.access}`)
         const data = await response.json()
         if(!response.ok){
-            localStorage.clear()
-            navigate("/")
+            // localStorage.clear()
+            // navigate("/")
+            logoutUser()
         }
     }
 

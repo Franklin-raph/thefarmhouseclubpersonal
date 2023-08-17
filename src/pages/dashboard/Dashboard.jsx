@@ -6,6 +6,7 @@ import Navbar from '../../components/navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
 import TextTransition, { presets } from 'react-text-transition';
 import PaystackPop from "@paystack/inline-js"
+import SuccessAlert from '../../components/alert/SuccessAlert'
 
 const Dashboard = ({changemode, mode, baseUrl}) => {
 
@@ -37,32 +38,56 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
   const [error, setError] = useState("")
   const [index, setIndex] = useState(0);
   const [verifyPaymentModal, setVerifyPaymentModal] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [displayDashboardInfo, setDisplayDashboardInfo] = useState(false)
 
   const navigate = useNavigate()
 
   useEffect(() => {
     if(!user) navigate("/")
+
+    if(user){
+      getAccountSummary()
+    }
     
+    // Function for the changing text
     const intervalId = setInterval(
       () => setIndex((index) => index + 1),
-      5000, // every 3 seconds
+      5000, // every 5 seconds
     );
     return () => clearTimeout(intervalId);
   },[])
 
-  async function handleVerifyAccountFund(reference){
-    console.log(JSON.stringify({reference:reference}))
+  async function getAccountSummary(){
+    const response = await fetch(`${baseUrl}/myaccount-summary/`,{
+      method:"POST",
+      body: JSON.stringify({public_key:user.public_key}),
+      headers:{
+        Authorization: `Bearer ${user.access}`,
+        "Content-Type":"application/json"
+      }
+    })
+    const data = await response.json()
+    if(response.ok){
+      setDisplayDashboardInfo(data)
+    }
+    console.log(data)
+  }
+
+  async function handleVerifyAccountFund(reference, amount){
+    // console.log(JSON.stringify({reference:reference, amount:amount, public_key:user.public_key}))
     const response = await fetch(`${baseUrl}/create-funded-account/`,{
       method:"POST",
-      body: JSON.stringify({reference:reference}),
+      body: JSON.stringify({reference:reference, amount:amount, public_key:user.public_key}),
       headers:{
         Authorization: `Bearer ${user.access}`,
         "Content-Type":"application/json"
       }
     })
     if(response)setVerifyPaymentModal(false)
+    if(response.ok) setSuccess("")
     const data = await response.json()
-    console.log(response, data)
+  console.log(response, data)
   }
 
   function payWithPayStack(){
@@ -75,8 +100,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
       onSuccess(transaction){
         setFundAccountModal(false)
         setVerifyPaymentModal(true)
-        handleVerifyAccountFund(transaction.reference)
-        console.log(transaction.reference, transaction)
+        handleVerifyAccountFund(transaction.reference, amount)
       },
       oncancel(){
         console.log("Failed Transaction")
@@ -91,11 +115,57 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
         <div className="balances"></div>
         <div className="balances"></div>
       </div>
-        {/* <Navbar /> */}
         <LoggedInNav fundAccount={fundAccount} setFundAccountModal={setFundAccountModal} setWalletModal={setWalletModal} changemode={changemode} mode={mode}/>
-        <div className='py-2 px-5 relative left-[7%] top-[10%] flex justify-center items-center flex-col' id='dashboard'>
+        
+        {displayDashboardInfo ? 
+            <div className='px-[9rem] pt-6 relative left-[7%] top-[10%]' id='dashboard'>
+                <h3 className='text-2xl font-[600] text-[#888] mb-5'>ACCOUNTS</h3>
+                <div className='gap-10' style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)" }}>
+                  {/* {displayDashboardInfo.balances && displayDashboardInfo.balances.map(balance => (
+                    <div className='flex items-center justify-between gap-10 p-5 rounded-lg relative pb-9 w-full' style={{ boxShadow:"0 0 20px #ccc" }}>
+                      <img src="https://cdn.lumenswap.io/obm/xlm.png" width={"80px"} className='rounded-full' alt="" />
+                      <div>
+                        <p className='text-lg'>{balance.asset_type === "native" ? "XLM":""}</p>
+                        <h3 className='font-bold text-xl'>{Number(balance.balance).toFixed(2)}</h3>
+                        <p className='absolute'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
+                      </div>
+                    </div>
+                  ))} */}
+                  <div className='flex items-center justify-between gap-10 p-5 rounded-lg relative pb-9 dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
+                      <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" />
+                      <div>
+                        <p className='text-lg'>Nativ</p>
+                        <h3 className='font-bold text-xl'>1000.00</h3>
+                        <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
+                      </div>
+                    </div>
 
-            <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>
+                    <div className='flex items-center justify-between gap-10 p-5 rounded-lg pb-9 relative dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
+                      <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" />
+                      <div>
+                        <p className='text-lg'>AVDA</p>
+                        <h3 className='font-bold text-xl'>900</h3>
+                        <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
+                      </div>
+                    </div>
+
+                    <div className='flex items-center justify-between gap-10 p-5 rounded-lg pb-9 relative dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
+                      <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" />
+                      <div>
+                        <p className='text-lg'>USD</p>
+                        <h3 className='font-bold text-xl'>30000</h3>
+                        <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
+                      </div>
+                    </div>
+                </div>
+                <h3 className='text-2xl font-[600] text-[#888] mb-5 mt-[50px]'>MY STAKED PROJECTS</h3>
+                <div>
+                  
+                </div>
+            </div>
+        : 
+            <div className='py-2 px-5 relative left-[7%] top-[10%] flex justify-center items-center flex-col' id='dashboard'>
+              <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>
                 <div className="connectWalletBox bg-[#eee] w-full rounded-[10px] py-5 mt-9" style={{ boxShadow:"0 0 25px #ccc" }}>
                     <img src={AVDACoin} alt="" style={{ width:"20%", margin:"-7rem 0 0 auto" }}/>
                     <div className='text-start px-9'>
@@ -112,8 +182,8 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                     </div>
                 </div>
             </div>
-            
-        </div>
+          </div>
+        }
         {/* {walletModal && 
             <div className="walletsModalBg">
                 <div className="walletsModal">
@@ -225,6 +295,17 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
               <p>Verifying Payment please wait</p>
             </div>
           </div>
+        }
+
+        {success && 
+          <SuccessAlert success={"Payment has been successfull verified"} setSuccess={setSuccess}/>
+          // <div className='verifyPaymentModdalBg'>
+          //   <div className="verifyPaymentModal relative">
+          //     <i className='absolute top-3 right-3 cursor-pointer' onClick={()=> setSuccessfulModal(false)}>x</i>
+          //     <i className="fa-solid fa-check" style={{ color:"#1AC888", fontSize:"2rem", marginBottom:"20px" }}></i>
+          //     <p>Payment has been successfull</p>
+          //   </div>
+          // </div>
         }
     </div>
   )

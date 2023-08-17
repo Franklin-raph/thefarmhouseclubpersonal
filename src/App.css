@@ -48,7 +48,7 @@ form label{
   border-right: 1px solid #595959;
 }
 
-.darkMode .connectWalletBox, .darkMode .userModal{
+.darkMode :is(.connectWalletBox, .userModal, .dashboardInfo){
   background-color: hsl(207, 26%, 17%);
   box-shadow: 0 0 25px hsl(210, 13%, 21%) !important;
 }
