@@ -5,6 +5,7 @@ import stellar from "../../assets/images/Stellar_Symbol.png"
 import Navbar from '../../components/navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
 import TextTransition, { presets } from 'react-text-transition';
+import PaystackPop from "@paystack/inline-js"
 
 const Dashboard = ({changemode, mode}) => {
 
@@ -35,6 +36,7 @@ const Dashboard = ({changemode, mode}) => {
 
   const [error, setError] = useState("")
   const [index, setIndex] = useState(0);
+  const [verifyPaymentModal, setVerifyPaymentModal] = useState(false)
 
   const navigate = useNavigate()
 
@@ -69,24 +71,36 @@ const Dashboard = ({changemode, mode}) => {
       console.log(data)
   }
 
-  async function handleAccountFund(){
-    setLoadFundButton(true)
-    const response = await fetch("https://app1.thefarmhouseclub.io/api/v1/pay-for-account-funding/",{
+  async function handleVerifyAccountFund(reference){
+    console.log(reference)
+    const response = await fetch("https://app1.thefarmhouseclub.io/api/v1/create-funded-account/",{
       method:"POST",
-      body: JSON.stringify({public_key:user.public_key, amount:amount}),
+      body: JSON.stringify({reference:reference}),
       headers:{
         Authorization: `Bearer ${user.access}`,
         "Content-Type":"application/json"
       }
     })
-    if(response) setLoadFundButton(false)
+    if(response)setVerifyPaymentModal(false)
     const data = await response.json()
-    if(response.ok){
-      localStorage.setItem("ref_id", JSON.stringify(data))
-      window.location.replace(data.data.authorization_url)
-      // location.assign(d)
-    }
-    console.log(response, data, data.authorization_url)
+    console.log(response, data)
+  }
+
+  function payWithPayStack(){
+    const payStack = new PaystackPop()
+    payStack.newTransaction({
+      key:"pk_test_12420d20e0b354e9670266456195a13f3a03ec68",
+      amount:amount * 100,
+      email:user.user.email,
+      onSuccess(transaction){
+        setFundAccountModal(false)
+        setVerifyPaymentModal(true)
+        handleVerifyAccountFund(transaction.reference)
+      },
+      oncancel(){
+        console.log("Failed Transaction")
+      }
+    })
   }
 
   return (
@@ -211,15 +225,23 @@ const Dashboard = ({changemode, mode}) => {
                     </div>
                   </div>
                   {!loadFundButton ?
-                    <button onClick={handleAccountFund} className='bg-[#1AC888] w-full text-white p-[5px] mt-3'>Fund</button>
+                    <button onClick={payWithPayStack} className='bg-[#1AC888] w-full text-white p-[5px] mt-3'>Fund</button>
                     :
                     <button className='bg-[#1AC888] w-full text-white p-[5px] mt-3'>
                       <i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i>
                     </button>
                    }
-                  
                 </div>
               }
+            </div>
+          </div>
+        }
+
+        {verifyPaymentModal && 
+          <div className='verifyPaymentModdalBg'>
+            <div className="verifyPaymentModal">
+              <i className="fa-solid fa-gear fa-spin" style={{ color:"#1AC888", fontSize:"2rem", marginBottom:"20px" }}></i>
+              <p>Verifying Payment please wait</p>
             </div>
           </div>
         }

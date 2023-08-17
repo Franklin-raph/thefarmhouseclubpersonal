@@ -54,7 +54,7 @@ useEffect(() => {
         <Route path='/marketinfo/:id' element={<MarketInfo baseUrl={baseUrl}/>} />
         <Route path='/swap' element={<Swap baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
         <Route path='/resetpassword/:uuid/:token' element={<PasswordReset baseUrl={baseUrl}/>} />
-        <Route path='/:ref' element={<VerifyFundAccount baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
+        <Route path='verifyfundaccount/' element={<VerifyFundAccount baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
       </Routes>
     </div>
     </HashRouter>

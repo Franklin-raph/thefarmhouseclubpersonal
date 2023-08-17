@@ -72,7 +72,7 @@ form label{
   border-bottom: 1px solid #595959;
 }
 
-.darkMode :is(.successModal, .failureModal, .otp-input, .changPasswordModal, .twoFactorModal, .fundModal){
+.darkMode :is(.successModal, .failureModal, .otp-input, .changPasswordModal, .twoFactorModal, .fundModal, .verifyPaymentModdal){
   background-color: hsl(207, 26%, 17%);
   color: #ffffff;
 }
@@ -370,7 +370,7 @@ footer i{
   font-size: 14px;
 }
 
-.successModalBg, .errorModalBg, .otp-input-field-bg, .changePasswordModalBg, .twoFactorModalBg, .tokenModalBg{
+.successModalBg, .errorModalBg, .otp-input-field-bg, .changePasswordModalBg, .twoFactorModalBg, .tokenModalBg, .verifyPaymentModdalBg{
   position: fixed;
   top: 50%;
   left: 50%;
@@ -384,7 +384,7 @@ footer i{
   z-index: 99;
 }
 
-.successModal, .failureModal, .otp-input, .changPasswordModal, .twoFactorModal{
+.successModal, .failureModal, .otp-input, .changPasswordModal, .twoFactorModal, .verifyPaymentModal{
   background-color: #fff;
   color: #000;
   padding: 2rem;
