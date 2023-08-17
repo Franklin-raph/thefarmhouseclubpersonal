@@ -72,6 +72,11 @@ form label{
   border-bottom: 1px solid #595959;
 }
 
+.darkMode :is(.successModal, .failureModal, .otp-input, .changPasswordModal, .twoFactorModal, .fundModal){
+  background-color: hsl(207, 26%, 17%);
+  color: #ffffff;
+}
+
 .darkMode input{
   color: #000;
 }

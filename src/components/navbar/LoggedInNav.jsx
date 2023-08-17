@@ -78,7 +78,7 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
 
     async function checkTokenStatus(){
         console.log("Checking Token Status")
-        const response = await fetch(`https://avda.pythonanywhere.com/api/v1/token-status/${user.access}`)
+        const response = await fetch(`https://app1.thefarmhouseclub.io/api/v1/token-status/${user.access}`)
         const data = await response.json()
         if(!response.ok){
             localStorage.clear()

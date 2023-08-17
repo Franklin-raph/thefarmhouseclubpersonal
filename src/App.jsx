@@ -13,6 +13,7 @@ import UserProfile from './pages/userprofile/UserProfile';
 import MarketInfo from './pages/marketInfo/MarketInfo';
 import PasswordReset from './authentication/passwordReset/PasswordReset';
 import Swap from './pages/swap/Swap';
+import VerifyFundAccount from './pages/verifyFundAccount/VerifyFundAccount';
 
 console.log("igboekwulusifranklin@gmail.com")
 
@@ -53,6 +54,7 @@ useEffect(() => {
         <Route path='/marketinfo/:id' element={<MarketInfo baseUrl={baseUrl}/>} />
         <Route path='/swap' element={<Swap baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
         <Route path='/resetpassword/:uuid/:token' element={<PasswordReset baseUrl={baseUrl}/>} />
+        <Route path='/verifyfundaccount/:ref' element={<VerifyFundAccount baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
       </Routes>
     </div>
     </HashRouter>

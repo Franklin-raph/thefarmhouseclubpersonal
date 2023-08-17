@@ -22,21 +22,6 @@ const Login = ({baseUrl}) => {
 
     useEffect(() => {
         
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
         if(user){
             console.log(true)
             navigate("/")
@@ -62,8 +47,10 @@ const Login = ({baseUrl}) => {
             return
         }else {
             setLoading(true)
-            const response = await fetch(`${baseUrl}/login/`, {
+            const response = await fetch(`https://app1.thefarmhouseclub.io/api/v1/login/`, {
+            // const response = await fetch(`${baseUrl}/login/`, {
             method: "POST",
+            mode: "cors",
             body: JSON.stringify({email:email, password:password}),
             headers:{
                 "Content-Type":"application/json"
@@ -108,6 +95,7 @@ const Login = ({baseUrl}) => {
       async function handleLoginFromGoogleResponse(email){
         setLoading(true)
         const response = await fetch(`${baseUrl}/google-login/`, {
+        // const response = await fetch(`https://app1.thefarmhouseclub.io/google-login/`, {
             method:"POST",
             body: JSON.stringify({email:email}),
             headers:{
@@ -134,8 +122,6 @@ const Login = ({baseUrl}) => {
             setError(data.detail)
         }
       }
-
-      function errorMessage(){}
 
   return (
     <div className="px-[1rem] lg:px-[5rem] py-[5rem] register">
