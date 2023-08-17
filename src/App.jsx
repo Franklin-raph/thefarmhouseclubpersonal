@@ -1,6 +1,6 @@
 import './App.css'
 import { useEffect, useState } from "react";
-import { HashRouter, Routes, Route, BrowserRouter } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import LandingPage from './landingPage/LandingPage'
 import Login from './authentication/login/Login';
 import Register from './authentication/register/Register';
@@ -39,31 +39,25 @@ useEffect(() => {
   const baseUrl = "https://avda.pythonanywhere.com/api/v1"
 
   return (
-    <>
-      <HashRouter>
-      <div className={mode}>
-        <Routes>
-          <Route path='/' element={<LandingPage />} />
-          <Route path='/login' element={<Login baseUrl={baseUrl}/>} />
-          <Route path='/register' element={<Register baseUrl={baseUrl}/>} />
-          <Route path='/forgotpassword' element={<ForgotPassword baseUrl={baseUrl}/>} />
-          <Route path='/dashboard' element={<Dashboard baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
-          <Route path='/governance' element={<Governance baseUrl={baseUrl}/>} />
-          <Route path='/verifyemail/:token/:uuid' element={<VerifyEmail baseUrl={baseUrl}/>} />
-          <Route path='/myprofile/:id' element={<UserProfile baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
-          <Route path='/markets' element={<Markets baseUrl={baseUrl}/>} />
-          <Route path='/marketinfo/:id' element={<MarketInfo baseUrl={baseUrl}/>} />
-          <Route path='/swap' element={<Swap baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
-          <Route path='/resetpassword/:uuid/:token' element={<PasswordReset baseUrl={baseUrl}/>} />
-        </Routes>
-      </div>
-      </HashRouter>
-      <BrowserRouter>
-          <Routes>
-            <Route path='/verifyfundaccount/:ref' element={<VerifyFundAccount baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
-          </Routes>
-      </BrowserRouter>
-    </>
+    <HashRouter>
+    <div className={mode}>
+      <Routes>
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/login' element={<Login baseUrl={baseUrl}/>} />
+        <Route path='/register' element={<Register baseUrl={baseUrl}/>} />
+        <Route path='/forgotpassword' element={<ForgotPassword baseUrl={baseUrl}/>} />
+        <Route path='/dashboard' element={<Dashboard baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
+        <Route path='/governance' element={<Governance baseUrl={baseUrl}/>} />
+        <Route path='/verifyemail/:token/:uuid' element={<VerifyEmail baseUrl={baseUrl}/>} />
+        <Route path='/myprofile/:id' element={<UserProfile baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
+        <Route path='/markets' element={<Markets baseUrl={baseUrl}/>} />
+        <Route path='/marketinfo/:id' element={<MarketInfo baseUrl={baseUrl}/>} />
+        <Route path='/swap' element={<Swap baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
+        <Route path='/resetpassword/:uuid/:token' element={<PasswordReset baseUrl={baseUrl}/>} />
+        <Route path='/:ref' element={<VerifyFundAccount baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
+      </Routes>
+    </div>
+    </HashRouter>
   )
 }
 
