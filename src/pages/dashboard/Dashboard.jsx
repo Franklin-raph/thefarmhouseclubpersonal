@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import TextTransition, { presets } from 'react-text-transition';
 import PaystackPop from "@paystack/inline-js"
 
-const Dashboard = ({changemode, mode}) => {
+const Dashboard = ({changemode, mode, baseUrl}) => {
 
   const user = JSON.parse(localStorage.getItem("user"))
 
@@ -50,30 +50,9 @@ const Dashboard = ({changemode, mode}) => {
     return () => clearTimeout(intervalId);
   },[])
 
-  async function connectAccount(){
-      setLoadingAccount(true)
-      const response = await fetch(`https://horizon-testnet.stellar.org/accounts/${user.public_key}`)
-      const data = await response.json()
-      if(response) {
-          setLoadingAccount(false)
-          setWalletModal(false)
-      }
-
-      if(response.status === 404) {
-          setError("Unfunded account. Please fund your account")
-          setFundAccount(true)
-      }
-
-      if(response.ok){
-        localStorage.setItem("isWalletAddressFunded", true)
-        setIsWalletAddressFunded(true)
-      }
-      console.log(data)
-  }
-
   async function handleVerifyAccountFund(reference){
-    console.log(reference)
-    const response = await fetch("https://app1.thefarmhouseclub.io/api/v1/create-funded-account/",{
+    console.log(JSON.stringify({reference:reference}))
+    const response = await fetch(`${baseUrl}/create-funded-account/`,{
       method:"POST",
       body: JSON.stringify({reference:reference}),
       headers:{
@@ -88,6 +67,7 @@ const Dashboard = ({changemode, mode}) => {
 
   function payWithPayStack(){
     const payStack = new PaystackPop()
+    console.log(payStack)
     payStack.newTransaction({
       key:"pk_test_12420d20e0b354e9670266456195a13f3a03ec68",
       amount:amount * 100,
@@ -96,6 +76,7 @@ const Dashboard = ({changemode, mode}) => {
         setFundAccountModal(false)
         setVerifyPaymentModal(true)
         handleVerifyAccountFund(transaction.reference)
+        console.log(transaction.reference, transaction)
       },
       oncancel(){
         console.log("Failed Transaction")
@@ -133,7 +114,7 @@ const Dashboard = ({changemode, mode}) => {
             </div>
             
         </div>
-        {walletModal && 
+        {/* {walletModal && 
             <div className="walletsModalBg">
                 <div className="walletsModal">
                     <div className='flex justify-between pb-1 mb-4' style={{ borderBottom:"1px solid #ccc" }}>
@@ -146,12 +127,12 @@ const Dashboard = ({changemode, mode}) => {
                     </div>
                 </div>
             </div>
-        }
-        {loadingAccount && 
+        } */}
+        {/* {loadingAccount && 
             <div className="connectAccountLoader fixed top-[50%] left-[50%] text-[#84b943f7]">
                 <i className="fa-solid fa-gear fa-spin mb-4 text-3xl"></i>
             </div>
-        }
+        } */}
         {error &&
             <div className="errorModalBg">
                 <div className="failureModal" style={{ position:"relative" }}>

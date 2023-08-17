@@ -36,7 +36,7 @@ useEffect(() => {
 },[])
 
 
-  const baseUrl = "https://avda.pythonanywhere.com/api/v1"
+  const baseUrl = "https://app1.thefarmhouseclub.io/api/v1"
 
   return (
     <HashRouter>

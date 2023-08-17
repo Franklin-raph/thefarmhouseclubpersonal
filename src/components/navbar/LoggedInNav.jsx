@@ -62,7 +62,7 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
     async function logoutUser(){
         setLogOutLoader(true)
         console.log(JSON.stringify({refresh:user.refresh}))
-        const response = await fetch("https://avda.pythonanywhere.com/api/v1/logout/", {
+        const response = await fetch(`https://app1.thefarmhouseclub.io/api/v1/logout/`, {
             method:"POST",
             body: JSON.stringify({refresh:user.refresh}),
             headers:{
@@ -139,7 +139,6 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
             </ul>
 
             <ul className="mobileNavLoggedInNav">
-                {/* <p className='mb-5'>Hi, <span>{user && user.user.first_name}</span> </p> */}
                 <li className='text-center flex items-center flex-col gap-2 text-[#46695c]'>
                     <Link to="/dashboard">
                         <i class="ri-dashboard-3-line text-xl"></i>
@@ -184,8 +183,6 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
                     </li>
                     }
                 </div>
-
-                {/* <i class="ri-phone-line text-xl "></i> */}
                 <div className="togglers">
                     <i class="ri-menu-line"></i>
                     <i class="ri-close-fill"></i>
@@ -195,15 +192,6 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
             </ul>
             <p className='font-bold text-[#888] text-[18px]'> {locationName} </p>
             <div>
-                {/* {!checkIfWalletAddressIsFunded ? 
-                    <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setWalletModal(true)}>
-                        Connect
-                    </button>
-                : 
-                    <button className='py-2 px-4 rounded-[6px] bg-[#83B943] text-white cursor-pointer' onClick={()=> setFundAccountModal(true)}>
-                        {user && user.public_key.slice(0, 4)}...${user.public_key.slice(-4)}
-                    </button>
-                } */}
                 <i className="ri-user-3-line text-lg ml-3 p-2 bg-slate-500 rounded-full text-white cursor-pointer" onClick={()=> setUserModal(!userModal)}></i>
             </div>
         </nav>

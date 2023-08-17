@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import { useNavigate, useParams } from 'react-router-dom'
 
-const VerifyEmail = () => {
+const VerifyEmail = ({baseUrl}) => {
     const navigate = useNavigate()
     const [success, setSuccess] = useState("")
     const [error, setError] = useState("")
@@ -14,7 +14,7 @@ const VerifyEmail = () => {
     },[])
 
     async function verifyEmail(){
-        const response = await fetch(`https://avda.pythonanywhere.com/api/v1/verify-email/${token}/${uuid}`, {
+        const response = await fetch(`${baseUrl}/verify-email/${token}/${uuid}`, {
             method:"GET"
         })
         console.log(response)

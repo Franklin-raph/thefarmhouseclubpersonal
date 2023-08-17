@@ -21,6 +21,7 @@ const Login = ({baseUrl}) => {
     console.log(user)
 
     useEffect(() => {
+      console.log(`${baseUrl}/login/`)
         
         if(user){
             console.log(true)
@@ -38,6 +39,7 @@ const Login = ({baseUrl}) => {
       };
 
       async function handleLogin(e){
+        console.log(`${baseUrl}login/`)
         e.preventDefault()
         if(!email || !password){
             setError("Please fill out all fields")
@@ -47,8 +49,8 @@ const Login = ({baseUrl}) => {
             return
         }else {
             setLoading(true)
-            const response = await fetch(`https://app1.thefarmhouseclub.io/api/v1/login/`, {
-            // const response = await fetch(`${baseUrl}/login/`, {
+            // const response = await fetch(`https://app1.thefarmhouseclub.io/api/v1/login/`, {
+            const response = await fetch(`${baseUrl}/login/`, {
             method: "POST",
             mode: "cors",
             body: JSON.stringify({email:email, password:password}),

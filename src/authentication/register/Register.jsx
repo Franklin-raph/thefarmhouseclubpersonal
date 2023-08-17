@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import ErrorAlert from "../../components/alert/ErrorAlert";
 import welcomeImage from "../../assets/images/c11d05415f5ff082abf5155fa6d98e1f.gif"
 
-const Register = () => {
+const Register = ({baseUrl}) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -62,7 +62,7 @@ const Register = () => {
         }else {
             setLoading(true)
             console.log( JSON.stringify({email:email, password:password, username:username, first_name:first_name, last_name:last_name}))
-            const response = await fetch("https://avda.pythonanywhere.com/api/v1/signup/", {
+            const response = await fetch(`${baseUrl}/signup/`, {
             method: "POST",
             body: JSON.stringify({email:email, password:password, username:username, first_name:first_name, last_name:last_name}),
             headers:{
@@ -101,7 +101,7 @@ const Register = () => {
     const {email, family_name, given_name, email_verified} = userDetails
     console.log(email, family_name, given_name, email_verified)
     setLoading(true)
-    const response = await fetch("https://avda.pythonanywhere.com/api/v1/google-signup/", {
+    const response = await fetch(`${baseUrl}/google-signup/`, {
         method:"POST",
         body: JSON.stringify({email:email, first_name:given_name, last_name:family_name, username:"1", password:"1", provider:"1", email_verified:email_verified }),
         headers:{
