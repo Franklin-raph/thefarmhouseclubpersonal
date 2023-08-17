@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import LoggedInNav from '../../components/navbar/LoggedInNav'
 import { useNavigate } from 'react-router-dom'
 

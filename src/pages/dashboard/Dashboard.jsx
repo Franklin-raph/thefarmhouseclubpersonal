@@ -82,8 +82,8 @@ const Dashboard = ({changemode, mode}) => {
     if(response) setLoadFundButton(false)
     const data = await response.json()
     if(response.ok){
-      // location.href = data.data.authorization_url
       localStorage.setItem("ref_id", JSON.stringify(data))
+      location.href = data.data.authorization_url
     }
     console.log(response, data, data.authorization_url)
   }
