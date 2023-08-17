@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import LoggedInNav from '../../components/navbar/LoggedInNav'
 import AVDACoin from "../../assets/images/advatoken.png"
-import stellar from "../../assets/images/Stellar_Symbol.png"
+import avda from "../../assets/images/WhatsApp-Image-2023-08-03-at-11.47.37-AM-300x225.jpeg"
 import Navbar from '../../components/navbar/Navbar'
 import { useNavigate } from 'react-router-dom'
 import TextTransition, { presets } from 'react-text-transition';
@@ -131,17 +131,17 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                       </div>
                     </div>
                   ))} */}
-                  <div className='flex items-center justify-between gap-10 p-5 rounded-lg relative pb-9 dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
+                    <div className='border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg relative pb-9 dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
                       <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" />
                       <div>
-                        <p className='text-lg'>Nativ</p>
+                        <p className='text-lg'>XLM</p>
                         <h3 className='font-bold text-xl'>1000.00</h3>
                         <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
                       </div>
                     </div>
 
-                    <div className='flex items-center justify-between gap-10 p-5 rounded-lg pb-9 relative dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
-                      <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" />
+                    <div className='border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg pb-9 relative dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
+                      <img src={avda} className='w-[30%] rounded-full' alt="" />
                       <div>
                         <p className='text-lg'>AVDA</p>
                         <h3 className='font-bold text-xl'>900</h3>
@@ -149,18 +149,18 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                       </div>
                     </div>
 
-                    <div className='flex items-center justify-between gap-10 p-5 rounded-lg pb-9 relative dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
-                      <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" />
+                    {/* <div className='border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg pb-9 relative dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
+                      <img src="https://cdn.lumenswap.io/obm/usdc.png" className='rounded-full' alt="" />
                       <div>
                         <p className='text-lg'>USD</p>
                         <h3 className='font-bold text-xl'>30000</h3>
                         <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
                       </div>
-                    </div>
+                    </div> */}
                 </div>
                 <h3 className='text-2xl font-[600] text-[#888] mb-5 mt-[50px]'>MY STAKED PROJECTS</h3>
                 <div>
-                  
+
                 </div>
             </div>
         : 
