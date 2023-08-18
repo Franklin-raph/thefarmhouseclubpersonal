@@ -77,6 +77,11 @@ form label{
   color: #ffffff;
 }
 
+.darkMode .marketCard .footer div{
+  border: 1px solid #505357a2;
+  color: hsla(0,0%,100%,.92);
+}
+
 .darkMode input{
   color: #000;
 }
@@ -490,14 +495,14 @@ footer i{
 
 .marketCardContainer{
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .marketCard{
   box-shadow: 0 0 10px #00000066;
-  border-radius: 20px;
+  border-radius: 16px;
 }
 
 .marketCard .firstImage{
@@ -510,8 +515,7 @@ footer i{
 }
 
 .marketCard .footer div{
-  border: 1px solid #3333333f;
-  background-color: #C0E8DF;
+  border: 1px solid #cfcfcf;
 }
 
 .marketInfoFirstSection{
@@ -590,6 +594,7 @@ footer i{
   #dashboard{
     right: 0;
     left: 0;
+    padding: 150px 3rem;
   }
 
   .logo-container{
@@ -622,11 +627,17 @@ footer i{
   }
 
   #dashboard > div{
-    width: 90%;
+    /* width: 90%; */
   }
 
   #dashboard > div h3{
     margin-bottom: 10px;
+  }
+
+  #dashboard{
+    right: 0;
+    left: 0;
+    padding: 150px .8rem;
   }
 }
 

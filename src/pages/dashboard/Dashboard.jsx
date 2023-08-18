@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import TextTransition, { presets } from 'react-text-transition';
 import PaystackPop from "@paystack/inline-js"
 import SuccessAlert from '../../components/alert/SuccessAlert'
+import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
+import cardImage1 from '../../assets/images/cover.jpeg'
 
 const Dashboard = ({changemode, mode, baseUrl}) => {
 
@@ -108,8 +110,35 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
     })
   }
 
+  const stakedProjectsArray = [
+    {
+      projectName:"Farm House Club",
+      author:"Glory",
+      tvl:"$1.03M",
+      apy:"3.2%"
+    },
+    {
+      projectName:"Farm House Club",
+      author:"Frank",
+      tvl:"$999T",
+      apy:"99.9%"
+    },
+    {
+      projectName:"Farm House Club",
+      author:"Emma",
+      tvl:"$1.03M",
+      apy:"3.2%"
+    },
+    {
+      projectName:"Farm House Club",
+      author:"John",
+      tvl:"$1.03M",
+      apy:"3.2%"
+    }
+  ]
+
   return (
-    <div className='market h-[100vh]'>
+    <div className='market h-full pb-[3rem]'>
       <div className="balanceContainer">
         <div className="balances"></div>
         <div className="balances"></div>
@@ -118,19 +147,9 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
         <LoggedInNav fundAccount={fundAccount} setFundAccountModal={setFundAccountModal} setWalletModal={setWalletModal} changemode={changemode} mode={mode}/>
         
         {displayDashboardInfo ? 
-            <div className='px-[9rem] pt-6 relative left-[7%] top-[10%]' id='dashboard'>
-                <h3 className='text-2xl font-[600] text-[#888] mb-5'>ACCOUNTS</h3>
-                <div className='gap-10' style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)" }}>
-                  {/* {displayDashboardInfo.balances && displayDashboardInfo.balances.map(balance => (
-                    <div className='flex items-center justify-between gap-10 p-5 rounded-lg relative pb-9 w-full' style={{ boxShadow:"0 0 20px #ccc" }}>
-                      <img src="https://cdn.lumenswap.io/obm/xlm.png" width={"80px"} className='rounded-full' alt="" />
-                      <div>
-                        <p className='text-lg'>{balance.asset_type === "native" ? "XLM":""}</p>
-                        <h3 className='font-bold text-xl'>{Number(balance.balance).toFixed(2)}</h3>
-                        <p className='absolute'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
-                      </div>
-                    </div>
-                  ))} */}
+            <div className='px-[9rem] pt-[100px] relative left-[7%] top-[50%]' id='dashboard'>
+                <h3 className='text-2xl font-[600] text-[#888] mb-5 pl-1' style={{ borderLeft:"4px solid #888" }}>ACCOUNTS</h3>
+                <div className='gap-10 grid grid-cols-1 lg:grid-cols-3'>
                     <div className='border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg relative pb-9 dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
                       <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" />
                       <div>
@@ -141,26 +160,38 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                     </div>
 
                     <div className='border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg pb-9 relative dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
-                      <img src={avda} className='w-[30%] rounded-full' alt="" />
+                      <img src={avda} className='w-[75px] rounded-full' alt="" />
                       <div>
                         <p className='text-lg'>AVDA</p>
                         <h3 className='font-bold text-xl'>900</h3>
                         <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
                       </div>
                     </div>
-
-                    {/* <div className='border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg pb-9 relative dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
-                      <img src="https://cdn.lumenswap.io/obm/usdc.png" className='rounded-full' alt="" />
-                      <div>
-                        <p className='text-lg'>USD</p>
-                        <h3 className='font-bold text-xl'>30000</h3>
-                        <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
-                      </div>
-                    </div> */}
                 </div>
-                <h3 className='text-2xl font-[600] text-[#888] mb-5 mt-[50px]'>MY STAKED PROJECTS</h3>
-                <div>
 
+                <h3 className='text-2xl font-[600] text-[#888] mb-5 mt-[90px] pl-1' style={{ borderLeft:"4px solid #888" }}>MY STAKED PROJECTS</h3>
+                <div className="marketCardContainer relative w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center content-center">
+                  {stakedProjectsArray && stakedProjectsArray.map((project, index) => (
+                    <div key={index} className="marketCard w-full cursor-pointer mt-6" onClick={()=> navigate("/marketinfo/123")}>
+                        <div className="body">
+                          <div className="author flex justify-between items-center px-4">
+                            <img src={logo} alt="" width={"18%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
+                            <p className='text-sm mt-3 mr-2 font-[500]'>{project.author}</p>
+                          </div>
+                           <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{project.projectName}</h2>
+                          <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
+                            <div className='py-3 w-full p-2 rounded-[5px]'>
+                              <p className='font-bold'>TVL</p>
+                              <h2 className='font-bold text-xl'>{project.tvl}</h2>
+                            </div>
+                            <div className='py-3 w-full p-2 rounded-[5px]'>
+                              <p className='font-bold'>APY</p>
+                              <h2 className='font-bold text-xl'>{project.apy}</h2>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  ))}
                 </div>
             </div>
         : 
