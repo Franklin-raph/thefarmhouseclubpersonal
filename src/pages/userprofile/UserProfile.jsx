@@ -89,7 +89,7 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
   return (
     <div>
         <LoggedInNav changemode={changemode} mode={mode}/>
-        <div className="userProfileDetailsContainer">
+        <div className="userProfileDetailsContainer relative top-[10%]">
           <div className='fixed bg-white w-full py-8 top-[12.5%] left-[16%]' id='userProfileNavContainer'>
             <div className='userProfileNav inline-flex items-center gap-5 py-2 px-4 rounded-full bg-[#F5F6FA]'>
               <div className='cursor-pointer flex items-center gap-2' onClick={()=> {
@@ -108,7 +108,7 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
           </div>
 
           {showProfile && 
-            <div className='userProfileDetails pl-[9rem] mt-[7rem]'>
+            <div className='userProfileDetails pl-[10rem] mt-[7rem]'>
               <h1 className='text-2xl my-[2.5rem] text-[rgba(10,46,101,.3)] font-medium border-b border-gray-200 pb-5'>Personalize</h1>
               <div className='my-3 flex items-center gap-4'>
                 <i className="ri-user-3-line text-3xl px-3 py-2 bg-slate-500 rounded-full text-white cursor-pointer"></i>
@@ -162,7 +162,7 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
           }
 
           {show2Fa && 
-            <div className='userProfileDetails pl-[9rem] mt-20'>
+            <div className='userProfileDetails pl-[10rem] mt-[7rem]'>
               <div>
                 <h1 className='text-2xl my-[2.5rem] text-[rgba(10,46,101,.3)] font-medium border-b border-gray-200 pb-5'>Verified Information</h1>
                 <div className='my-9 flex gap-10 items-center'>

@@ -48,7 +48,7 @@ form label{
   border-right: 1px solid #595959;
 }
 
-.darkMode :is(.connectWalletBox, .userModal, .dashboardInfo){
+.darkMode :is(.connectWalletBox, .userModal, .dashboardInfo, .swapDiv){
   background-color: hsl(207, 26%, 17%);
   box-shadow: 0 0 25px hsl(210, 13%, 21%) !important;
 }
@@ -375,7 +375,7 @@ footer i{
   font-size: 14px;
 }
 
-.successModalBg, .errorModalBg, .otp-input-field-bg, .changePasswordModalBg, .twoFactorModalBg, .tokenModalBg, .verifyPaymentModdalBg{
+.successModalBg, .errorModalBg, .otp-input-field-bg, .changePasswordModalBg, .twoFactorModalBg, .tokenModalBg, .verifyPaymentModdalBg, .dashboardContentLoaderBg{
   position: fixed;
   top: 50%;
   left: 50%;
@@ -466,6 +466,7 @@ footer i{
   align-items: center;
   flex-direction: column;
   gap: 10px;
+  border-radius: 10px;
 }
 
 .walletsModalBg, .modalBg{
@@ -519,10 +520,12 @@ footer i{
 }
 
 .marketInfoFirstSection{
+  width: 85%;
+  margin-left: auto;
   display: grid;
   grid-template-columns: 4fr 3fr;
   gap: 2rem;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .tabBtn{
@@ -553,6 +556,10 @@ footer i{
   display: none;
 }
 
+.marketPlace .marketCardContainer{
+  padding-bottom: 6.5rem;
+}
+
 @media screen and (max-width:1244px) {
   .landingPage main{
     padding-left: 35px;
@@ -569,6 +576,11 @@ footer i{
 }
 
 @media screen and (max-width:1200px) {
+  .marketPlace .marketCardContainer{
+    width: 90%;
+    left: 0;
+  }
+
   .desktopLoggedInNav{
     display: none !important;
   }
@@ -624,10 +636,6 @@ footer i{
   .coins-div{
     top: 25px !important;
     margin-bottom: 8rem;
-  }
-
-  #dashboard > div{
-    /* width: 90%; */
   }
 
   #dashboard > div h3{

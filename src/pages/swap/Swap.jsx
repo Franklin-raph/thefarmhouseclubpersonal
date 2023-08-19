@@ -16,14 +16,14 @@ const Swap = ({changemode, mode}) => {
     console.log(selectedToken.name)
 
   return (
-    <div>
+    <div className='relative h-full'>
         <LoggedInNav changemode={changemode} mode={mode}/>
-        <div className='swapContainer'>
+        <div className='swapContainer h-[100vh]'>
             <div className='py-5 px-5 swapDiv'>
                 <div className="from border border-slate-400 rounded-md p-3">
                     <p className='text-sm'>From</p>
                     <div className='flex items-center gap-10 mt-5'>
-                        <input type="text" className='border-none outline-none font-medium text-xl' placeholder='0.0' />
+                        <input type="text" className='border border-gray-300 rounded-md px-2 py-2 outline-none' placeholder='0.0' />
                         <div className="logo flex items-center gap-1">
                             <img src="https://static.moonpay.com/widget/currencies/ngn.svg" width={"20px"} className='rounded-full' alt="" />
                             <p className='mr-2'>NGN</p>
@@ -35,7 +35,7 @@ const Swap = ({changemode, mode}) => {
                 <div className="from border border-slate-400 rounded-md p-3">
                     <p className='text-sm'>To (estimated)</p>
                     <div className='flex items-center gap-10 mt-5'>
-                        <input type="text" className='border-none outline-none font-medium text-xl' placeholder='0.0' />
+                        <input type="text" className='border border-gray-300 rounded-md px-2 py-2 outline-none' placeholder='0.0' />
                         <div className="logo flex items-center gap-1" onClick={() => setCoinsModal(true)}>
                             <img src={selectedToken.img} width={"20px"} className='rounded-full' alt="" />
                             <p className='mr-2'>{selectedToken.name}</p>

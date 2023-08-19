@@ -5,7 +5,7 @@ import cardImage1 from '../../assets/images/cover.jpeg'
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import stellar from "../../assets/images/Stellar_Symbol.png"
 
-const MarketInfo = () => {
+const MarketInfo = ({changemode, mode, baseUrl}) => {
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem("user"))
     const [walletModal, setWalletModal] = useState(false)
@@ -30,16 +30,12 @@ const MarketInfo = () => {
           setError("Unfunded account. Please fund your account")
           setFundAccount(true)
       }
-      console.log(data)
   }
 
   return (
-    <div className='market h-[100%]'>
-        <LoggedInNav />
-        <div className='inline-flex items-center px-3 py-2 rounded-md bg-[#83B943] ml-5 text-white cursor-pointer mt-9' onClick={() => navigate("/markets")}>
-            <i class="ri-arrow-left-s-line text-xl"></i>
-            <p>Back</p>
-        </div>
+    <div className='h-[100%]'>
+        <LoggedInNav changemode={changemode} mode={mode} />
+        <div className='inline-flex items-center mt-[5rem]' onClick={() => navigate("/markets")}></div>
         <div className="marketInfoFirstSection">
           <div className="marketCard w-full" onClick={()=> navigate("/marketinfo/123")}>
             <img src={cardImage1} alt="" className='firstImage'/>
@@ -98,9 +94,9 @@ const MarketInfo = () => {
               </div>
             </div>
             {fundAccount ? 
-              <button className='mt-5 rounded-md bg-[#83B943] text-center w-full py-2 font-bold text-white' onClick={()=> setFundAccountModal(true)}>Fund Account</button>
+              <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-bold text-white' onClick={()=> setFundAccountModal(true)}>Fund Account</button>
                 : 
-              <button className='mt-5 rounded-md bg-[#83B943] text-center w-full py-2 font-bold text-white' onClick={()=> setWalletModal(true)}>Connect your account to deposit</button>
+              <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-bold text-white' onClick={()=> setWalletModal(true)}>Connect your account to deposit</button>
             }
           </div>
         </div>

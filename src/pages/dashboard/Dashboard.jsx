@@ -16,7 +16,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
 
   const [walletModal, setWalletModal] = useState(false)
   const [fundAccountModal, setFundAccountModal] = useState(false)
-  const [loadingAccount, setLoadingAccount] = useState(false)
+  const [loadDashboardContent, setLoadDashboardContent] = useState(false)
   const [fundAccount, setFundAccount] = useState(false)
   const [openBankTransfer, setOpenBankTransfer] = useState(false)
   const [openCryptoTransfer, setOpenCryptoTransfer] = useState(false)
@@ -61,6 +61,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
   },[])
 
   async function getAccountSummary(){
+    setLoadDashboardContent(true)
     const response = await fetch(`${baseUrl}/myaccount-summary/`,{
       method:"POST",
       body: JSON.stringify({public_key:user.public_key}),
@@ -69,6 +70,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
         "Content-Type":"application/json"
       }
     })
+    if(response) setLoadDashboardContent(false)
     const data = await response.json()
     if(response.ok){
       setDisplayDashboardInfo(data)
@@ -138,15 +140,22 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
   ]
 
   return (
-    <div className='market h-full pb-[3rem]'>
+    <div className='h-full pb-[3rem]'>
       <div className="balanceContainer">
         <div className="balances"></div>
         <div className="balances"></div>
         <div className="balances"></div>
       </div>
         <LoggedInNav fundAccount={fundAccount} setFundAccountModal={setFundAccountModal} setWalletModal={setWalletModal} changemode={changemode} mode={mode}/>
-        
-        {displayDashboardInfo ? 
+        {!loadDashboardContent && 
+          <div className='dashboardContentLoaderBg'>
+            <div className='bg-white p-3'>
+              <p>Loading...</p>
+            </div>
+          </div>
+          }
+          
+        {displayDashboardInfo &&
             <div className='px-[9rem] pt-[100px] relative left-[7%] top-[50%]' id='dashboard'>
                 <h3 className='text-2xl font-[600] text-[#888] mb-5 pl-1' style={{ borderLeft:"4px solid #888" }}>ACCOUNTS</h3>
                 <div className='gap-10 grid grid-cols-1 lg:grid-cols-3'>
@@ -194,7 +203,10 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                   ))}
                 </div>
             </div>
-        : 
+        }
+        
+        {!displayDashboardInfo &&
+          <div className='h-[100vh]'>
             <div className='py-2 px-5 relative left-[7%] top-[10%] flex justify-center items-center flex-col' id='dashboard'>
               <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>
                 <div className="connectWalletBox bg-[#eee] w-full rounded-[10px] py-5 mt-9" style={{ boxShadow:"0 0 25px #ccc" }}>
@@ -212,9 +224,11 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                       </button>
                     </div>
                 </div>
+              </div>
             </div>
           </div>
         }
+
         {/* {walletModal && 
             <div className="walletsModalBg">
                 <div className="walletsModal">
