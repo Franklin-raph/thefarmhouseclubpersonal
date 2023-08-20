@@ -16,6 +16,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const [openCryptoTransfer, setOpenCryptoTransfer] = useState(false)
     const [openBankInstrumentsTransfer, setOpenInstrumentsTransfer] = useState(false)
     const [error, setError] = useState("")
+    const [depositFee, setDepositFee] = useState("")
 
     async function connectAccount(){
       setLoadingAccount(true)
@@ -30,6 +31,10 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
           setError("Unfunded account. Please fund your account")
           setFundAccount(true)
       }
+  }
+
+  function calculateDepositFee(depositPercent){
+    setDepositFee(depositPercent/100)
   }
 
   return (
@@ -72,7 +77,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                   </div>
                   <input type="text" className='font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3' placeholder='0.0' style={{ color:"#000" }}/>
                   <div className="discount flex justify-between items-center p-5 gap-2">
-                    <button className='border border-[#595959] w-full py-1 rounded-md'>25%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateDepositFee(25)}>25%</button>
                     <button className='border border-[#595959] w-full py-1 rounded-md'>50%</button>
                     <button className='border border-[#595959] w-full py-1 rounded-md'>75%</button>
                     <button className='border border-[#595959] w-full py-1 rounded-md'>100%</button>
@@ -82,7 +87,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
             <div>
               <div className='flex items-center justify-between font-medium'>
                 <p>Deposit Fee</p>
-                <p>0%</p>
+                <p>{depositFee}</p>
               </div>
               <div className='flex items-center justify-between my-2 font-medium'>
                 <p>Withdraw Fee</p>
@@ -93,11 +98,11 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                 <p>10%</p>
               </div>
             </div>
-            {fundAccount ? 
+            {/* {fundAccount ? 
               <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-bold text-white' onClick={()=> setFundAccountModal(true)}>Fund Account</button>
                 : 
               <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-bold text-white' onClick={()=> setWalletModal(true)}>Connect your account to deposit</button>
-            }
+            } */}
           </div>
         </div>
         {walletModal && 

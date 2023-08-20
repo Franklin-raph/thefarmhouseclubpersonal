@@ -209,7 +209,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
             </div>
         }
         
-        {displayDashboardInfo && displayDashboardInfo.balances.length === 0 &&
+        {displayDashboardInfo &&
           <div className='h-[100vh]'>
             <div className='py-2 px-5 relative left-[7%] top-[10%] flex justify-center items-center flex-col' id='dashboard'>
               <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>
