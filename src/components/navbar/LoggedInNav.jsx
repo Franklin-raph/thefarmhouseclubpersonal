@@ -63,19 +63,19 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
 
     async function logoutUser(){
         setLogOutLoader(true)
-        console.log(JSON.stringify({refresh:user.refresh}))
-        const response = await fetch(`https://app1.thefarmhouseclub.io/api/v1/logout/`, {
-            method:"POST",
-            body: JSON.stringify({refresh:user.refresh}),
-            headers:{
-                "Content-Type":"application/json"
-            }
-        })
-        const data = await response.json()
-        if(response.ok){
+        // console.log(JSON.stringify({refresh:user.refresh}))
+        // const response = await fetch(`https://app1.thefarmhouseclub.io/api/v1/logout/`, {
+        //     method:"POST",
+        //     body: JSON.stringify({refresh:user.refresh}),
+        //     headers:{
+        //         "Content-Type":"application/json"
+        //     }
+        // })
+        // const data = await response.json()
+        // if(response.ok){
             localStorage.clear()
             navigate("/")
-        }
+        // }
     }
 
     async function checkTokenStatus(){
