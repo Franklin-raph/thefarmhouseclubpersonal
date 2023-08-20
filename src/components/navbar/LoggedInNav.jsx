@@ -98,10 +98,18 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
   return (
     <div className="topnav">
          <nav className="flex items-center justify-between px-[16px] py-5 bg-[#F4F7FA] fixed w-full z-[2]">
-            <a href="/" className="w-[12rem] flex items-center gap-1 logo-container">
-                <img src={logo1} alt="" className='logo1' />
-                <img src={logo2} alt="" className='logo2' />
-            </a>
+                {user ?
+                <a href="#/dashboard" className="w-[12rem] flex items-center gap-1 logo-container">
+                    <img src={logo1} alt="" className='logo1' />
+                    <img src={logo2} alt="" className='logo2' />
+                </a>
+                    :
+                    <a href="#/dashboard" className="w-[12rem] flex items-center gap-1 logo-container">
+                        <img src={logo1} alt="" className='logo1' />
+                        <img src={logo2} alt="" className='logo2' />
+                    </a>
+                }
+                
             <ul className="desktopLoggedInNav flex items-start gap-[30px] pl-5 fixed flex-col top-[11%] bg-[#F4F7FA] left-0 h-screen w-[15%] pt-[3rem]">
                 <p className='mb-5 text-xl font-bold text-[#888]'>Hi, <span>{user && user.user.first_name}</span> </p>
                 <li className='flex items-center  gap-2 text-[#46695c]'>

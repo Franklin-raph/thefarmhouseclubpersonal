@@ -72,7 +72,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
     })
     if(response) {
       console.log("test")
-    setLoadDashboardContent(!loadDashboardContent)
+    setLoadDashboardContent(false)
     }
 
     const data = await response.json()
@@ -151,7 +151,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
         <div className="balances"></div>
       </div>
         <LoggedInNav fundAccount={fundAccount} setFundAccountModal={setFundAccountModal} setWalletModal={setWalletModal} changemode={changemode} mode={mode}/>
-        {!loadDashboardContent && 
+        {loadDashboardContent && 
           <div className='dashboardContentLoaderBg'>
             <div className='bg-white p-3'>
               <p>Loading...</p>
@@ -209,7 +209,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
             </div>
         }
         
-        {!displayDashboardInfo &&
+        {displayDashboardInfo && displayDashboardInfo.balances.length === 0 &&
           <div className='h-[100vh]'>
             <div className='py-2 px-5 relative left-[7%] top-[10%] flex justify-center items-center flex-col' id='dashboard'>
               <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>

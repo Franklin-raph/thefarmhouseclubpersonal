@@ -72,10 +72,10 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                   </div>
                   <input type="text" className='font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3' placeholder='0.0' style={{ color:"#000" }}/>
                   <div className="discount flex justify-between items-center p-5 gap-2">
-                    <button className='bg-[#82CABB] w-full py-1 rounded-md'>25%</button>
-                    <button className='bg-[#82CABB] w-full py-1 rounded-md'>50%</button>
-                    <button className='bg-[#82CABB] w-full py-1 rounded-md'>75%</button>
-                    <button className='bg-[#82CABB] w-full py-1 rounded-md'>100%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md'>25%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md'>50%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md'>75%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md'>100%</button>
                   </div>
               </div>
             </div>

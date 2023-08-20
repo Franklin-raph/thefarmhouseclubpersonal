@@ -1,4 +1,5 @@
-import logo from "../../assets/images/Asset-2.-300x47.png"
+import logo1 from "../../assets/images/Asset-2.-300x47.png"
+import logo2 from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -28,7 +29,8 @@ const Navbar = () => {
     <div>
         <nav className="flex items-center justify-between px-[16px] py-5">
             <a href="/" className="w-[12rem] flex items-center gap-1">
-                <img src={logo} alt="" />
+                <img src={logo1} alt="" className='logo1' />
+                <img src={logo2} alt="" className='logo2' />
             </a>
             {/* <div className="toggler relative z-50">
                 <i className="fa-solid fa-bars"></i>
