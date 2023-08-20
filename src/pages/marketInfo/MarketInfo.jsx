@@ -16,7 +16,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const [openCryptoTransfer, setOpenCryptoTransfer] = useState(false)
     const [openBankInstrumentsTransfer, setOpenInstrumentsTransfer] = useState(false)
     const [error, setError] = useState("")
-    const [depositFee, setDepositFee] = useState("")
+    const [depositFee, setDepositFee] = useState()
 
     async function connectAccount(){
       setLoadingAccount(true)
@@ -34,7 +34,8 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
   }
 
   function calculateDepositFee(depositPercent){
-    setDepositFee(depositPercent/100)
+    if(!depositFee) return
+    setDepositFee(depositPercent/100 * depositFee)
   }
 
   return (
@@ -75,10 +76,10 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                     <img src={logo} alt="" width={"40px"} className='bg-[#262626] rounded-full p-1'/>
                     <p className='text-lg font-bold'>The Farmhouse Club</p>
                   </div>
-                  <input type="text" className='font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3' placeholder='0.0' style={{ color:"#000" }}/>
+                  <input type="text" className='font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3' value={depositFee} onChange={(e)=> setDepositFee(e.target.value)} placeholder='0.0' style={{ color:"#000" }}/>
                   <div className="discount flex justify-between items-center p-5 gap-2">
                     <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateDepositFee(25)}>25%</button>
-                    <button className='border border-[#595959] w-full py-1 rounded-md'>50%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateDepositFee(50)}>50%</button>
                     <button className='border border-[#595959] w-full py-1 rounded-md'>75%</button>
                     <button className='border border-[#595959] w-full py-1 rounded-md'>100%</button>
                   </div>

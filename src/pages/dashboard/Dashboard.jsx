@@ -109,6 +109,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
         setFundAccountModal(false)
         setVerifyPaymentModal(true)
         handleVerifyAccountFund(transaction.reference, amount)
+        console.log(transaction)
       },
       oncancel(){
         console.log("Failed Transaction")
