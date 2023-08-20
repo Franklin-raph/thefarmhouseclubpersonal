@@ -70,7 +70,11 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
         "Content-Type":"application/json"
       }
     })
-    if(response) setLoadDashboardContent(false)
+    if(response) {
+      console.log("test")
+    setLoadDashboardContent(!loadDashboardContent)
+    }
+
     const data = await response.json()
     if(response.ok){
       setDisplayDashboardInfo(data)
