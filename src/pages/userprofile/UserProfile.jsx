@@ -206,30 +206,62 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 </div>
               </div>
 
-              {changePasswordModal && 
-              <div className='changePasswordModalBg'>
-                <div className="changPasswordModal relative" style={{ textAlign:"start" }}>
-                  <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setChangePasswordModal(false)}></i>
-                  <div className='w-full my-5'>
-                    <label className='block text-[16px] mb-1'>Old Password</label>
-                    <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+              {user && user.user.provider === "google" ?
+                <>
+                  {changePasswordModal && 
+                  <div className='changePasswordModalBg'>
+                    <div className="changPasswordModal relative" style={{ textAlign:"start" }}>
+                      <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setChangePasswordModal(false)}></i>
+                      {/* <div className='w-full my-5'>
+                        <label className='block text-[16px] mb-1'>Old Password</label>
+                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                      </div> */}
+                      <div className='w-full my-5'>
+                        <label className='block text-[16px] mb-1'>New Password</label>
+                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                      </div>
+                      <div className='w-full my-5'>
+                        <label className='block text-[16px] mb-1'>Confirm Password</label>
+                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                      </div>
+                      {
+                      loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
+                      : 
+                      <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={handlePasswordChange}>Change Password</button>
+                      }
+                    </div>
                   </div>
-                  <div className='w-full my-5'>
-                    <label className='block text-[16px] mb-1'>New Password</label>
-                    <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
-                  </div>
-                  <div className='w-full my-5'>
-                    <label className='block text-[16px] mb-1'>Confirm Password</label>
-                    <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
-                  </div>
-                  {
-                  loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
-                  : 
-                  <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={handlePasswordChange}>Change Password</button>
                   }
-                </div>
-              </div>
+                </>
+              : 
+                <>
+                  {changePasswordModal && 
+                  <div className='changePasswordModalBg'>
+                    <div className="changPasswordModal relative" style={{ textAlign:"start" }}>
+                      <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setChangePasswordModal(false)}></i>
+                      <div className='w-full my-5'>
+                        <label className='block text-[16px] mb-1'>Old Password</label>
+                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                      </div>
+                      <div className='w-full my-5'>
+                        <label className='block text-[16px] mb-1'>New Password</label>
+                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                      </div>
+                      <div className='w-full my-5'>
+                        <label className='block text-[16px] mb-1'>Confirm Password</label>
+                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                      </div>
+                      {
+                      loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
+                      : 
+                      <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={handlePasswordChange}>Change Password</button>
+                      }
+                    </div>
+                  </div>
+                  }
+                </>
               }
+              
           </div>
           }
 
