@@ -109,7 +109,7 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
                         <img src={logo2} alt="" className='logo2' />
                     </a>
                 }
-                
+
             <ul className="desktopLoggedInNav flex items-start gap-[30px] pl-5 fixed flex-col top-[11%] bg-[#F4F7FA] left-0 h-screen w-[15%] pt-[3rem]">
                 <p className='mb-5 text-xl font-bold text-[#888]'>Hi, <span>{user && user.user.first_name}</span> </p>
                 <li className='flex items-center  gap-2 text-[#46695c]'>
@@ -214,7 +214,7 @@ const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWallet
                 </div>
                 <div className='flex items-center gap-2 my-3 cursor-pointer'>
                     <i className="ri-key-line ml-3 py-1 px-2  bg-slate-500 rounded-full text-white"></i>
-                    {user && <p className='text-sm'>{user.public_key.slice(0, 9)}...{user.public_key.slice(-9)}</p>}
+                    {user && <p className='text-sm'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>}
                     {
                         !showCheckIcon ? <i className="ri-file-copy-line ml-3 py-1 px-2 text-gray-400 bg-white rounded-full" onClick={copyWalletAddress}></i>
                         :

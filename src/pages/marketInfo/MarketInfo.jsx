@@ -16,7 +16,9 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const [openCryptoTransfer, setOpenCryptoTransfer] = useState(false)
     const [openBankInstrumentsTransfer, setOpenInstrumentsTransfer] = useState(false)
     const [error, setError] = useState("")
-    const [depositFee, setDepositFee] = useState()
+    const [depositFeeInput, setDepositFeeInput] = useState(0)
+    const [depositFeeOutput, setDepositFeeOutput] = useState(0)
+    const [showBalance, setShowBalance] = useState(false)
 
     async function connectAccount(){
       setLoadingAccount(true)
@@ -34,8 +36,8 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
   }
 
   function calculateDepositFee(depositPercent){
-    if(!depositFee) return
-    setDepositFee(depositPercent/100 * depositFee)
+    if(!depositFeeInput || depositFeeInput === 0) return
+    setDepositFeeOutput(depositPercent/100 * depositFeeInput)
   }
 
   return (
@@ -43,7 +45,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
         <LoggedInNav changemode={changemode} mode={mode} />
         <div className='inline-flex items-center mt-[5rem]' onClick={() => navigate("/markets")}></div>
         <div className="marketInfoFirstSection">
-          <div className="marketCard w-full" onClick={()=> navigate("/marketinfo/123")}>
+          <div className="marketCard w-full">
             <img src={cardImage1} alt="" className='firstImage'/>
               <div className="body">
               <div className="author flex justify-between items-center px-4">
@@ -72,23 +74,29 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                 <p className='tabBtn w-full p-3'>Info</p>
               </div>
               <div className="body">
-                <div className="author inline-flex justify-start items-center px-1 mt-5 gap-1 cursor-pointer ml-3 py-2 rounded">
+                <div className="author flex justify-between items-center px-1 mt-5 gap-1 ml-3 py-2 rounded">
                     <img src={logo} alt="" width={"40px"} className='bg-[#262626] rounded-full p-1'/>
-                    <p className='text-lg font-bold'>The Farmhouse Club</p>
-                  </div>
-                  <input type="text" className='font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3' value={depositFee} onChange={(e)=> setDepositFee(e.target.value)} placeholder='0.0' style={{ color:"#000" }}/>
+                    <div>
+                      <div className='flex items-center pr-3 cursor-pointer gap-2' onClick={()=> setShowBalance(!showBalance)}>
+                        <p className=''>Balance</p>
+                        <i class="ri-arrow-down-s-line"></i>
+                      </div>
+                      {showBalance && <p className='pr-3'>1000</p>}
+                    </div>
+                </div>
+                  <input type="text" className='depositFee font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3 w-full' value={depositFeeInput} onChange={(e)=> setDepositFeeInput(e.target.value)} placeholder='0.0' style={{ color:"#000" }}/>
                   <div className="discount flex justify-between items-center p-5 gap-2">
                     <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateDepositFee(25)}>25%</button>
                     <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateDepositFee(50)}>50%</button>
-                    <button className='border border-[#595959] w-full py-1 rounded-md'>75%</button>
-                    <button className='border border-[#595959] w-full py-1 rounded-md'>100%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateDepositFee(75)}>75%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateDepositFee(100)}>100%</button>
                   </div>
               </div>
             </div>
             <div>
               <div className='flex items-center justify-between font-medium'>
                 <p>Deposit Fee</p>
-                <p>{depositFee}</p>
+                <p>{depositFeeOutput}</p>
               </div>
               <div className='flex items-center justify-between my-2 font-medium'>
                 <p>Withdraw Fee</p>
@@ -105,6 +113,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
               <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-bold text-white' onClick={()=> setWalletModal(true)}>Connect your account to deposit</button>
             } */}
           </div>
+          
         </div>
         {walletModal && 
             <div className="walletsModalBg">

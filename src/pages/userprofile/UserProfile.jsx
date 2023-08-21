@@ -118,8 +118,8 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 </div>
               </div>
 
-              <div className='my-9 inline-flex gap-10 items-end'>
-                <div className='w-[50%]'>
+              <div className='my-9 inline-flex flex-col items-start md:flex-row gap-10 md:items-end'>
+                <div className='w-full md:w-[50%]'>
                   <h1 className='font-[600] text-xl text-[#006340] mb-2'>First Name</h1>
                   <p className='text-[14px] text-[#46695c]'>Receive money from friends using your username</p>
                 </div>
@@ -129,8 +129,8 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 </div>
               </div>
 
-              <div className='my-9 inline-flex gap-10 items-end'>
-                <div className='w-[50%]'>
+              <div className='my-9 inline-flex flex-col items-start md:flex-row gap-10 md:items-end'>
+                <div className='w-full md:w-[50%]'>
                   <h1 className='font-[600] text-xl text-[#006340] mb-2'>Last Name</h1>
                   <p className='text-[14px] text-[#46695c]'>Receive money from friends using your username</p>
                 </div>
@@ -140,8 +140,8 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 </div>
               </div>
 
-              <div className='my-9 inline-flex gap-10 items-end'>
-                <div className='w-[50%]'>
+              <div className='my-9 inline-flex flex-col items-start md:flex-row gap-10 md:items-end'>
+                <div className='w-full md:w-[50%]'>
                   <h1 className='font-[600] text-xl text-[#006340] mb-2'>User Name</h1>
                   <p className='text-[14px] text-[#46695c]'>Receive money from friends using your username</p>
                 </div>
@@ -151,12 +151,12 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 </div>
               </div>
 
-              <div className='my-3'>
-                <h1 className='font-[600] text-xl text-[#006340] mb-2'>Public Key</h1>
-                <p className='border border-gray-300 inline rounded-md px-2 py-1'>{user && user.public_key}</p>
-              </div>
+              {/* <div className='my-3'>
+                <h1 className='font-[600] text-xl text-[#006340] mb-2'>Public Key...</h1>
+                <p className='border border-gray-300 inline rounded-md px-2 py-1 w-full'>{user && user.public_key}</p>
+              </div> */}
 
-              <button className='text-[#fff] bg-[#1AC888] w-auto mt-5 py-3 px-5 rounded-md'>Save Changes</button>
+              <button className='text-[#fff] bg-[#1AC888] w-auto mt-5 py-3 px-5 rounded-md block'>Save Changes</button>
             </div>
               
           }
@@ -165,17 +165,17 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
             <div className='userProfileDetails pl-[10rem] mt-[7rem]'>
               <div>
                 <h1 className='text-2xl my-[2.5rem] text-[rgba(10,46,101,.3)] font-medium border-b border-gray-200 pb-5'>Verified Information</h1>
-                <div className='my-9 flex gap-10 items-center'>
+                <div className='my-9 flex gap-10 md:flex-row md:items-center flex-col items-start'>
                     <h1 className='font-[600] text-xl text-[#006340]'>Email Address</h1>
                     <p className='px-2 py-2'>{myProfile && myProfile.email}</p>
                 </div>
 
-                <div className='my-9 flex gap-10 items-center'>
+                <div className='my-9 flex gap-10 md:flex-row md:items-center flex-col items-start'>
                     <h1 className='font-[600] text-xl text-[#006340]'>Phone Number</h1>
                     <p className='px-2 py-2'>+23458987654</p>
                 </div>
 
-                <div className='my-9 flex gap-10 items-center'>
+                <div className='my-9 flex gap-10 md:flex-row md:items-center flex-col items-start'>
                     <h1 className='font-[600] text-xl text-[#006340]'>Bank Verification Number (BVN)</h1>
                     <p className='px-2 py-2'>698709****</p>
                 </div>
@@ -183,8 +183,8 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
               
               <div className='mt-[5rem]'>
                 <h1 className='text-2xl my-[2.5rem] text-[rgba(10,46,101,.3)] font-medium border-b border-gray-200 pb-5'>Account Protection</h1>
-                <div className='my-0 flex gap-[9rem] items-end'>
-                  <div className='w-[50%]'>
+                <div className='my-0 flex flex-col items-start gap-10 md:flex-row md:gap-[9rem] md:items-end'>
+                  <div className='w-full md:w-[50%]'>
                     <h1 className='font-[600] text-xl text-[#006340] mb-2'>Two-Factor Authentication</h1>
                     <p className='text-[14px] text-[#46695c]'>Protect your farmhouseclub account from unauthorized transactions using a software token.</p>
                   </div>
@@ -197,8 +197,8 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
               
               <div className='mt-[5rem]'>
                 <h1 className='text-2xl my-[2.5rem] text-[rgba(10,46,101,.3)] font-medium border-b border-gray-200 pb-5'>Password</h1>
-                <div className='my-0 flex gap-[9rem] items-end'>
-                  <div className='w-[50%]'>
+                <div className='my-0 flex flex-col items-start gap-10 md:flex-row md:gap-[9rem] md:items-end'>
+                  <div className='w-full md:w-[50%]'>
                     <h1 className='font-[600] text-xl text-[#006340] mb-2'>Update Password</h1>
                     <p className='text-[14px] text-[#46695c]'>Change your old password to a new one</p>
                   </div>
@@ -212,15 +212,15 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                   <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setChangePasswordModal(false)}></i>
                   <div className='w-full my-5'>
                     <label className='block text-[16px] mb-1'>Old Password</label>
-                    <input type="password" className='w-full outline-none px-2 py-1'/>
+                    <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                   </div>
                   <div className='w-full my-5'>
                     <label className='block text-[16px] mb-1'>New Password</label>
-                    <input type="password" className='w-full outline-none px-2 py-1'/>
+                    <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                   </div>
                   <div className='w-full my-5'>
                     <label className='block text-[16px] mb-1'>Confirm Password</label>
-                    <input type="password" className='w-full outline-none px-2 py-1'/>
+                    <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                   </div>
                   {
                   loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
@@ -246,8 +246,8 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
             </div>
           </div>
           }
-          
         </div>
+
         {twoFactorModal && 
           <div className="twoFactorModalBg">
             <div className="twoFactorModal relative">

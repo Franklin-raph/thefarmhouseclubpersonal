@@ -77,6 +77,10 @@ form label{
   color: #ffffff;
 }
 
+.darkMode .depositFee{
+  color: #9CA3AF !important;
+}
+
 .darkMode .marketCard .footer div{
   border: 1px solid #505357a2;
   color: hsla(0,0%,100%,.92);
@@ -524,8 +528,9 @@ footer i{
   margin-left: auto;
   display: grid;
   grid-template-columns: 4fr 3fr;
+  place-items: start;
   gap: 2rem;
-  padding: 2rem;
+  padding: 2rem 2rem 7rem;
 }
 
 .tabBtn{
@@ -626,6 +631,10 @@ footer i{
     left: 5%;
   }
 
+  .marketInfoFirstSection{
+    width: 100%;
+  }
+
 }
 
 @media screen and (max-width:992px) {
@@ -723,6 +732,14 @@ footer i{
   #dashboard .connectWalletBox .changing-text{
     /* margin-top: 3rem; */
     display: none;
+  }
+
+  .userProfileDetailsContainer{
+    padding: 3rem;
+  }
+
+  .marketInfoFirstSection{
+    grid-template-columns: 1fr;
   }
 
   footer{
