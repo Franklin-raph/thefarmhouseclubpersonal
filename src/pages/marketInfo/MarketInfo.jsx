@@ -40,13 +40,19 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
       const data = await response.json()
       console.log(data)
       if(response.ok){
-        setAccountBalanceInfo(data)
+        data.map(accBal => (
+          accBal.asset_code === "AVDA" && setAccountBalanceInfo(accBal.balance)
+         ))
       }
     }
 
   function calculateStakeAmount(depositPercent){
-    if(!stakeInput || stakeInput === 0) return
-    // setDepositFeeOutput(depositPercent/100 * depositFeeInput)
+    // if(!stakeInput || stakeInput === 0) return
+    if(accountBalanceInfo <= 0){
+      return
+    }else{
+      setStakeInput(depositPercent/100 * accountBalanceInfo)
+    }
   }
 
   return (
@@ -92,10 +98,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                       </div>
                       {showBalance &&
                         <div>
-                           {accountBalanceInfo.map(accBal => (
-                            accBal.asset_code === "AVDA" &&  <p className='pr-3'>{accBal.balance}</p>
-                           ))
-                           }
+                           {accountBalanceInfo}
                         </div>
                       }
                     </div>
