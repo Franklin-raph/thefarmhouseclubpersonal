@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import LoggedInNav from '../../components/navbar/LoggedInNav'
 import {useNavigate} from "react-router-dom"
 import cardImage1 from '../../assets/images/cover.jpeg'
@@ -16,28 +16,37 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const [openCryptoTransfer, setOpenCryptoTransfer] = useState(false)
     const [openBankInstrumentsTransfer, setOpenInstrumentsTransfer] = useState(false)
     const [error, setError] = useState("")
-    const [depositFeeInput, setDepositFeeInput] = useState(0)
-    const [depositFeeOutput, setDepositFeeOutput] = useState(0)
+    const [stakeInput, setStakeInput] = useState(0)
+    const [stakeOutput, setStakeOutput] = useState(0)
     const [showBalance, setShowBalance] = useState(false)
+    const [accountBalanceInfo, setAccountBalanceInfo] = useState()
 
-    async function connectAccount(){
+    useEffect(() =>{getAccountSummary()},[])
+
+    async function getAccountSummary(){
       setLoadingAccount(true)
-      const response = await fetch(`https://horizon-testnet.stellar.org/accounts/${user.public_key}`)
-      const data = await response.json()
+      const response = await fetch(`${baseUrl}/myaccount-balance/`,{
+        method:"POST",
+        body: JSON.stringify({public_key:user.public_key}),
+        headers:{
+          Authorization: `Bearer ${user.access}`,
+          "Content-Type":"application/json"
+        }
+      })
       if(response) {
-          setLoadingAccount(false)
-          setWalletModal(false)
+        setLoadingAccount(false)
       }
-
-      if(response.status === 404) {
-          setError("Unfunded account. Please fund your account")
-          setFundAccount(true)
+  
+      const data = await response.json()
+      console.log(data)
+      if(response.ok){
+        setAccountBalanceInfo(data)
       }
-  }
+    }
 
-  function calculateDepositFee(depositPercent){
-    if(!depositFeeInput || depositFeeInput === 0) return
-    setDepositFeeOutput(depositPercent/100 * depositFeeInput)
+  function calculateStakeAmount(depositPercent){
+    if(!stakeInput || stakeInput === 0) return
+    // setDepositFeeOutput(depositPercent/100 * depositFeeInput)
   }
 
   return (
@@ -81,22 +90,29 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                         <p className=''>Balance</p>
                         <i class="ri-arrow-down-s-line"></i>
                       </div>
-                      {showBalance && <p className='pr-3'>1000</p>}
+                      {showBalance &&
+                        <div>
+                           {accountBalanceInfo.map(accBal => (
+                            accBal.asset_code === "AVDA" &&  <p className='pr-3'>{accBal.balance}</p>
+                           ))
+                           }
+                        </div>
+                      }
                     </div>
                 </div>
-                  <input type="text" className='depositFee font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3 w-full' value={depositFeeInput} onChange={(e)=> setDepositFeeInput(e.target.value)} placeholder='0.0' style={{ color:"#000" }}/>
+                  <input type="text" className='depositFee font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3 w-full' value={stakeInput} onChange={(e)=> setStakeInput(e.target.value)} placeholder='0.0' style={{ color:"#000" }}/>
                   <div className="discount flex justify-between items-center p-5 gap-2">
-                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateDepositFee(25)}>25%</button>
-                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateDepositFee(50)}>50%</button>
-                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateDepositFee(75)}>75%</button>
-                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateDepositFee(100)}>100%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(25)}>25%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(50)}>50%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(75)}>75%</button>
+                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(100)}>100%</button>
                   </div>
               </div>
             </div>
             <div>
               <div className='flex items-center justify-between font-medium'>
                 <p>Deposit Fee</p>
-                <p>{depositFeeOutput}</p>
+                <p>0</p>
               </div>
               <div className='flex items-center justify-between my-2 font-medium'>
                 <p>Withdraw Fee</p>

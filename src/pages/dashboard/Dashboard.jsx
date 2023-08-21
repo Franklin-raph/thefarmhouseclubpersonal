@@ -42,6 +42,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
   const [verifyPaymentModal, setVerifyPaymentModal] = useState(false)
   const [success, setSuccess] = useState(false)
   const [displayDashboardInfo, setDisplayDashboardInfo] = useState(false)
+  const [accountBalanceInfo, setAccountBalanceInfo] = useState()
 
   const navigate = useNavigate()
 
@@ -62,7 +63,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
 
   async function getAccountSummary(){
     setLoadDashboardContent(true)
-    const response = await fetch(`${baseUrl}/myaccount-summary/`,{
+    const response = await fetch(`${baseUrl}/myaccount-balance/`,{
       method:"POST",
       body: JSON.stringify({public_key:user.public_key}),
       headers:{
@@ -71,19 +72,17 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
       }
     })
     if(response) {
-      console.log("test")
-    setLoadDashboardContent(false)
+      setLoadDashboardContent(false)
     }
 
     const data = await response.json()
     if(response.ok){
       setDisplayDashboardInfo(data)
+      setAccountBalanceInfo(data)
     }
-    console.log(data)
   }
 
   async function handleVerifyAccountFund(reference, amount){
-    // console.log(JSON.stringify({reference:reference, amount:amount, public_key:user.public_key}))
     const response = await fetch(`${baseUrl}/create-funded-account/`,{
       method:"POST",
       body: JSON.stringify({reference:reference, amount:amount, public_key:user.public_key}),
@@ -93,9 +92,11 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
       }
     })
     if(response)setVerifyPaymentModal(false)
-    if(response.ok) setSuccess("")
+    if(response.ok) {
+      setSuccess(true)
+      getAccountSummary()
+    }
     const data = await response.json()
-  console.log(response, data)
   }
 
   function payWithPayStack(){
@@ -160,27 +161,29 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
           </div>
           }
           
-        {displayDashboardInfo &&
+        {accountBalanceInfo &&
             <div className='px-[9rem] pt-[100px] relative left-[7%] top-[50%]' id='dashboard'>
                 <h3 className='text-2xl font-[600] text-[#888] mb-5 pl-1' style={{ borderLeft:"4px solid #888" }}>ACCOUNTS</h3>
                 <div className='gap-10 grid grid-cols-1 lg:grid-cols-3'>
-                    <div className='border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg relative pb-9 dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
-                      <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" />
-                      <div>
-                        <p className='text-lg'>XLM</p>
-                        <h3 className='font-bold text-xl'>1000.00</h3>
-                        <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
+                    {accountBalanceInfo.map(accountInfo => (
+                      <div className='relative border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg relative pb-9 dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
+                        {accountInfo.asset_code === "AVDA" && <i onClick={()=>setFundAccountModal(true)} class="ri-add-circle-fill absolute text-[#64748B] cursor-pointer top-[-10%] right-[-5%] text-3xl"></i>}
+                        {accountInfo.asset_code === "" ? <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" /> : <img src={avda} className='w-[75px] rounded-full' alt="" />}
+                        <div>
+                        {accountInfo.asset_code === "" ?<p className='text-lg'>XLM</p> : <p className='text-lg'>{accountInfo.asset_code}</p> }
+                          <h3 className='font-bold text-xl'>{accountInfo.balance}</h3>
+                          <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
+                        </div>
                       </div>
-                    </div>
-
-                    <div className='border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg pb-9 relative dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
-                      <img src={avda} className='w-[75px] rounded-full' alt="" />
+                    ))}
+                    {/* <div className='border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg pb-9 relative dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
+                      
                       <div>
                         <p className='text-lg'>AVDA</p>
                         <h3 className='font-bold text-xl'>900</h3>
                         <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
                       </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 <h3 className='text-2xl font-[600] text-[#888] mb-5 mt-[90px] pl-1' style={{ borderLeft:"4px solid #888" }}>MY STAKED PROJECTS</h3>
@@ -348,7 +351,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
         }
 
         {success && 
-          <SuccessAlert success={"Payment has been successfull verified"} setSuccess={setSuccess}/>
+          <SuccessAlert success={"Payment has been successfully verified"} setSuccess={setSuccess}/>
           // <div className='verifyPaymentModdalBg'>
           //   <div className="verifyPaymentModal relative">
           //     <i className='absolute top-3 right-3 cursor-pointer' onClick={()=> setSuccessfulModal(false)}>x</i>

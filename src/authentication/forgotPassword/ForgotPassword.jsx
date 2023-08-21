@@ -5,7 +5,6 @@ import ErrorAlert from '../../components/alert/ErrorAlert'
 import SuccessAlert from '../../components/alert/SuccessAlert'
 
 const ForgotPassword = ({baseUrl}) => {
-  console.log(baseUrl)
   const [email, setEmail] = useState("igboekwulusifranklin@gmail.com")
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
@@ -26,6 +25,7 @@ const ForgotPassword = ({baseUrl}) => {
 
   async function handleForgotPassword(e){
     e.preventDefault()
+    console.log(`${baseUrl}/reset-password/`)
     if(!email){
       setError("Please fill in the field")
       setTimeout(() => {
@@ -42,6 +42,7 @@ const ForgotPassword = ({baseUrl}) => {
         }
       })
       const data = await resp.json()
+      console.log(resp, data)
       if(resp) setLoader(false)
       if(!resp.ok){
         setError(data.detail)

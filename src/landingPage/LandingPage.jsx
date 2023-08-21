@@ -43,7 +43,7 @@ const LandingPage = () => {
 
         <main className="flex justify-between items-center px-[100px]">
             <div className="md:w-[100%] w-full text-white text-div">
-                <h1 className="text-[37px] font-bold">Earn <span className="text-[#83B943]">AVDA <br /> tokens</span> from real <br /> world argricultural Projects</h1>
+                <h1 className="text-[37px] font-bold">Earn <span className="text-[#83B943]">AVDA <br /> tokens</span> from real <br /> world agricultural Projects</h1>
                 <p className="mt-5 mb-8">The farmhouse club's AVDA token makes it easy to let your money work for you.</p>
                 {user ? 
                 <button onClick={() => navigate("/dashboard")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Dashboard</button>
