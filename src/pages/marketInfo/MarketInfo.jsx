@@ -2,8 +2,10 @@ import {useEffect, useState} from 'react'
 import LoggedInNav from '../../components/navbar/LoggedInNav'
 import {useNavigate} from "react-router-dom"
 import cardImage1 from '../../assets/images/cover.jpeg'
+import cardImage2 from '../../assets/images/cocoa-plant.jpg'
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import stellar from "../../assets/images/Stellar_Symbol.png"
+import LoaderComponent from '../../components/loaderComponent/LoaderComponent'
 
 const MarketInfo = ({changemode, mode, baseUrl}) => {
     const navigate = useNavigate()
@@ -61,7 +63,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
         <div className='inline-flex items-center mt-[5rem]' onClick={() => navigate("/markets")}></div>
         <div className="marketInfoFirstSection">
           <div className="marketCard w-full">
-            <img src={cardImage1} alt="" className='firstImage'/>
+            <img src={cardImage2} alt="" className='firstImage'/>
               <div className="body">
               <div className="author flex justify-between items-center px-4">
                 <img src={logo} alt="" width={"12%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
@@ -148,11 +150,13 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                 </div>
             </div>
         }
+
         {loadingAccount && 
-            <div className="connectAccountLoader fixed top-[50%] left-[50%] text-[#84b943f7]">
-                <i className="fa-solid fa-gear fa-spin mb-4 text-3xl"></i>
+            <div className='dashboardContentLoaderBg'>
+              <LoaderComponent />
             </div>
         }
+
         {error &&
             <div className="errorModalBg">
                 <div className="failureModal" style={{ position:"relative" }}>

@@ -9,6 +9,7 @@ import PaystackPop from "@paystack/inline-js"
 import SuccessAlert from '../../components/alert/SuccessAlert'
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import cardImage1 from '../../assets/images/cover.jpeg'
+import LoaderComponent from '../../components/loaderComponent/LoaderComponent'
 
 const Dashboard = ({changemode, mode, baseUrl}) => {
 
@@ -155,9 +156,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
         <LoggedInNav fundAccount={fundAccount} setFundAccountModal={setFundAccountModal} setWalletModal={setWalletModal} changemode={changemode} mode={mode}/>
         {loadDashboardContent && 
           <div className='dashboardContentLoaderBg'>
-            <div className='bg-white p-3'>
-              <p>Loading...</p>
-            </div>
+              <LoaderComponent />
           </div>
           }
           
@@ -167,7 +166,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                 <div className='gap-10 grid grid-cols-1 lg:grid-cols-3'>
                     {accountBalanceInfo.map(accountInfo => (
                       <div className='relative border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg relative pb-9 dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
-                        {accountInfo.asset_code === "AVDA" && <i onClick={()=>setFundAccountModal(true)} class="ri-add-circle-fill absolute text-[#64748B] cursor-pointer top-[-10%] right-[-5%] text-3xl"></i>}
+                        {/* {accountInfo.asset_code === "AVDA" && } */}
                         {accountInfo.asset_code === "" ? <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" /> : <img src={avda} className='w-[75px] rounded-full' alt="" />}
                         <div>
                         {accountInfo.asset_code === "" ?<p className='text-lg'>XLM</p> : <p className='text-lg'>{accountInfo.asset_code}</p> }
@@ -176,14 +175,12 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                         </div>
                       </div>
                     ))}
-                    {/* <div className='border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg pb-9 relative dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
-                      
-                      <div>
-                        <p className='text-lg'>AVDA</p>
-                        <h3 className='font-bold text-xl'>900</h3>
-                        <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
+                    <div onClick={()=>setFundAccountModal(true)} className='border border-slate-600 flex items-center justify-center border-dashed cursor-pointer p-5 rounded-lg text-center dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
+                      <div className='flex items-center justify-center gap-3'>
+                        <i class="ri-add-circle-fill text-[#64748B] text-[30px]"></i>
+                        <p>Account Top Up</p>
                       </div>
-                    </div> */}
+                    </div>
                 </div>
 
                 <h3 className='text-2xl font-[600] text-[#888] mb-5 mt-[90px] pl-1' style={{ borderLeft:"4px solid #888" }}>MY STAKED PROJECTS</h3>
