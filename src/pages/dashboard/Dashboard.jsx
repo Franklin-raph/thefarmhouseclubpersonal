@@ -184,8 +184,12 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                 </div>
 
                 <h3 className='text-2xl font-[600] text-[#888] mb-5 mt-[90px] pl-1' style={{ borderLeft:"4px solid #888" }}>MY STAKED PROJECTS</h3>
+                  <div className='flex justify-center align-center text-center my-[6em] flex-col'>
+                    <h4 className='text-center text-3xl text-gray-500'>Stake some AVDA</h4>
+                    <button className='mt-2 py-1 px-3 bg-[#1AC888]' onClick={()=> navigate("/markets")}>Stake Now</button>
+                  </div>
                 <div className="marketCardContainer relative w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center content-center">
-                  {stakedProjectsArray && stakedProjectsArray.map((project, index) => (
+                  {/* {stakedProjectsArray && stakedProjectsArray.map((project, index) => (
                     <div key={index} className="marketCard w-full cursor-pointer mt-6" onClick={()=> navigate("/marketinfo/123")}>
                         <div className="body">
                           <div className="author flex justify-between items-center px-4">
@@ -205,7 +209,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                           </div>
                         </div>
                     </div>
-                  ))}
+                  ))} */}
                 </div>
             </div>
         }

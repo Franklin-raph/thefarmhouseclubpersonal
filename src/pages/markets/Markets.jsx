@@ -1,148 +1,74 @@
 import LoggedInNav from '../../components/navbar/LoggedInNav'
-import cardImage1 from '../../assets/images/cover.jpeg'
+import cardImage1 from '../../assets/images/processingPlantImages.jpg'
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const Markets = ({changemode, mode, baseUrl}) => {
   const user = JSON.parse(localStorage.getItem("user"))
+  const [investMents, setInvestMents] = useState()
   const navigate = useNavigate()
 
   useEffect(() => {
     if(!user) navigate("/")
+    getInvestMentList()
   },[])
+
+  async function getInvestMentList(){
+    const response = await fetch(`${baseUrl}/investments/`,{
+      headers: {
+        "Content-Type" : "application/json",
+        Authorization: `Bearer ${user.access}`
+      },
+    })
+    const data = await response.json()
+    console.log(response, data)
+    if(response.ok){
+      setInvestMents(data)
+    }
+  }
+
+  function toggleNav(){
+    document.querySelector(".market-nav").classList.toggle("showMarketNav")
+  }
+
   return (
     <div className='marketPlace h-[100%]'>
         <LoggedInNav changemode={changemode} mode={mode} />
-        <div className='py-1 relative top-[17%]'>
-          {/* <h1 className='font-bold text-3xl'>The Farm House Club Market Place</h1> */}
+        <div className='py-5 relative'>
+          <div className='market-nav'>
+            <li>Processing</li>
+            <li>Production</li>
+            <li>Logistics</li>
+            <li>Trading</li>
+          </div>
+          <i className='marketToggler ri-menu-line fixed right-[5%] text-xl top-[20%]' onClick={()=> toggleNav()}></i>
         </div>
-        <div className="marketCardContainer mt-[7rem] relative left-[7%] w-[75%] mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          <div className="marketCard w-full cursor-pointer" onClick={()=> navigate("/marketinfo/123")}>
-            <img src={cardImage1} alt="" className='firstImage'/>
-              <div className="body">
-              <div className="author flex justify-between items-center px-4">
-                <img src={logo} alt="" width={"12%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
-                <p className='text-sm mt-1'>the Farmhouse Club</p>
+        <div className="marketCardContainer mt-[9rem] relative left-[7%] w-[75%] mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {investMents && 
+            investMents.map(investMent => (
+              <div className="marketCard w-full cursor-pointer" onClick={()=> navigate(`/marketinfo/${investMent.id}`)}>
+                <img src={cardImage1} alt="" className='firstImage w-full'/>
+                  <div className="body">
+                  <div className="author flex justify-between items-center px-4">
+                    <img src={logo} alt="" width={"18%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
+                    {/* <p className='text-sm mt-1'>the Farmhouse Club</p> */}
+                  </div>
+                  <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{investMent.project_name}</h2>
+                  <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
+                    <div className='py-3 w-full p-2 rounded-[5px]'>
+                      <p className='font-bold'>TVL</p>
+                      <h2 className='font-bold text-xl'>{investMent.tvi}</h2>
+                    </div>
+                    <div className='py-3 w-full p-2 rounded-[5px]'>
+                      <p className='font-bold'>APY</p>
+                      <h2 className='font-bold text-xl'>{investMent.apy === null ? "0" : investMent.apy}</h2>
+                    </div>
+                  </div>
+                  </div>
               </div>
-              <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2>
-              <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>TVL</p>
-                  <h2 className='font-bold text-xl'>$1.03M</h2>
-                </div>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>APY</p>
-                  <h2 className='font-bold text-xl'>3.2%</h2>
-                </div>
-              </div>
-              </div>
-          </div>
-          
-          <div className="marketCard w-full cursor-pointer" onClick={()=> navigate("/marketinfo/123")}>
-            <img src={cardImage1} alt="" className='firstImage'/>
-              <div className="body">
-              <div className="author flex justify-between items-center px-4">
-                <img src={logo} alt="" width={"12%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
-                <p className='text-sm mt-1'>the Farmhouse Club</p>
-              </div>
-              <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2>
-              <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>TVL</p>
-                  <h2 className='font-bold text-xl'>$1.03M</h2>
-                </div>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>APY</p>
-                  <h2 className='font-bold text-xl'>3.2%</h2>
-                </div>
-              </div>
-              </div>
-          </div>
-          
-          <div className="marketCard w-full cursor-pointer" onClick={()=> navigate("/marketinfo/123")}>
-            <img src={cardImage1} alt="" className='firstImage'/>
-              <div className="body">
-              <div className="author flex justify-between items-center px-4">
-                <img src={logo} alt="" width={"12%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
-                <p className='text-sm mt-1'>the Farmhouse Club</p>
-              </div>
-              <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2>
-              <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>TVL</p>
-                  <h2 className='font-bold text-xl'>$1.03M</h2>
-                </div>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>APY</p>
-                  <h2 className='font-bold text-xl'>3.2%</h2>
-                </div>
-              </div>
-              </div>
-          </div>
-          
-          <div className="marketCard w-full cursor-pointer" onClick={()=> navigate("/marketinfo/123")}>
-            <img src={cardImage1} alt="" className='firstImage'/>
-              <div className="body">
-              <div className="author flex justify-between items-center px-4">
-                <img src={logo} alt="" width={"12%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
-                <p className='text-sm mt-1'>the Farmhouse Club</p>
-              </div>
-              <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2>
-              <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>TVL</p>
-                  <h2 className='font-bold text-xl'>$1.03M</h2>
-                </div>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>APY</p>
-                  <h2 className='font-bold text-xl'>3.2%</h2>
-                </div>
-              </div>
-              </div>
-          </div>
-          
-          <div className="marketCard w-full cursor-pointer" onClick={()=> navigate("/marketinfo/123")}>
-            <img src={cardImage1} alt="" className='firstImage'/>
-              <div className="body">
-              <div className="author flex justify-between items-center px-4">
-                <img src={logo} alt="" width={"12%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
-                <p className='text-sm mt-1'>the Farmhouse Club</p>
-              </div>
-              <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2>
-              <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>TVL</p>
-                  <h2 className='font-bold text-xl'>$1.03M</h2>
-                </div>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>APY</p>
-                  <h2 className='font-bold text-xl'>3.2%</h2>
-                </div>
-              </div>
-              </div>
-          </div>
-
-          <div className="marketCard w-full cursor-pointer" onClick={()=> navigate("/marketinfo/123")}>
-            <img src={cardImage1} alt="" className='firstImage'/>
-              <div className="body">
-              <div className="author flex justify-between items-center px-4">
-                <img src={logo} alt="" width={"12%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
-                <p className='text-sm mt-1'>the Farmhouse Club</p>
-              </div>
-              <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2>
-              <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>TVL</p>
-                  <h2 className='font-bold text-xl'>$1.03M</h2>
-                </div>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>APY</p>
-                  <h2 className='font-bold text-xl'>3.2%</h2>
-                </div>
-              </div>
-              </div>
-          </div>
+            ))
+          }
         </div>
     </div>
   )

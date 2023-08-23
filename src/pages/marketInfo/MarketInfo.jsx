@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import LoggedInNav from '../../components/navbar/LoggedInNav'
-import {useNavigate} from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 import cardImage1 from '../../assets/images/cover.jpeg'
 import cardImage2 from '../../assets/images/cocoa-plant.jpg'
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
@@ -19,11 +19,16 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const [openBankInstrumentsTransfer, setOpenInstrumentsTransfer] = useState(false)
     const [error, setError] = useState("")
     const [stakeInput, setStakeInput] = useState(0)
-    const [stakeOutput, setStakeOutput] = useState(0)
+    const [marketInfo, setMarketInfo] = useState()
     const [showBalance, setShowBalance] = useState(false)
     const [accountBalanceInfo, setAccountBalanceInfo] = useState()
+    const {id} = useParams()
 
-    useEffect(() =>{getAccountSummary()},[])
+    useEffect(() =>{
+      getAccountSummary()
+      getProjectInfo()
+      console.log(id)
+    },[])
 
     async function getAccountSummary(){
       setLoadingAccount(true)
@@ -57,85 +62,107 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     }
   }
 
+  async function getProjectInfo(){
+    const response = await fetch(`${baseUrl}/investments/${id}/`,{
+      headers:{
+        Authorization: `Bearer ${user.access}`,
+        "Content-Type":"application/json"
+      }
+    })
+    const data = await response.json()
+    setMarketInfo(data)
+    console.log(data)
+
+  }
+
   return (
     <div className='h-[100%]'>
         <LoggedInNav changemode={changemode} mode={mode} />
-        <div className='inline-flex items-center mt-[5rem]' onClick={() => navigate("/markets")}></div>
-        <div className="marketInfoFirstSection">
-          <div className="marketCard w-full">
-            <img src={cardImage2} alt="" className='firstImage'/>
-              <div className="body">
-              <div className="author flex justify-between items-center px-4">
-                <img src={logo} alt="" width={"12%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
-                <p className='text-sm mt-1'>the Farmhouse Club</p>
-              </div>
-              <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2>
-              <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>TVL</p>
-                  <h2 className='font-bold text-xl'>$1.03M</h2>
-                </div>
-                <div className='py-3 w-full p-2 rounded-[5px]'>
-                  <p className='font-bold'>APY</p>
-                  <h2 className='font-bold text-xl'>3.2%</h2>
-                </div>
-              </div>
-              </div>
-          </div>
-
-          <div className="w-full">
-            <div className='marketCard mb-5'>
-              <div className="tabHeader flex items-center justify-between pt-3 text-center font-bold">
-                <p className='tabBtn w-full p-3'>Deposit</p>
-                <p className='tabBtn w-full p-3'>Withdraw</p>
-                <p className='tabBtn w-full p-3'>Info</p>
-              </div>
-              <div className="body">
-                <div className="author flex justify-between items-center px-1 mt-5 gap-1 ml-3 py-2 rounded">
-                    <img src={logo} alt="" width={"40px"} className='bg-[#262626] rounded-full p-1'/>
-                    <div>
-                      <div className='flex items-center pr-3 cursor-pointer gap-2' onClick={()=> setShowBalance(!showBalance)}>
-                        <p className=''>Balance</p>
-                        <i class="ri-arrow-down-s-line"></i>
-                      </div>
-                      {showBalance &&
-                        <div>
-                           {accountBalanceInfo}
-                        </div>
-                      }
+        <div className='inline-flex items-center mt-[5rem]'></div>
+        {
+          marketInfo && 
+            <div className="marketInfoFirstSection">
+              <div className="marketCard w-full">
+                <img src={cardImage2} alt="" className='firstImage'/>
+                  <div className="body">
+                  <div className="author flex justify-between items-center px-4">
+                    <img src={logo} alt="" width={"12%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
+                    {/* <p className='text-sm mt-1'>the Farmhouse Club</p> */}
+                  </div>
+                  <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2>
+                  <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
+                    <div className='py-3 w-full p-2 rounded-[5px]'>
+                      <p className='font-bold'>TVL</p>
+                      <h2 className='font-bold text-xl'>{marketInfo.tvi}</h2>
                     </div>
-                </div>
-                  <input type="text" className='depositFee font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3 w-full' value={stakeInput} onChange={(e)=> setStakeInput(e.target.value)} placeholder='0.0' style={{ color:"#000" }}/>
-                  <div className="discount flex justify-between items-center p-5 gap-2">
-                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(25)}>25%</button>
-                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(50)}>50%</button>
-                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(75)}>75%</button>
-                    <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(100)}>100%</button>
+                    <div className='py-3 w-full p-2 rounded-[5px]'>
+                      <p className='font-bold'>APY</p>
+                      <h2 className='font-bold text-xl'>{marketInfo.apy === null ? "0" : marketInfo.apy}</h2>
+                    </div>
+                  </div>
                   </div>
               </div>
+
+              <div className="w-full">
+                <div className='marketCard mb-5'>
+                  <div className="tabHeader flex items-center justify-between pt-3 text-center font-bold">
+                    <p className='tabBtn w-full p-3'>Deposit</p>
+                    <p className='tabBtn w-full p-3'>Withdraw</p>
+                    <p className='tabBtn w-full p-3'>Info</p>
+                  </div>
+                  <div className="body">
+                    <div className="author flex justify-between items-center px-1 mt-5 gap-1 ml-3 py-2 rounded">
+                        <img src={logo} alt="" width={"40px"} className='bg-[#262626] rounded-full p-1'/>
+                        <div>
+                          <div className='flex items-center pr-3 cursor-pointer gap-2' onClick={()=> setShowBalance(!showBalance)}>
+                            <p className=''>Balance</p>
+                            <i class="ri-arrow-down-s-line"></i>
+                          </div>
+                          {showBalance &&
+                            <div>
+                              {accountBalanceInfo}
+                            </div>
+                          }
+                        </div>
+                    </div>
+                      <input type="text" className='depositFee font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3 w-full' value={stakeInput} onChange={(e)=> setStakeInput(e.target.value)} placeholder='0.0' style={{ color:"#000" }}/>
+                      <div className="discount flex justify-between items-center p-5 gap-2">
+                        <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(25)}>25%</button>
+                        <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(50)}>50%</button>
+                        <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(75)}>75%</button>
+                        <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(100)}>100%</button>
+                      </div>
+                  </div>
+                </div>
+                <div>
+                  <div className='flex items-center justify-between font-medium'>
+                    <p>Deposit Fee</p>
+                    <p>0</p>
+                  </div>
+                  <div className='flex items-center justify-between my-2 font-medium'>
+                    <p>Withdraw Fee</p>
+                    <p>0%</p>
+                  </div>
+                  <div className='flex items-center justify-between font-medium'>
+                    <p>Performance Fee</p>
+                    <p>10%</p>
+                  </div>
+                </div>
+                {/* {fundAccount ? 
+                  <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-bold text-white' onClick={()=> setFundAccountModal(true)}>Fund Account</button>
+                    : 
+                  <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-bold text-white' onClick={()=> setWalletModal(true)}>Connect your account to deposit</button>
+                } */}
+              </div>
+
+                <div>
+                  <h4 className='text-xl font-bold my-4'>Project Description</h4>
+                  <p className='text-justify'>{marketInfo.description}</p>
+                </div>
+              
             </div>
-            <div>
-              <div className='flex items-center justify-between font-medium'>
-                <p>Deposit Fee</p>
-                <p>0</p>
-              </div>
-              <div className='flex items-center justify-between my-2 font-medium'>
-                <p>Withdraw Fee</p>
-                <p>0%</p>
-              </div>
-              <div className='flex items-center justify-between font-medium'>
-                <p>Performance Fee</p>
-                <p>10%</p>
-              </div>
-            </div>
-            {/* {fundAccount ? 
-              <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-bold text-white' onClick={()=> setFundAccountModal(true)}>Fund Account</button>
-                : 
-              <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-bold text-white' onClick={()=> setWalletModal(true)}>Connect your account to deposit</button>
-            } */}
-          </div>
+        }
           
-        </div>
         {walletModal && 
             <div className="walletsModalBg">
                 <div className="walletsModal">

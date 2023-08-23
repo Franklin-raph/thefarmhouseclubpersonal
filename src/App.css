@@ -72,7 +72,7 @@ form label{
   border-bottom: 1px solid #595959;
 }
 /* .successModal, .failureModal,  */
-.darkMode :is(.otp-input, .changPasswordModal, .twoFactorModal, .fundModal, .verifyPaymentModdal){
+.darkMode :is(.otp-input, .changPasswordModal, .twoFactorModal, .fundModal, .verifyPaymentModdal, .market-nav){
   background-color: hsl(207, 26%, 17%);
   color: #ffffff;
 }
@@ -185,6 +185,20 @@ form label{
   display: none;
 }
 
+.market-nav{
+  position: fixed;
+  left: 20%;
+  top: 15%;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  z-index: 1;
+  background-color: #fff;
+  padding: 18px 20px;
+  border-radius: 50px;
+  border: 1px solid #595959;
+}
 
 /* ANIMATED CANCELMARK STARTS */
 .cancel {
@@ -658,6 +672,11 @@ footer i{
   padding-bottom: 6.5rem;
 }
 
+.marketToggler{
+  display: none;
+}
+
+
 @media screen and (max-width:1244px) {
   .landingPage main{
     padding-left: 35px;
@@ -728,6 +747,11 @@ footer i{
     width: 100%;
   }
 
+  .market-nav{
+    left: 5%;
+    top: 20%;
+  }
+
 }
 
 @media screen and (max-width:992px) {
@@ -748,6 +772,12 @@ footer i{
     right: 0;
     left: 0;
     padding: 150px .8rem;
+  }
+
+  .market-nav{
+    padding: 9px 10px;
+    gap: 30px;
+    font-size: 14px;
   }
 }
 
@@ -938,6 +968,26 @@ footer i{
 
   .successModal p, .failureModal p, .successModal button, .failureModal button{
     font-size: 18px;
+  }
+
+  .marketCardContainer{
+    margin-top: 6rem !important;
+  }
+
+  .market-nav{
+    flex-direction: column;
+    border-radius: 10px;
+    left: -50%;
+    transition: .5s;
+  }
+
+  .marketToggler{
+    display: block;
+  }
+  
+  .showMarketNav{
+    left: 5%;
+    transition: .5s;
   }
 
   footer{
