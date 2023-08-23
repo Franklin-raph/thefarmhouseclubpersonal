@@ -1,7 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const SuccessAlert = ({success, setSuccess}) => {
-    console.log(success)
+const SuccessAlert = ({success, setSuccess, setFromEmailVerify, fromEmailVerify}) => {
+    const navigate = useNavigate()
   return (
     <div>
         <div className="successModalBg">
@@ -11,7 +12,10 @@ const SuccessAlert = ({success, setSuccess}) => {
                     <path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
                 </svg>
                 <p style={{ color:"black" }}>{success}</p>
-                {/* <button onClick={()=> navigate}>Continue to login</button> */}
+                {fromEmailVerify && <button onClick={()=> {
+                    navigate("/login")
+                    setFromEmailVerify(false)
+                }}>Continue to login</button>}
             </div>
         </div>
     </div>

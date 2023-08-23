@@ -157,11 +157,11 @@ const Login = ({baseUrl}) => {
                     <i className="fa-regular fa-eye-slash cursor-pointer" onClick={toggleInput}></i>
                     )}
           </div>
-          {loading ? <button className="bg-[#83B943] w-full mt-5 py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> : <input type="submit" value="Sign In" className="bg-[#83B943] w-full mt-5 py-2 rounded-[6px] text-[#fff] cursor-pointer"/>}
+          {loading ? <button className="bg-[#1AC888] w-full mt-5 py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> : <input type="submit" value="Sign In" className="bg-[#1AC888] w-full mt-5 py-2 rounded-[6px] text-[#fff] cursor-pointer"/>}
           
           <div className="flex mt-2 mb-8 items-center justify-between" style={{ borderBottom:"none" }}>
-            <Link to="/forgotpassword" className="text-sm text-[#83B943]">Forgot Password?</Link>
-            <p className="text-sm">Need an account? <Link to="/register" className="text-sm text-[#83B943]">Sign Up</Link> </p>
+            <Link to="/forgotpassword" className="text-sm text-[#1AC888]">Forgot Password?</Link>
+            <p className="text-sm">Need an account? <Link to="/register" className="text-sm text-[#1AC888]">Sign Up</Link> </p>
             
           </div>
           <div className="flex justify-center">

@@ -194,10 +194,10 @@ const Register = ({baseUrl}) => {
                     )}
             </div>
           </div>
-          {loading ? <button className="bg-[#83B943] w-full mt-5 py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> : <input type="submit" value="Sign Up" className="bg-[#83B943] w-full mt-5 py-2 rounded-[6px] text-[#fff] cursor-pointer"/>}
+          {loading ? <button className="bg-[#1AC888] w-full mt-5 py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> : <input type="submit" value="Sign Up" className="bg-[#1AC888] w-full mt-5 py-2 rounded-[6px] text-[#fff] cursor-pointer"/>}
           <div className="flex justify-between items-center mt-2 mb-5" style={{ border:"none" }}>
             <p></p>
-            <p className="text-sm">Already have an account? <Link to="/login" className="underline text-[#83B943]">Login</Link> </p>
+            <p className="text-sm">Already have an account? <Link to="/login" className="underline text-[#1AC888]">Login</Link> </p>
           </div>
             <div className="flex justify-center">
             <GoogleLogin

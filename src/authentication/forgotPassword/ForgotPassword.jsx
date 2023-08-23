@@ -72,10 +72,10 @@ const ForgotPassword = ({baseUrl}) => {
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" 
               className="w-full px-[10px] py-[7px] bg-transparent mt-1 border-0 outline-none"/>
         </div>
-        {loader ? <button className="bg-[#83B943] w-full mt-9 py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> : <input type="submit" value="Send Reset Password Link" className="bg-[#83B943] w-full mt-9 py-2 rounded-[6px] text-[#fff] cursor-pointer"/>}
+        {loader ? <button className="bg-[#1AC888] w-full mt-9 py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> : <input type="submit" value="Send Reset Password Link" className="bg-[#1AC888] w-full mt-9 py-2 rounded-[6px] text-[#fff] cursor-pointer"/>}
         
         <div className="flex mt-3 mb-8 items-center justify-between" style={{ borderBottom:"none" }}>
-          <a href='https://mailto:thefarmhouseclub@gmail.com' className="text-sm">Having trouble logging in? <Link to="/register" className="text-sm text-[#83B943]">Contact support</Link> </a>
+          <a href='https://mailto:thefarmhouseclub@gmail.com' className="text-sm">Having trouble logging in? <Link to="/register" className="text-sm text-[#1AC888]">Contact support</Link> </a>
         </div>
       </form>
       <a href="https://wa.me/+2347056514643" target="_blank" className="whatsapp fixed bottom-2 right-2 bg-green-500 py-2 px-3 rounded-full text-white text-sm">
