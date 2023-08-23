@@ -16,6 +16,9 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
   const [twoFactorModal, setTwoFactorModal] = useState(false)
   const [twoFactorSuccessMessage, setTwoFactorSuccessMessage] = useState(false)
   const [confirmTwoFactorTurnOff, setConfirmTwoFactorTurnOff] = useState(false)
+  const [old_password, setOldPassword] = useState("")
+  const [new_password1, setNewPassword1] = useState("")
+  const [new_password2, setNewPassword2] = useState("")
   const [btns, setbtns] = useState()
   const navigate = useNavigate()
 
@@ -80,9 +83,25 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
       }
       
     }
-    console.log(myProfile)
+    console.log(myProfile.has_changed_password)
 
     async function handlePasswordChange(){
+      console.log({new_password1:new_password1, new_password2:new_password2})
+      setLoader(true)
+      const response = await fetch(`${baseUrl}/reset-password-from-dashboard/`, {
+        method:"POST",
+        headers: {
+          "Content-Type" : "application/json",
+          Authorization: `Bearer ${user.access}`
+        },
+        body: JSON.stringify({old_password:old_password, new_password1:new_password1, new_password2:new_password2})
+      })
+      if(response) setLoader(false)
+      const data = await response.json()
+    if(response.ok){
+      setSuccess()
+    }
+      console.log(response, data)
 
     }
 
@@ -206,28 +225,23 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 </div>
               </div>
 
-              {user && user.user.provider === "google" ?
+              {user && myProfile.provider === "google" && myProfile.has_changed_password === false ?
                 <>
                   {changePasswordModal && 
                   <div className='changePasswordModalBg'>
                     <div className="changPasswordModal relative" style={{ textAlign:"start" }}>
                       <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setChangePasswordModal(false)}></i>
-                      {/* <div className='w-full my-5'>
-                        <label className='block text-[16px] mb-1'>Old Password</label>
-                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
-                      </div> */}
                       <div className='w-full my-5'>
                         <label className='block text-[16px] mb-1'>New Password</label>
-                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                        <input onChange={(e) => setNewPassword1(e.target.value)} type="password"  className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                       </div>
                       <div className='w-full my-5'>
                         <label className='block text-[16px] mb-1'>Confirm Password</label>
-                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                        <input  onChange={(e) => setNewPassword2(e.target.value)} type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                       </div>
-                      {
-                      loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
+                      {loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
                       : 
-                      <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={handlePasswordChange}>Change Password</button>
+                      <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={() => handlePasswordChange()}>Change Password</button>
                       }
                     </div>
                   </div>
@@ -235,30 +249,29 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 </>
               : 
                 <>
-                  {changePasswordModal && 
-                  <div className='changePasswordModalBg'>
-                    <div className="changPasswordModal relative" style={{ textAlign:"start" }}>
-                      <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setChangePasswordModal(false)}></i>
-                      <div className='w-full my-5'>
-                        <label className='block text-[16px] mb-1'>Old Password</label>
-                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                    {changePasswordModal && 
+                      <div className='changePasswordModalBg'>
+                        <div className="changPasswordModal relative" style={{ textAlign:"start" }}>
+                          <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setChangePasswordModal(false)}></i>
+                          <div className='w-full my-5'>
+                            <label className='block text-[16px] mb-1'>Old Password</label>
+                            <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                          </div>
+                          <div className='w-full my-5'>
+                            <label className='block text-[16px] mb-1'>New Password</label>
+                            <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                          </div>
+                          <div className='w-full my-5'>
+                            <label className='block text-[16px] mb-1'>Confirm Password</label>
+                            <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                          </div>
+                          {loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
+                          :
+                          <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={() => handlePasswordChange()}>Change Password</button>
+                          }
+                        </div>
                       </div>
-                      <div className='w-full my-5'>
-                        <label className='block text-[16px] mb-1'>New Password</label>
-                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
-                      </div>
-                      <div className='w-full my-5'>
-                        <label className='block text-[16px] mb-1'>Confirm Password</label>
-                        <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
-                      </div>
-                      {
-                      loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
-                      : 
-                      <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={handlePasswordChange}>Change Password</button>
-                      }
-                    </div>
-                  </div>
-                  }
+                    }
                 </>
               }
               
