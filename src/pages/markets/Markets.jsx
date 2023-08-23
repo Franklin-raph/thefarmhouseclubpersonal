@@ -42,7 +42,10 @@ const Markets = ({changemode, mode, baseUrl}) => {
             <li>Logistics</li>
             <li>Trading</li>
           </div>
-          <i className='marketToggler ri-menu-line fixed right-[5%] text-xl top-[20%]' onClick={()=> toggleNav()}></i>
+          <div className='marketToggler fixed right-[5%] top-[20%] flex items-center gap-1 px-2 rounded-[5px]' style={{ border:"1px solid gray", zIndex:"99" }} onClick={()=> toggleNav()}>
+            <p>Menu</p>
+            <i className='ri-menu-line text-xl'></i>
+          </div>
         </div>
         <div className="marketCardContainer mt-[9rem] relative left-[7%] w-[75%] mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {investMents && 

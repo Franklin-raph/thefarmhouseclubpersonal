@@ -72,7 +72,7 @@ form label{
   border-bottom: 1px solid #595959;
 }
 /* .successModal, .failureModal,  */
-.darkMode :is(.otp-input, .changPasswordModal, .twoFactorModal, .fundModal, .verifyPaymentModdal, .market-nav){
+.darkMode :is(.otp-input, .changPasswordModal, .twoFactorModal, .fundModal, .verifyPaymentModdal, .market-nav, .marketToggler){
   background-color: hsl(207, 26%, 17%);
   color: #ffffff;
 }
