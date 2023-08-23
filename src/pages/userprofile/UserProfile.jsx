@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import LoggedInNav from '../../components/navbar/LoggedInNav'
 import { useParams, useNavigate } from 'react-router-dom'
+import ErrorAlert from '../../components/alert/ErrorAlert'
+import SuccessAlert from '../../components/alert/SuccessAlert'
 
 const UserProfile = ({baseUrl, changemode, mode}) => {
   const user = JSON.parse(localStorage.getItem("user"))
@@ -21,6 +23,7 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
   const [new_password2, setNewPassword2] = useState("")
   const [btns, setbtns] = useState()
   const navigate = useNavigate()
+  const passwordRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
 
     const {id} = useParams()
     useEffect(()=> {
@@ -86,7 +89,14 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
     console.log(myProfile.has_changed_password)
 
     async function handlePasswordChange(){
-      console.log({new_password1:new_password1, new_password2:new_password2})
+      console.log({old_password:old_password, new_password1:new_password1, new_password2:new_password2})
+      if(!new_password1 || !new_password2){
+        setError("Please fill out all fields")
+      }else if (!passwordRegEx.test(new_password1)){
+        setError("Password must be at least 8 characters, have at least one uppercase, have at least one lower case a special character and a number")
+      }else if(new_password1 !== new_password2){
+        setError("Password fields do not match")
+      }else{
       setLoader(true)
       const response = await fetch(`${baseUrl}/reset-password-from-dashboard/`, {
         method:"POST",
@@ -96,17 +106,26 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
         },
         body: JSON.stringify({old_password:old_password, new_password1:new_password1, new_password2:new_password2})
       })
-      if(response) setLoader(false)
+      if(response) {
+        setLoader(false)
+        setChangePasswordModal(false)
+      }
       const data = await response.json()
-    if(response.ok){
-      setSuccess()
-    }
+      if(response.ok){
+        setSuccess(data.detail)
+      }
+      if(!response.ok){
+        setError(data.detail)
+      }
       console.log(response, data)
-
     }
+
+  }
 
   return (
     <div>
+      {error && <ErrorAlert error={error} setError={setError}/>}
+      {success && <SuccessAlert success={success} setSuccess={setSuccess}/>}
         <LoggedInNav changemode={changemode} mode={mode}/>
         <div className="userProfileDetailsContainer relative top-[10%]">
           <div className='fixed bg-white w-full py-8 top-[12.5%] left-[16%]' id='userProfileNavContainer'>
@@ -233,11 +252,11 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                       <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setChangePasswordModal(false)}></i>
                       <div className='w-full my-5'>
                         <label className='block text-[16px] mb-1'>New Password</label>
-                        <input onChange={(e) => setNewPassword1(e.target.value)} type="password"  className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                        <input onChange={(e) => setNewPassword1(e.target.value)} value={new_password1} type="password"  className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                       </div>
                       <div className='w-full my-5'>
                         <label className='block text-[16px] mb-1'>Confirm Password</label>
-                        <input  onChange={(e) => setNewPassword2(e.target.value)} type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                        <input onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                       </div>
                       {loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
                       : 
@@ -255,15 +274,15 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                           <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setChangePasswordModal(false)}></i>
                           <div className='w-full my-5'>
                             <label className='block text-[16px] mb-1'>Old Password</label>
-                            <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                            <input onChange={(e) => setOldPassword(e.target.value)} value={old_password} type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                           </div>
                           <div className='w-full my-5'>
                             <label className='block text-[16px] mb-1'>New Password</label>
-                            <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                            <input onChange={(e) => setNewPassword1(e.target.value)} value={new_password1} type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                           </div>
                           <div className='w-full my-5'>
                             <label className='block text-[16px] mb-1'>Confirm Password</label>
-                            <input type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
+                            <input onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                           </div>
                           {loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
                           :

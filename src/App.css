@@ -482,6 +482,10 @@ footer i{
   z-index: 99;
 }
 
+.successModalBg, .errorModalBg{
+  z-index: 100;
+}
+
 .successModal, .failureModal, .otp-input, .changPasswordModal, .twoFactorModal, .verifyPaymentModal{
   background-color: #fff;
   color: #000;

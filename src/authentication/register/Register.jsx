@@ -137,7 +137,7 @@ const Register = ({baseUrl}) => {
           <h1 className="text-[20px] text-[#B3B3B3] font-[700]">Create an account</h1>
           <div className="flex items-center mt-5" style={{ borderBottom:"1px solid #333" }}>
                 <label><i className="fa-solid fa-envelope text-sm"></i></label>
-                <input type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email" 
+                <input type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Email"
                 className="w-full px-[10px] py-[7px] bg-transparent mt-1 border-0 outline-none"/>
           </div>
           <div className="flex flex-col sm:flex-row gap-0 sm:gap-10">
