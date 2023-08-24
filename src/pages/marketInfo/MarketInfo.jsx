@@ -6,22 +6,23 @@ import cardImage2 from '../../assets/images/cocoa-plant.jpg'
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import stellar from "../../assets/images/Stellar_Symbol.png"
 import LoaderComponent from '../../components/loaderComponent/LoaderComponent'
+import ErrorAlert from '../../components/alert/ErrorAlert'
+import SuccessAlert from '../../components/alert/SuccessAlert'
 
 const MarketInfo = ({changemode, mode, baseUrl}) => {
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem("user"))
     const [walletModal, setWalletModal] = useState(false)
-    const [fundAccountModal, setFundAccountModal] = useState(false)
     const [loadingAccount, setLoadingAccount] = useState(false)
-    const [fundAccount, setFundAccount] = useState(false)
-    const [openBankTransfer, setOpenBankTransfer] = useState(false)
-    const [openCryptoTransfer, setOpenCryptoTransfer] = useState(false)
-    const [openBankInstrumentsTransfer, setOpenInstrumentsTransfer] = useState(false)
+    const [success, setSuccess] = useState("")
     const [error, setError] = useState("")
     const [stakeInput, setStakeInput] = useState(0)
     const [marketInfo, setMarketInfo] = useState()
     const [showBalance, setShowBalance] = useState(false)
     const [accountBalanceInfo, setAccountBalanceInfo] = useState()
+    const [confirmProjectInvestModal, setConfirmProjectInvestModal] = useState(false)
+    const [amountInvested, setAmountInvested] = useState("")
+    const [investLoader, setInvestLoader] = useState(false)
     const {id} = useParams()
 
     useEffect(() =>{
@@ -72,7 +73,23 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const data = await response.json()
     setMarketInfo(data)
     console.log(data)
+  }
 
+  async function handleProjectInvestment(){
+    setInvestLoader(true)
+    const response = await fetch(`${baseUrl}/invest/`, {
+      method:"POST",
+      body: JSON.stringify({amount_invested:amountInvested, project_id:id}),
+      headers:{
+        Authorization: `Bearer ${user.access}`,
+        "Content-Type":"application/json"
+      }
+    })
+    const data = await response.json()
+    if(response) setInvestLoader(false)
+    if(response.ok) setSuccess(data.detail)
+    if(!response.ok) setError(data.detail)
+    console.log(response, data)
   }
 
   return (
@@ -148,11 +165,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                     <p>10%</p>
                   </div>
                 </div>
-                {/* {fundAccount ? 
-                  <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-bold text-white' onClick={()=> setFundAccountModal(true)}>Fund Account</button>
-                    : 
-                  <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-bold text-white' onClick={()=> setWalletModal(true)}>Connect your account to deposit</button>
-                } */}
+                <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(true)}>Invest ${stakeInput} in this project</button>
               </div>
 
                 <div>
@@ -185,67 +198,37 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
         }
 
         {error &&
-            <div className="errorModalBg">
-                <div className="failureModal" style={{ position:"relative" }}>
-                    <i className="ri-close-circle-line cursor-pointer" style={{ fontSize:"20px", position:"fixed", top:"40%", right:"31%" }} onClick={()=> setError(false)}></i>
-                    <i className="ri-close-circle-line text-red-600"></i>
-                    <p>{error}</p>
-                </div>
-            </div>
+            <ErrorAlert error={error} setError={setError}/>
         }
-        {fundAccountModal &&
-          <div className='modalBg fixed top-0 left-0 w-full h-[100vh]'>
-            <div className="modal bg-white px-5 pb-10 rounded-md relative">
-            <i className="ri-close-circle-line text-red-600 text-2xl absolute top-5 right-5 cursor-pointer" onClick={()=> setFundAccountModal(false)}></i>
+        {success &&
+            <SuccessAlert success={success} setSuccess={setSuccess}/>
+        }
+
+        {confirmProjectInvestModal &&
+          <div className='confirmProjectInvestModalBg'>
+            <div className="confirmProjectInvestModal bg-white px-5 pb-10 rounded-md relative">
+            <i className="ri-close-circle-line text-red-600 text-2xl absolute top-5 right-5 cursor-pointer" onClick={()=> setConfirmProjectInvestModal(false)}></i>
               <div className="header my-8">
-                <h1 className='font-bold text-2xl mb-3'>Fund your Account</h1>
-                <p>Use any of the options below to add funds to your wallet to buy commodities.</p>
+                <h1 className='font-bold text-2xl mb-3'>Project Investment</h1>
+                <p>Please use the button below to confirm your investment for cocoa plant project</p>
               </div>
-              <div className="body flex items-center justify-between text-center mt-9">
-                <div className='text-[#83B943] shadow-xl p-3 cursor-pointer' onClick={()=> {
-                  setOpenBankTransfer(!openBankTransfer)
-                  setOpenCryptoTransfer(false)
-                  setOpenInstrumentsTransfer(false)
-                }}>
-                  <i class="fa-solid fa-building-columns text-6xl mb-2"></i>
-                  <p>Bank Transfer</p>
-                </div>
-                <div  className='text-[#83B943] shadow-xl p-3 cursor-pointer' onClick={()=> {
-                  setOpenBankTransfer(false)
-                  setOpenCryptoTransfer(!openCryptoTransfer)
-                  setOpenInstrumentsTransfer(false)
-                }}>
-                  <i class="fa-brands fa-bitcoin text-6xl"></i>
-                  <p>Crypto Transfer</p>
-                </div>
-                <div  className='text-[#83B943] shadow-xl p-3 cursor-pointer' onClick={()=> {
-                  setOpenBankTransfer(false)
-                  setOpenCryptoTransfer(false)
-                  setOpenInstrumentsTransfer(!openBankInstrumentsTransfer)
-                }}>
-                  <i class="fa-brands fa-bitcoin text-6xl"></i>
-                  <p>Bank Instruments</p>
-                </div>
+              <div className="body grid gap-5 mt-9">
+                <h1>Investment Amount: ${stakeInput}</h1>
+                <h1>Project Name: ${stakeInput}</h1>
               </div>
-              {openBankTransfer && !openCryptoTransfer && !openBankInstrumentsTransfer &&
-                <div>
-                  <p className='mt-4 mb-4 text-gray-600'>At the time of Payment Transaction. Make sure your minimum balance is <br /> sufficient to make purchase order</p>
-                  <p className='text-gray-600 mb-5'>NOTE: Make sure you enter the memo code in your payment transaction</p>
-                  <p className='mb-1 font-medium text-gray-700'>Bank Name: GT Bank</p>
-                  <p className='mb-1 font-medium text-gray-700'>Account Holder Name: The Farm House Club</p>
-                  <p className='mb-1 font-medium text-gray-700'>Bank Account No: 411011231213</p>
-                  <p className='mb-1 font-medium text-gray-700'>Memo Code: CCC0EEE495</p>
-                </div>
-              }
-              {!openBankTransfer && openCryptoTransfer && !openBankInstrumentsTransfer &&
-                <div className='my-5 text-center'>
-                  <h1><span className='font-bold'>Note:</span>You need to make trustline to transfer funds into your wallet</h1>
-                  <button className='py-1 bg-[#83B943] w-full text-white mt-3 rounded'>Trustline</button>
-                </div>
-              }
-              {!openBankTransfer && !openCryptoTransfer && openBankInstrumentsTransfer &&
-                <div>Instrument</div>
-              }
+              <div className="footer mt-9 flex text-center items-center justify-center gap-5">
+                {!investLoader ? 
+                  <button className='cursor-pointer rounded-md bg-[#1AC888] text-center py-2 px-5 font-medium text-white' onClick={handleProjectInvestment}>
+                    Confirm
+                  </button>
+                  : 
+                  <button className='cursor-pointer rounded-md bg-[#1AC888] text-center py-2 px-5 font-medium text-white'>
+                    <i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i>
+                  </button>
+                }
+                
+                <button className='cursor-pointer rounded-md bg-red-600 text-center py-2 px-5 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(false)}>Cancel </button>
+              </div>
             </div>
           </div>
         }

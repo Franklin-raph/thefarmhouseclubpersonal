@@ -3,10 +3,12 @@ import cardImage1 from '../../assets/images/processingPlantImages.jpg'
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import LoaderComponent from '../../components/loaderComponent/LoaderComponent'
 
 const Markets = ({changemode, mode, baseUrl}) => {
   const user = JSON.parse(localStorage.getItem("user"))
   const [investMents, setInvestMents] = useState()
+  const [loadMarketsContent, setLoadMarketsContent] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -15,12 +17,14 @@ const Markets = ({changemode, mode, baseUrl}) => {
   },[])
 
   async function getInvestMentList(){
+    setLoadMarketsContent(true)
     const response = await fetch(`${baseUrl}/investments/`,{
       headers: {
         "Content-Type" : "application/json",
         Authorization: `Bearer ${user.access}`
       },
     })
+    if(response) setLoadMarketsContent(false)
     const data = await response.json()
     console.log(response, data)
     if(response.ok){
@@ -35,6 +39,11 @@ const Markets = ({changemode, mode, baseUrl}) => {
   return (
     <div className='marketPlace h-[100%]'>
         <LoggedInNav changemode={changemode} mode={mode} />
+        {loadMarketsContent && 
+          <div className='dashboardContentLoaderBg'>
+              <LoaderComponent />
+          </div>
+          }
         <div className='py-5 relative'>
           <div className='market-nav'>
             <li>Processing</li>

@@ -177,7 +177,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                     ))}
                     <div onClick={()=>setFundAccountModal(true)} className='border border-slate-600 flex items-center justify-center border-dashed cursor-pointer p-5 rounded-lg text-center dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
                       <div className='flex items-center justify-center gap-3'>
-                        <i class="ri-add-circle-fill text-[#64748B] text-[30px]"></i>
+                        <i class="ri-add-circle-fill text-[#64748B] text-[50px]"></i>
                         <p>Account Top Up</p>
                       </div>
                     </div>
@@ -186,7 +186,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                 <h3 className='text-2xl font-[600] text-[#888] mb-5 mt-[90px] pl-1' style={{ borderLeft:"4px solid #888" }}>MY STAKED PROJECTS</h3>
                   <div className='text-center my-[6em] flex-col'>
                     <h4 className='text-center text-3xl text-gray-500'>Stake some AVDA</h4>
-                    <button className='mt-2 py-1 px-3 bg-[#1AC888] rounded-md' onClick={()=> navigate("/markets")}>Stake Now</button>
+                    <button className='mt-2 py-1 px-3 bg-[#1AC888] rounded-md text-white' onClick={()=> navigate("/markets")}>Stake Now</button>
                   </div>
                 <div className="marketCardContainer relative w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center content-center">
                   {/* {stakedProjectsArray && stakedProjectsArray.map((project, index) => (
