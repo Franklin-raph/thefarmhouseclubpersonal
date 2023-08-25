@@ -44,6 +44,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
   const [success, setSuccess] = useState(false)
   const [displayDashboardInfo, setDisplayDashboardInfo] = useState(false)
   const [accountBalanceInfo, setAccountBalanceInfo] = useState()
+  const [stakedProjectsArray, setStakedProjectsArray] = useState([])
 
   const navigate = useNavigate()
 
@@ -52,6 +53,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
 
     if(user){
       getAccountSummary()
+      getMyStackedProject()
     }
     
     // Function for the changing text
@@ -119,32 +121,16 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
     })
   }
 
-  const stakedProjectsArray = [
-    {
-      projectName:"Farm House Club",
-      author:"Glory",
-      tvl:"$1.03M",
-      apy:"3.2%"
-    },
-    {
-      projectName:"Farm House Club",
-      author:"Frank",
-      tvl:"$999T",
-      apy:"99.9%"
-    },
-    {
-      projectName:"Farm House Club",
-      author:"Emma",
-      tvl:"$1.03M",
-      apy:"3.2%"
-    },
-    {
-      projectName:"Farm House Club",
-      author:"John",
-      tvl:"$1.03M",
-      apy:"3.2%"
-    }
-  ]
+  async function getMyStackedProject(){
+    const response = await fetch("https://app1.thefarmhouseclub.io/api/v1/my-investments/",{
+      headers:{
+        Authorization: `Bearer ${user.access}`
+      }
+    })
+    const data = await response.json()
+    setStakedProjectsArray(data)
+    console.log(response, data)
+  }
 
   return (
     <div className='h-full pb-[3rem]'>
@@ -182,21 +168,22 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                       </div>
                     </div>
                 </div>
-
                 <h3 className='text-2xl font-[600] text-[#888] mb-5 mt-[90px] pl-1' style={{ borderLeft:"4px solid #888" }}>MY STAKED PROJECTS</h3>
+                  {stakedProjectsArray && stakedProjectsArray.length <= 0 &&
                   <div className='text-center my-[6em] flex-col'>
                     <h4 className='text-center text-3xl text-gray-500'>Stake some AVDA</h4>
                     <button className='mt-2 py-1 px-3 bg-[#1AC888] rounded-md text-white' onClick={()=> navigate("/markets")}>Stake Now</button>
                   </div>
+                  }
                 <div className="marketCardContainer relative w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center content-center">
-                  {/* {stakedProjectsArray && stakedProjectsArray.map((project, index) => (
-                    <div key={index} className="marketCard w-full cursor-pointer mt-6" onClick={()=> navigate("/marketinfo/123")}>
+                  {stakedProjectsArray && stakedProjectsArray.map((project, index) => (
+                    <div key={index} className="marketCard w-full cursor-pointer mt-6" onClick={()=> navigate(`/marketinfo/${project.id}`)}>
                         <div className="body">
                           <div className="author flex justify-between items-center px-4">
                             <img src={logo} alt="" width={"18%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
-                            <p className='text-sm mt-3 mr-2 font-[500]'>{project.author}</p>
+                            {/* <p className='text-sm mt-3 mr-2 font-[500]'>{project.author}</p> */}
                           </div>
-                           <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{project.projectName}</h2>
+                           <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{project.project_name}</h2>
                           <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
                             <div className='py-3 w-full p-2 rounded-[5px]'>
                               <p className='font-bold'>TVL</p>
@@ -209,7 +196,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                           </div>
                         </div>
                     </div>
-                  ))} */}
+                  ))}
                 </div>
             </div>
         }

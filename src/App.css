@@ -96,6 +96,10 @@ form label{
   /* transition: .5s; */
 }
 
+.lightMode .swapDiv .logo, .lightMode .swapDiv .ri-arrow-down-s-line{
+  background-color: hsl(0, 0%, 82%);
+}
+
 @keyframes loader {
   0% {
     left:0%;
@@ -571,13 +575,22 @@ footer i{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 31%;
   box-shadow: 0 0 30px #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
+  /* gap: 10px; */
   border-radius: 10px;
+}
+
+.swapDiv .from:nth-child(1){
+  margin-bottom: -10px;
+}
+
+.swapDiv .from:nth-child(3){
+  margin-top: -10px;
 }
 
 .walletsModalBg, .modalBg{
@@ -693,6 +706,10 @@ footer i{
 }
 
 @media screen and (max-width:1200px) {
+  .swapDiv{
+    width: 40%;
+  }
+
   .marketPlace .marketCardContainer{
     width: 90%;
     left: 0;
@@ -755,6 +772,11 @@ footer i{
 }
 
 @media screen and (max-width:992px) {
+
+  .swapDiv{
+    width: 50%;
+  }
+
   .landingPage main .coin2{
     right: 50px;
   }
@@ -786,6 +808,10 @@ footer i{
 }
 
 @media screen and (max-width:768px) {
+
+  .swapDiv{
+    width: 60%;
+  }
 
   .mobileNavLoggedInNav{
     padding: .5rem 1rem;
@@ -876,6 +902,11 @@ footer i{
 }
 
 @media screen and (max-width:600px) {
+
+  .swapDiv{
+    width: 70%;
+  }
+
   .landingPage main .text-div{
     text-align: center;
     width: 85%;
@@ -928,6 +959,10 @@ footer i{
 }
 
 @media screen and (max-width:480px) {
+
+  .swapDiv{
+    width: 80%;
+  }
 
   .loader-parent { 
     width:70%; 
@@ -1008,6 +1043,15 @@ footer i{
 }
 
 @media screen and (max-width:375px) {
+  
+  .swapDiv{
+    width: 95%;
+  }
+
+  .swapDiv h3{
+    font-size: 20px;
+  }
+
   .landingPage main .text-div{
     width: 100%;
   }

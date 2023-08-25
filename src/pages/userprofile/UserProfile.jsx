@@ -128,7 +128,7 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
       {success && <SuccessAlert success={success} setSuccess={setSuccess}/>}
         <LoggedInNav changemode={changemode} mode={mode}/>
         <div className="userProfileDetailsContainer relative top-[10%]">
-          <div className='fixed bg-white w-full py-8 top-[12.5%] left-[16%]' id='userProfileNavContainer'>
+          <div className='fixed bg-white w-full py-8 top-[12.5%] left-[16%] z-10' id='userProfileNavContainer'>
             <div className='userProfileNav inline-flex items-center gap-5 py-2 px-4 rounded-full bg-[#F5F6FA]'>
               <div className='cursor-pointer flex items-center gap-2' onClick={()=> {
                 setShow2Fa(false)
@@ -194,7 +194,7 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 <p className='border border-gray-300 inline rounded-md px-2 py-1 w-full'>{user && user.public_key}</p>
               </div> */}
 
-              <button className='text-[#fff] bg-[#1AC888] w-auto mt-5 py-3 px-5 rounded-md block'>Save Changes</button>
+              {/* <button className='text-[#fff] bg-[#1AC888] w-auto mt-5 py-3 px-5 rounded-md block'>Save Changes</button> */}
             </div>
               
           }
@@ -210,12 +210,12 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
 
                 <div className='my-9 flex gap-10 md:flex-row md:items-center flex-col items-start'>
                     <h1 className='font-[600] text-xl text-[#006340]'>Phone Number</h1>
-                    <p className='px-2 py-2'>+23458987654</p>
+                    {myProfile && myProfile.phone_num ? <p className='px-2 py-2'>{myProfile.phone_num}</p> : <p className='px-2 py-2'>+234000000000</p> }
                 </div>
 
                 <div className='my-9 flex gap-10 md:flex-row md:items-center flex-col items-start'>
                     <h1 className='font-[600] text-xl text-[#006340]'>Bank Verification Number (BVN)</h1>
-                    <p className='px-2 py-2'>698709****</p>
+                    <p className='px-2 py-2'>******</p>
                 </div>
               </div>
               

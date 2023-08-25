@@ -5,7 +5,7 @@ import ErrorAlert from '../../components/alert/ErrorAlert'
 import SuccessAlert from '../../components/alert/SuccessAlert'
 
 const ForgotPassword = ({baseUrl}) => {
-  const [email, setEmail] = useState("igboekwulusifranklin@gmail.com")
+  const [email, setEmail] = useState("")
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
   const [loader, setLoader] = useState(false)

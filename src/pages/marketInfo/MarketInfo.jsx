@@ -76,10 +76,11 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
   }
 
   async function handleProjectInvestment(){
+    console.log(JSON.stringify({amount_invested:stakeInput, project_id:id, public_key:user.public_key}))
     setInvestLoader(true)
     const response = await fetch(`${baseUrl}/invest/`, {
       method:"POST",
-      body: JSON.stringify({amount_invested:amountInvested, project_id:id}),
+      body: JSON.stringify({amount_invested:stakeInput, project_id:id}),
       headers:{
         Authorization: `Bearer ${user.access}`,
         "Content-Type":"application/json"
@@ -87,9 +88,12 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     })
     const data = await response.json()
     if(response) setInvestLoader(false)
-    if(response.ok) setSuccess(data.detail)
+    if(response.ok) {
+      setConfirmProjectInvestModal(false)
+      setSuccess(data.description)
+    }
     if(!response.ok) setError(data.detail)
-    console.log(response, data)
+    console.log(response, data.description)
   }
 
   return (
@@ -100,17 +104,18 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
           marketInfo && 
             <div className="marketInfoFirstSection">
               <div className="marketCard w-full">
-                <img src={cardImage2} alt="" className='firstImage'/>
+                <img src={cardImage2} alt="" className='firstImage w-full'/>
                   <div className="body">
                   <div className="author flex justify-between items-center px-4">
                     <img src={logo} alt="" width={"12%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
                     {/* <p className='text-sm mt-1'>the Farmhouse Club</p> */}
                   </div>
-                  <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2>
+                  {/* <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2> */}
+                  <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{marketInfo.project_name}</h2>
                   <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
                     <div className='py-3 w-full p-2 rounded-[5px]'>
                       <p className='font-bold'>TVL</p>
-                      <h2 className='font-bold text-xl'>{marketInfo.tvi}</h2>
+                      <h2 className='font-bold text-xl'>{marketInfo.tvl}</h2>
                     </div>
                     <div className='py-3 w-full p-2 rounded-[5px]'>
                       <p className='font-bold'>APY</p>
@@ -143,12 +148,22 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                         </div>
                     </div>
                       <input type="text" className='depositFee font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3 w-full' value={stakeInput} onChange={(e)=> setStakeInput(e.target.value)} placeholder='0.0' style={{ color:"#000" }}/>
+                      {accountBalanceInfo <= 0 ?
                       <div className="discount flex justify-between items-center p-5 gap-2">
-                        <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(25)}>25%</button>
-                        <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(50)}>50%</button>
-                        <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(75)}>75%</button>
-                        <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(100)}>100%</button>
+                        <button className='cursor-not-allowed border border-[#595959] opacity-50 w-full py-1 rounded-md'>25%</button>
+                        <button className='cursor-not-allowed border border-[#595959] opacity-50 w-full py-1 rounded-md'>50%</button>
+                        <button className='cursor-not-allowed border border-[#595959] opacity-50 w-full py-1 rounded-md'>75%</button>
+                        <button className='cursor-not-allowed border border-[#595959] opacity-50 w-full py-1 rounded-md'>100%</button>
                       </div>
+                      : 
+                        <div className="discount flex justify-between items-center p-5 gap-2">
+                          <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(25)}>25%</button>
+                          <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(50)}>50%</button>
+                          <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(75)}>75%</button>
+                          <button className='border border-[#595959] w-full py-1 rounded-md' onClick={()=>calculateStakeAmount(100)}>100%</button>
+                        </div>
+                      }
+                      
                   </div>
                 </div>
                 <div>
@@ -165,7 +180,9 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                     <p>10%</p>
                   </div>
                 </div>
-                <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(true)}>Invest ${stakeInput} in this project</button>
+                {stakeInput <= 0 ? <button className='cursor-not-allowed mt-5 rounded-md bg-[#1AC888] opacity-50 text-center w-full py-2 font-medium text-white'>Invest ${stakeInput} in this project</button> : <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(true)}>Invest ${stakeInput} in this project</button> }
+                
+                
               </div>
 
                 <div>
@@ -210,7 +227,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
             <i className="ri-close-circle-line text-red-600 text-2xl absolute top-5 right-5 cursor-pointer" onClick={()=> setConfirmProjectInvestModal(false)}></i>
               <div className="header my-8">
                 <h1 className='font-bold text-2xl mb-3'>Project Investment</h1>
-                <p>Please use the button below to confirm your investment for cocoa plant project</p>
+                <p>Please use the button below to confirm your investment for {marketInfo.project_name}</p>
               </div>
               <div className="body grid gap-5 mt-9">
                 <h1>Investment Amount: ${stakeInput}</h1>

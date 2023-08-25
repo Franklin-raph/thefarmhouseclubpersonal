@@ -15,6 +15,7 @@ const Register = ({baseUrl}) => {
   const [last_name, setLastName] = useState("")
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
+  const [phoneNum, setPhoneNum] = useState("")
   const [loading, setLoading] = useState(false)
   const [inputType, setInputType] = useState("password");
   const [showPassword, setShowPassword] = useState(false);
@@ -99,11 +100,10 @@ const Register = ({baseUrl}) => {
   async function handleSignUpFromGoogleResponse(userDetails){
     console.log(userDetails)
     const {email, family_name, given_name, email_verified} = userDetails
-    console.log(email, family_name, given_name, email_verified)
     setLoading(true)
     const response = await fetch(`${baseUrl}/google-signup/`, {
         method:"POST",
-        body: JSON.stringify({email:email, first_name:given_name, last_name:family_name, username:"1", password:"1", provider:"1", email_verified:email_verified }),
+        body: JSON.stringify({email:email, first_name:given_name, last_name:family_name, phone_num:phoneNum, username:"1", password:"1", email_verified:email_verified }),
         headers:{
             "Content-Type":"application/json"
         }
@@ -160,7 +160,7 @@ const Register = ({baseUrl}) => {
             </div>
             <div className="flex items-center mt-5" style={{ borderBottom:"1px solid #333" }}>
                 <label><i className="fa-solid fa-phone text-sm"></i></label>
-                <input type="text" placeholder="+23480000000" 
+                <input type="text" placeholder="+23480000000" onChange={(e) => setPhoneNum(e.target.value)}
                 className="w-full px-[10px] py-[7px] text-black bg-transparent mt-1 border-0 outline-none"/>
             </div>
           </div>

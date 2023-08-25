@@ -13,7 +13,7 @@ const LandingPage = () => {
     useEffect(() => {
         if(user){
             console.log(true)
-            navigate("/")
+            navigate("/dashboard")
         }
         if(!user){
             console.log(true)

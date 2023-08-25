@@ -8,8 +8,8 @@ import SuccessAlert from "../../components/alert/SuccessAlert";
 import VerificationModal from "../../components/verificationModal/VerificationModal";
 
 const Login = ({baseUrl}) => {
-    const [email, setEmail] = useState("igboekwulusifranklin@gmail.com")
-    const [password, setPassword] = useState("1234567890")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const [inputType, setInputType] = useState("password");
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("")
