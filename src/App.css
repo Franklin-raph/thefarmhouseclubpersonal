@@ -48,7 +48,7 @@ form label{
   border-right: 1px solid #595959;
 }
 
-.darkMode :is(.connectWalletBox, .userModal, .dashboardInfo, .swapDiv){
+.darkMode :is(.connectWalletBox, .userModal, .dashboardInfo, .swapDiv .from){
   background-color: hsl(207, 26%, 17%);
   box-shadow: 0 0 25px hsl(210, 13%, 21%) !important;
 }
@@ -96,7 +96,7 @@ form label{
   /* transition: .5s; */
 }
 
-.lightMode .swapDiv .logo, .lightMode .swapDiv .ri-arrow-down-s-line{
+.lightMode .swapDiv .logo, .lightMode .swapDiv .ri-arrow-down-line, .lightMode .swapTab .current{
   background-color: hsl(0, 0%, 82%);
 }
 
@@ -576,7 +576,6 @@ footer i{
   left: 50%;
   transform: translate(-50%, -50%);
   width: 31%;
-  box-shadow: 0 0 30px #ccc;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -585,11 +584,15 @@ footer i{
   border-radius: 10px;
 }
 
-.swapDiv .from:nth-child(1){
+.swapDiv .from{
+  box-shadow: 0 0 30px #ccc;
+}
+
+.swapDiv .from:nth-child(2){
   margin-bottom: -10px;
 }
 
-.swapDiv .from:nth-child(3){
+.swapDiv .from:nth-child(4){
   margin-top: -10px;
 }
 
@@ -686,7 +689,7 @@ footer i{
 }
 
 .marketToggler{
-  display: none;
+  display: none !important;
 }
 
 
@@ -706,7 +709,7 @@ footer i{
 }
 
 @media screen and (max-width:1200px) {
-  .swapDiv{
+  .swapDiv, .tokenModal{
     width: 40%;
   }
 
@@ -773,7 +776,7 @@ footer i{
 
 @media screen and (max-width:992px) {
 
-  .swapDiv{
+  .swapDiv, .tokenModal{
     width: 50%;
   }
 
@@ -809,7 +812,7 @@ footer i{
 
 @media screen and (max-width:768px) {
 
-  .swapDiv{
+  .swapDiv, .tokenModal{
     width: 60%;
   }
 
@@ -903,7 +906,7 @@ footer i{
 
 @media screen and (max-width:600px) {
 
-  .swapDiv{
+  .swapDiv, .tokenModal{
     width: 70%;
   }
 
@@ -960,7 +963,7 @@ footer i{
 
 @media screen and (max-width:480px) {
 
-  .swapDiv{
+  .swapDiv, .tokenModal{
     width: 80%;
   }
 
@@ -1022,7 +1025,7 @@ footer i{
   }
 
   .marketToggler{
-    display: block;
+    display: flex !important;
   }
   
   .showMarketNav{
@@ -1044,7 +1047,7 @@ footer i{
 
 @media screen and (max-width:375px) {
   
-  .swapDiv{
+  .swapDiv, .tokenModal{
     width: 95%;
   }
 

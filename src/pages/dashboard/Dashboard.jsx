@@ -156,7 +156,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                         {accountInfo.asset_code === "" ? <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" /> : <img src={avda} className='w-[75px] rounded-full' alt="" />}
                         <div>
                         {accountInfo.asset_code === "" ?<p className='text-lg'>XLM</p> : <p className='text-lg'>{accountInfo.asset_code}</p> }
-                          <h3 className='font-bold text-xl'>{accountInfo.balance}</h3>
+                        {accountInfo.asset_code === "" ? <h3 className='font-bold text-xl'>{(accountInfo.balance)}</h3> : <h3 className='font-bold text-xl'>{(+accountInfo.balance).toFixed(2)}</h3>}
                           <p className='absolute right-2 bottom-3'>{user.public_key.slice(0, 4)}...{user.public_key.slice(-4)}</p>
                         </div>
                       </div>

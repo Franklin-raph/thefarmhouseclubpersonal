@@ -231,7 +231,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
               </div>
               <div className="body grid gap-5 mt-9">
                 <h1>Investment Amount: ${stakeInput}</h1>
-                <h1>Project Name: ${stakeInput}</h1>
+                <h1>Project Name: ${marketInfo.project_name}</h1>
               </div>
               <div className="footer mt-9 flex text-center items-center justify-center gap-5">
                 {!investLoader ? 
