@@ -4,15 +4,13 @@ import { Link, useNavigate, useParams, useLocation } from "react-router-dom"
 import logo1 from "../../assets/images/Asset-2.-300x47.png"
 import logo2 from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 
-const LoggedInNav = ({walletAddress, fundAccount, setFundAccountModal, setWalletModal, changemode, mode}) => {
+const LoggedInNav = ({changemode, mode}) => {
 
     const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem("user"))
     const [userModal, setUserModal] = useState(false)
-    const [walletConnected, setWalletConnected] = useState(false)
     const [showCheckIcon, setShowCheckIcon] = useState(false)
     const [logOutLoader, setLogOutLoader] = useState(false)
-    const checkIfWalletAddressIsFunded = localStorage.getItem("isWalletAddressFunded")
     const [locationName, setLocationName] = useState()
     const location = useLocation();
     // const {}

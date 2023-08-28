@@ -10,22 +10,15 @@ import SuccessAlert from '../../components/alert/SuccessAlert'
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import cardImage1 from '../../assets/images/cover.jpeg'
 import LoaderComponent from '../../components/loaderComponent/LoaderComponent'
+import FundAccountModal from '../../components/fundAccountModal/FundAccountModal'
 
 const Dashboard = ({changemode, mode, baseUrl}) => {
 
   const user = JSON.parse(localStorage.getItem("user"))
-
-  const [walletModal, setWalletModal] = useState(false)
   const [fundAccountModal, setFundAccountModal] = useState(false)
   const [loadDashboardContent, setLoadDashboardContent] = useState(false)
-  const [fundAccount, setFundAccount] = useState(false)
-  const [openBankTransfer, setOpenBankTransfer] = useState(false)
-  const [openCryptoTransfer, setOpenCryptoTransfer] = useState(false)
-  const [openBankInstrumentsTransfer, setOpenInstrumentsTransfer] = useState(false)
-  const [isWalletAddressFunded, setIsWalletAddressFunded] = useState(false)
-  const [amount, setAmount] = useState("")
-  const [public_key, setPublicKey] = useState(user.public_key)
   const [loadFundButton, setLoadFundButton] = useState(false)
+  const [amount, setAmount] = useState("")
   const TEXTS = [
                   'Top Up Your Wallet for Exciting Ventures!', 
                   'Ignite Your Investments: Top Up Your Wallet and Grow!',
@@ -86,6 +79,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
   }
 
   async function handleVerifyAccountFund(reference, amount){
+    setLoadFundButton(true)
     const response = await fetch(`${baseUrl}/create-funded-account/`,{
       method:"POST",
       body: JSON.stringify({reference:reference, amount:amount, public_key:user.public_key}),
@@ -94,7 +88,10 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
         "Content-Type":"application/json"
       }
     })
-    if(response)setVerifyPaymentModal(false)
+    if(response){
+      setVerifyPaymentModal(false)
+      setLoadFundButton(false)
+    }
     if(response.ok) {
       setSuccess(true)
       getAccountSummary()
@@ -139,7 +136,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
         <div className="balances"></div>
         <div className="balances"></div>
       </div>
-        <LoggedInNav fundAccount={fundAccount} setFundAccountModal={setFundAccountModal} setWalletModal={setWalletModal} changemode={changemode} mode={mode}/>
+        <LoggedInNav setFundAccountModal={setFundAccountModal} changemode={changemode} mode={mode}/>
         {loadDashboardContent && 
           <div className='dashboardContentLoaderBg'>
               <LoaderComponent />
@@ -151,7 +148,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                 <h3 className='text-2xl font-[600] text-[#888] mb-5 pl-1' style={{ borderLeft:"4px solid #888" }}>ACCOUNTS</h3>
                 <div className='gap-10 grid grid-cols-1 lg:grid-cols-3'>
                     {accountBalanceInfo.map(accountInfo => (
-                      <div className='relative border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg relative pb-9 dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
+                      <div className='relative border border-slate-600 flex items-center justify-between gap-10 p-5 rounded-lg pb-9 dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
                         {/* {accountInfo.asset_code === "AVDA" && } */}
                         {accountInfo.asset_code === "" ? <img src="https://cdn.lumenswap.io/obm/xlm.png" className='rounded-full' alt="" /> : <img src={avda} className='w-[75px] rounded-full' alt="" />}
                         <div>
@@ -186,7 +183,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                            <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{project.project_name}</h2>
                           <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
                             <div className='py-3 w-full p-2 rounded-[5px]'>
-                              <p className='font-bold'>TVL</p>
+                              <p className='font-bold'>TVR</p>
                               <h2 className='font-bold text-xl'>{project.tvl}</h2>
                             </div>
                             <div className='py-3 w-full p-2 rounded-[5px]'>
@@ -225,25 +222,6 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
           </div>
         }
 
-        {/* {walletModal && 
-            <div className="walletsModalBg">
-                <div className="walletsModal">
-                    <div className='flex justify-between pb-1 mb-4' style={{ borderBottom:"1px solid #ccc" }}>
-                        <p>Connect to account</p>
-                        <i class="ri-close-fill text-xl cursor-pointer" onClick={()=> setWalletModal(false)}></i>
-                    </div>
-                    <div className='flex items-center gap-3 cursor-pointer' onClick={connectAccount}>
-                        <img src={stellar} alt="" width={"7%"} />
-                        <p className='font-bold text-md'>Stellar</p>
-                    </div>
-                </div>
-            </div>
-        } */}
-        {/* {loadingAccount && 
-            <div className="connectAccountLoader fixed top-[50%] left-[50%] text-[#84b943f7]">
-                <i className="fa-solid fa-gear fa-spin mb-4 text-3xl"></i>
-            </div>
-        } */}
         {error &&
             <div className="errorModalBg">
                 <div className="failureModal" style={{ position:"relative" }}>
@@ -253,81 +231,8 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                 </div>
             </div>
         }
-        {fundAccountModal &&
-          <div className='modalBg fixed top-0 left-0 w-full h-[100vh]'>
-            <div className="fundModal bg-white px-5 pb-10 rounded-md relative">
-            <i className="ri-close-circle-line text-red-600 text-2xl absolute top-5 right-5 cursor-pointer" onClick={()=> setFundAccountModal(false)}></i>
-              <div className="header my-8">
-                <h1 className='font-bold text-2xl mb-3'>Fund your Account</h1>
-                <p>Use any of the options below to add funds to your wallet to buy commodities.</p>
-              </div>
-              <div className="body flex items-center justify-between text-center mt-9">
-                <div className='text-[#1AC888] shadow-xl p-3 cursor-pointer' onClick={()=> {
-                  setOpenBankTransfer(!openBankTransfer)
-                  setOpenCryptoTransfer(false)
-                  setOpenInstrumentsTransfer(false)
-                }}>
-                  <i class="fa-solid fa-building-columns text-6xl mb-3"></i>
-                  <p>Bank Transfer</p>
-                </div>
-                <div  className='text-[#1AC888] shadow-xl p-3 cursor-pointer' onClick={()=> {
-                  setOpenBankTransfer(false)
-                  setOpenCryptoTransfer(!openCryptoTransfer)
-                  setOpenInstrumentsTransfer(false)
-                }}>
-                  <i class="fa-brands fa-bitcoin text-6xl mb-3"></i>
-                  <p>Crypto Transfer</p>
-                </div>
-                <div  className='text-[#1AC888] shadow-xl p-3 cursor-pointer' onClick={()=> {
-                  setOpenBankTransfer(false)
-                  setOpenCryptoTransfer(false)
-                  setOpenInstrumentsTransfer(!openBankInstrumentsTransfer)
-                }}>
-                  <i class="fa-solid fa-credit-card text-6xl mb-3"></i>
-                  <p>Card Payment</p>
-                </div>
-              </div>
-              {openBankTransfer && !openCryptoTransfer && !openBankInstrumentsTransfer &&
-                <div>
-                  <p className='mt-4 mb-4 text-gray-600'>At the time of Payment Transaction. Make sure your minimum balance is <br /> sufficient to make purchase order</p>
-                  <p className='text-gray-600 mb-5'>NOTE: Make sure you enter the memo code in your payment transaction</p>
-                  <p className='mb-1 font-medium text-gray-700'>Bank Name: GT Bank</p>
-                  <p className='mb-1 font-medium text-gray-700'>Account Holder Name: The Farm House Club</p>
-                  <p className='mb-1 font-medium text-gray-700'>Bank Account No: 411011231213</p>
-                  <p className='mb-1 font-medium text-gray-700'>Memo Code: CCC0EEE495</p>
-                </div>
-              }
-              {!openBankTransfer && openCryptoTransfer && !openBankInstrumentsTransfer &&
-                <div className='my-5 text-center'>
-                  <h1><span className='font-bold'>Note:</span>You need to make trustline to transfer funds into your wallet</h1>
-                  <button className='py-1 bg-[#1AC888] w-full text-white mt-3 rounded'>Trustline</button>
-                </div>
-              }
-              {!openBankTransfer && !openCryptoTransfer && openBankInstrumentsTransfer &&
-                <div className='mt-5'>
-                  <div className=''>
-                    <label className='block'>Amount</label>
-                    <input type="text" onChange={(e)=> setAmount(e.target.value)} className='border border-slate-600 outline-none py-1 pl-3'/>
-                  </div>
-                  <div className='mt-3 border-b border-slate-400'>
-                    <label className='block'>Public Key</label>
-                    <div className='flex gap-1'>
-                      <i className="ri-key-2-line"></i>
-                      <input type="text" value={public_key} className='border-none outline-none py-[3px] pl-1 w-full'/>
-                    </div>
-                  </div>
-                  {!loadFundButton ?
-                    <button onClick={payWithPayStack} className='bg-[#1AC888] w-full text-white p-[5px] mt-3'>Fund</button>
-                    :
-                    <button className='bg-[#1AC888] w-full text-white p-[5px] mt-3'>
-                      <i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i>
-                    </button>
-                   }
-                </div>
-              }
-            </div>
-          </div>
-        }
+
+        {fundAccountModal && <FundAccountModal loadFundButton={loadFundButton} setAmount={setAmount} user={user} payWithPayStack={payWithPayStack} setFundAccountModal={setFundAccountModal}/>}
 
         {verifyPaymentModal && 
           <div className='verifyPaymentModdalBg'>
@@ -340,13 +245,6 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
 
         {success && 
           <SuccessAlert success={"Payment has been successfully verified"} setSuccess={setSuccess}/>
-          // <div className='verifyPaymentModdalBg'>
-          //   <div className="verifyPaymentModal relative">
-          //     <i className='absolute top-3 right-3 cursor-pointer' onClick={()=> setSuccessfulModal(false)}>x</i>
-          //     <i className="fa-solid fa-check" style={{ color:"#1AC888", fontSize:"2rem", marginBottom:"20px" }}></i>
-          //     <p>Payment has been successfull</p>
-          //   </div>
-          // </div>
         }
     </div>
   )

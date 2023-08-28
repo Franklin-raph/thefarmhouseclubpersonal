@@ -43,12 +43,16 @@ form label{
   background-color: hsl(207, 26%, 17%);
 }
 
+.darkMode .register form input, .darkMode .register form i{
+  color: #fff;
+}
+
 .darkMode .desktopLoggedInNav{
   background-color: hsl(207, 26%, 17%);
   border-right: 1px solid #595959;
 }
 
-.darkMode :is(.connectWalletBox, .userModal, .dashboardInfo, .swapDiv .from){
+.darkMode :is(.connectWalletBox, .userModal, .dashboardInfo, .swapDiv .from, .swapDiv .crypto){
   background-color: hsl(207, 26%, 17%);
   box-shadow: 0 0 25px hsl(210, 13%, 21%) !important;
 }
@@ -90,13 +94,20 @@ form label{
   color: #000;
 }
 
+.darkMode .swapDiv input{
+  color: #fff;
+}
+
+.lightMode .swapDiv input{
+  color: #000;
+}
+
 .lightMode{
   color: #000;
   background-color: hsl(0, 0%, 100%);
-  /* transition: .5s; */
 }
 
-.lightMode .swapDiv .logo, .lightMode .swapDiv .ri-arrow-down-line, .lightMode .swapTab .current{
+.lightMode .swapDiv .logo, .lightMode .swapDiv .ri-arrow-down-line, .lightMode .swapTab .current, .lightMode .fundOptions{
   background-color: hsl(0, 0%, 82%);
 }
 
@@ -594,6 +605,10 @@ footer i{
 
 .swapDiv .from:nth-child(4){
   margin-top: -10px;
+}
+
+.swapDiv .crypto{
+  box-shadow: 0 0 30px #ccc;
 }
 
 .walletsModalBg, .modalBg{

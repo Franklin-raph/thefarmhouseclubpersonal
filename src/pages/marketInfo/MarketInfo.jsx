@@ -21,8 +21,10 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const [showBalance, setShowBalance] = useState(false)
     const [accountBalanceInfo, setAccountBalanceInfo] = useState()
     const [confirmProjectInvestModal, setConfirmProjectInvestModal] = useState(false)
-    const [amountInvested, setAmountInvested] = useState("")
     const [investLoader, setInvestLoader] = useState(false)
+    const [depositTab, setDepositTab] = useState(false)
+    const [withdrawTab, setWithdrawTab] = useState(false)
+    // const [depositTab, setDepositTab] = useState(false)
     const {id} = useParams()
 
     useEffect(() =>{
@@ -114,7 +116,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                   <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{marketInfo.project_name}</h2>
                   <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
                     <div className='py-3 w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>TVL</p>
+                      <p className='font-bold'>TVR</p>
                       <h2 className='font-bold text-xl'>{marketInfo.tvl}</h2>
                     </div>
                     <div className='py-3 w-full p-2 rounded-[5px]'>
@@ -128,13 +130,21 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
               <div className="w-full">
                 <div className='marketCard mb-5'>
                   <div className="tabHeader flex items-center justify-between pt-3 text-center font-bold">
-                    <p className='tabBtn w-full p-3'>Deposit</p>
-                    <p className='tabBtn w-full p-3'>Withdraw</p>
+                    <p className='tabBtn w-full p-3' onClick={() => {
+                      setDepositTab(true)
+                      setWithdrawTab(false)
+                    }}>Deposit</p>
+                    <p className='tabBtn w-full p-3'onClick={() => {
+                      setDepositTab(false)
+                      setWithdrawTab(true)
+                    }}>Withdraw</p>
                     <p className='tabBtn w-full p-3'>Info</p>
                   </div>
                   <div className="body">
                     <div className="author flex justify-between items-center px-1 mt-5 gap-1 ml-3 py-2 rounded">
-                        <img src={logo} alt="" width={"40px"} className='bg-[#262626] rounded-full p-1'/>
+                        {/* <img src={logo} alt="" width={"40px"} className='bg-[#262626] rounded-full p-1'/> */}
+                        {withdrawTab && <p>Withdraw Amount</p> }
+                        {depositTab && <p>Deposit Amount</p> }
                         <div>
                           <div className='flex items-center pr-3 cursor-pointer gap-2' onClick={()=> setShowBalance(!showBalance)}>
                             <p className=''>Balance</p>
@@ -180,14 +190,39 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                     <p>10%</p>
                   </div>
                 </div>
-                {stakeInput <= 0 ? <button className='cursor-not-allowed mt-5 rounded-md bg-[#1AC888] opacity-50 text-center w-full py-2 font-medium text-white'>Invest ${stakeInput} in this project</button> : <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(true)}>Invest ${stakeInput} in this project</button> }
-                
+                {depositTab && 
+                <>
+                  {stakeInput <= 0 ? <button className='cursor-not-allowed mt-5 rounded-md bg-[#1AC888] opacity-50 text-center w-full py-2 font-medium text-white'>Invest ${stakeInput} in this project</button> : <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(true)}>Invest ${stakeInput} in this project</button> }
+                </>
+                }
+
+                {withdrawTab && 
+                <>
+                  {stakeInput <= 0 ? <button className='cursor-not-allowed mt-5 rounded-md bg-[#1AC888] opacity-50 text-center w-full py-2 font-medium text-white'>Withdraw ${stakeInput}</button> : <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(true)}>Invest ${stakeInput} in this project</button> }
+                </>
+                }
                 
               </div>
 
                 <div>
                   <h4 className='text-xl font-bold my-4'>Project Description</h4>
-                  <p className='text-justify'>{marketInfo.description}</p>
+                  <p className='text-justify mb-5'>{marketInfo.description.substring(0, 500)}</p>
+                  <ul className=''>
+                    <li className='my-2'>
+                      <span className='mr-2'>1.</span>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, ullam?
+                    </li>
+                    <li className='my-2'>
+                      <span className='mr-2'>2.</span>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, ullam?
+                    </li>
+                    <li className='my-2'>
+                      <span className='mr-2'>3.</span>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, ullam?
+                    </li>
+                    
+                  </ul>
+                  <button className='mt-4 border border-[#1AC888] hover:bg-[#1AC888] transition-all text-white p-2 w-full rounded-md'>Download full project description</button>
                 </div>
               
             </div>
