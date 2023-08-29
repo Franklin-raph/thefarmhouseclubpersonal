@@ -116,13 +116,23 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                   {/* <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2> */}
                   <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{marketInfo.project_name}</h2>
                   <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
-                    <div className='py-3 w-full p-2 rounded-[5px]'>
+                    <div className='w-full p-2 rounded-[5px]'>
                       <p className='font-bold'>TVL</p>
                       <h2 className='font-bold text-xl'>{marketInfo.tvl}</h2>
                     </div>
-                    <div className='py-3 w-full p-2 rounded-[5px]'>
+                    <div className='w-full p-2 rounded-[5px]'>
                       <p className='font-bold'>APY</p>
                       <h2 className='font-bold text-xl'>{marketInfo.apy === null ? "0" : marketInfo.apy}</h2>
+                    </div>
+                  </div>
+                  <div className='footer flex items-center justify-between px-4 pb-4 gap-3'>
+                    <div className='w-full p-2 rounded-[5px]'>
+                      <p className='font-bold'>TVL</p>
+                      <h2 className='font-bold text-xl'>{marketInfo.tvl}</h2>
+                    </div>
+                    <div className='w-full p-2 rounded-[5px]'>
+                      <p className='font-bold'>Cost</p>
+                      <h2 className='font-bold text-xl'>{marketInfo.cost === null ? "0" : marketInfo.cost}</h2>
                     </div>
                   </div>
                   </div>
@@ -141,13 +151,10 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                       setWithdrawTab(true)
                       setCurrentTab("Withdrawal")
                     }}>{currentTab === "Withdrawal" ? <p className='text-[#1AC888]'>Withdraw</p> : <p>Withdraw</p>}</div>
-                    {/* <p className='tabBtn w-full p-3'>Info</p> */}
                   </div>
                   <div className="body">
                     <div className="author flex justify-between items-center px-1 mt-5 gap-1 ml-3 py-2 rounded">
-                        {/* <img src={logo} alt="" width={"40px"} className='bg-[#262626] rounded-full p-1'/> */}
-                        {withdrawTab && <p>Withdraw Amount</p> }
-                        {depositTab && <p>Deposit Amount</p> }
+                        {currentTab}
                         <div>
                           <div className='flex items-center pr-3 cursor-pointer gap-2' onClick={()=> setShowBalance(!showBalance)}>
                             <p className=''>Balance</p>
@@ -269,7 +276,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
               </div>
               <div className="body grid gap-5 mt-9">
                 <h1>Investment Amount: ${stakeInput}</h1>
-                <h1>Project Name: ${marketInfo.project_name}</h1>
+                <h1>Project Name: {marketInfo.project_name}</h1>
               </div>
               <div className="footer mt-9 flex text-center items-center justify-center gap-5">
                 {!investLoader ? 

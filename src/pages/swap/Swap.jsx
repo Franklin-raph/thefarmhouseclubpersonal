@@ -149,7 +149,8 @@ const Swap = ({changemode, mode, baseUrl}) => {
                             <h3 className='text-[14px]'>$2305.16</h3>
                         </div>
                     </div>
-                    <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md' onClick={payWithPayStack}>Fund</button>
+                    {amount && <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md' onClick={payWithPayStack}>Fund</button>}
+                    {!amount && <button className='bg-[#1AC888] opacity-50 w-full mt-3 py-2 rounded-md cursor-not-allowed'>Fund</button>}
                 </>
             }
 
@@ -181,7 +182,8 @@ const Swap = ({changemode, mode, baseUrl}) => {
                             <h3 className='text-[14px]'>$2305.16</h3>
                         </div>
                     </div>
-                    <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md'>Fund</button>
+                    {amount && <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md'>Fund</button>}
+                    {!amount && <button className='bg-[#1AC888] opacity-50 w-full mt-3 py-2 rounded-md cursor-not-allowed'>Fund</button>}
                 </>
             }
 

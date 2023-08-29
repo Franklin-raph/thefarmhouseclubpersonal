@@ -66,25 +66,38 @@ const Markets = ({changemode, mode, baseUrl}) => {
                     <img src={logo} alt="" width={"18%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
                     {/* <p className='text-sm mt-1'>the Farmhouse Club</p> */}
                   </div>
-                  <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{investMent.project_name}</h2>
+                  <div className='flex items-center justify-between px-3'>
+                    <h4 className='font-bold mt-2 mb-5'>{investMent.project_name}</h4>
+                    {investMent.close === false ? 
+                      <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                      </span>
+                      :
+                      <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                      </span>
+                    }
+                  </div>
                   <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
-                    <div className='py-3 w-full p-2 rounded-[5px]'>
+                    <div className='w-full p-2 rounded-[5px]'>
                       <p className='font-bold'>TVR</p>
                       <h2 className='font-bold text-xl'>{investMent.tvl}</h2>
                     </div>
-                    <div className='py-3 w-full p-2 rounded-[5px]'>
+                    <div className='w-full p-2 rounded-[5px]'>
                       <p className='font-bold'>APY</p>
                       <h2 className='font-bold text-xl'>{investMent.apy === null ? "0" : investMent.apy}</h2>
                     </div>
                   </div>
                   <div className='footer flex items-center justify-between mt-1 px-4 pb-4 gap-3'>
-                    <div className='py-3 w-full p-2 rounded-[5px]'>
+                    <div className='w-full p-2 rounded-[5px]'>
                       <p className='font-bold'>Profit Yield</p>
                       <h2 className='font-bold text-xl'>{investMent.profit_yield}</h2>
                     </div>
-                    <div className='py-3 w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>APY</p>
-                      <h2 className='font-bold text-xl'>{investMent.apy === null ? "0" : investMent.apy}</h2>
+                    <div className='w-full p-2 rounded-[5px]'>
+                      <p className='font-bold'>Cost</p>
+                      <h2 className='font-bold text-xl'>{investMent.cost === null ? "0" : investMent.cost}</h2>
                     </div>
                   </div>
                   </div>
