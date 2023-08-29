@@ -19,6 +19,7 @@ const Swap = ({changemode, mode, baseUrl}) => {
     const [verifyPaymentModal, setVerifyPaymentModal] = useState(false)
     const [success, setSuccess] = useState(false)
     const [isCopied, setIsCopied] = useState(false)
+    const [bankDetails, setBankDetails] = useState(false)
     const funds = ["Fund with Bank", "Fund with Card", "Fund with Crypto"]
     const [availableCurrencies, setAvailablyCurrencies] = useState([
         {
@@ -37,7 +38,7 @@ const Swap = ({changemode, mode, baseUrl}) => {
 
     const [selectedImg, setSelectedImg] = useState()
     const [selectedName, setSelectedName] = useState("")
-    const [fundText, setFundText] = useState("Fund with Bank")
+    const [fundText, setFundText] = useState("Fund with Card")
 
     useEffect(() => {
         setSelectedImg("-")
@@ -112,7 +113,10 @@ const Swap = ({changemode, mode, baseUrl}) => {
                 {fundOptions && 
                     <div className='fundOptions absolute text-[12px] top-10 left-2 bg-[#263042] py-1 px-2 flex flex-col gap-1'>
                         {funds.map(fund => (
-                            <p className='cursor-pointer' onClick={() => selectFundType(fund)}>{fund}</p>
+                            <p className='cursor-pointer' onClick={() => {
+                                selectFundType(fund)
+                                setFundOptions(false)
+                            }}>{fund}</p>
                         ))}
                     </div>
                 }
@@ -145,7 +149,39 @@ const Swap = ({changemode, mode, baseUrl}) => {
                             <h3 className='text-[14px]'>$2305.16</h3>
                         </div>
                     </div>
-                    <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md' onClick={()=> setFundAccountModal(true)}>Fund</button>
+                    <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md' onClick={payWithPayStack}>Fund</button>
+                </>
+            }
+
+            {fundText === "Fund with Bank" && 
+                <>
+                    <div className="from rounded-md w-full p-3">
+                        <div className="flex justify-between items-center mb-3">
+                            <input type="text" placeholder='0.0' value={amount} onChange={(e) => setAmount(e.target.value)} style={{ color:"#fff !important" }} className='bg-[transparent] outline-none text-[30px] text-white font-medium w-full'/>
+                            <div className="logo flex items-center gap-1 bg-[#263042] px-2 py-1 rounded-full cursor-pointer" onClick={() => setCoinsModal(true)}>
+                                <img src={selectedImg} width={"25px"} className='rounded-full' alt="" />
+                                <p className='mr-2'>{selectedName}</p>
+                                <i className="ri-arrow-down-s-line text-xl cursor-pointer"></i>
+                            </div>
+                        </div>
+                        <div className="flex justify-between items-center text-gray-500 font-medium">
+                            <h3 className='text-[14px]'>$2359.75</h3>
+                        </div>
+                    </div>
+                    <i class="ri-arrow-down-line text-xl bg-[#263042] rounded-full px-2 py-1 relative z-10"></i>
+                    <div className="from rounded-md w-full p-3">
+                        <div className="flex justify-between items-center mb-3">
+                            <h3 className='text-[30px] font-medium'>4034.34</h3>
+                            <div className="logo flex items-center gap-2 cursor-pointer bg-[#263042] px-2 py-1 rounded-full">
+                                <img src={avda} width={"25px"} className='rounded-full' alt="" />
+                                <p className='mr-2'>AVDA</p>
+                            </div>
+                        </div>
+                        <div className="flex justify-between items-center text-gray-500 font-medium">
+                            <h3 className='text-[14px]'>$2305.16</h3>
+                        </div>
+                    </div>
+                    <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md'>Fund</button>
                 </>
             }
 

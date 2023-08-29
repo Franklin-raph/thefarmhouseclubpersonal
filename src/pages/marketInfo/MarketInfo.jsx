@@ -24,7 +24,8 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const [investLoader, setInvestLoader] = useState(false)
     const [depositTab, setDepositTab] = useState(false)
     const [withdrawTab, setWithdrawTab] = useState(false)
-    // const [depositTab, setDepositTab] = useState(false)
+    const [currentTab, setCurrentTab] = useState("Deposit")
+
     const {id} = useParams()
 
     useEffect(() =>{
@@ -116,7 +117,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                   <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{marketInfo.project_name}</h2>
                   <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
                     <div className='py-3 w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>TVR</p>
+                      <p className='font-bold'>TVL</p>
                       <h2 className='font-bold text-xl'>{marketInfo.tvl}</h2>
                     </div>
                     <div className='py-3 w-full p-2 rounded-[5px]'>
@@ -130,15 +131,17 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
               <div className="w-full">
                 <div className='marketCard mb-5'>
                   <div className="tabHeader flex items-center justify-between pt-3 text-center font-bold">
-                    <p className='tabBtn w-full p-3' onClick={() => {
+                    <div className='tabBtn w-full p-3' onClick={() => {
                       setDepositTab(true)
                       setWithdrawTab(false)
-                    }}>Deposit</p>
-                    <p className='tabBtn w-full p-3'onClick={() => {
+                      setCurrentTab("Deposit")
+                    }}>{currentTab === "Deposit" ? <p className='text-[#1AC888]'>Deposit</p> : <p>Deposit</p>}</div>
+                    <div className='tabBtn w-full p-3'onClick={() => {
                       setDepositTab(false)
                       setWithdrawTab(true)
-                    }}>Withdraw</p>
-                    <p className='tabBtn w-full p-3'>Info</p>
+                      setCurrentTab("Withdrawal")
+                    }}>{currentTab === "Withdrawal" ? <p className='text-[#1AC888]'>Withdraw</p> : <p>Withdraw</p>}</div>
+                    {/* <p className='tabBtn w-full p-3'>Info</p> */}
                   </div>
                   <div className="body">
                     <div className="author flex justify-between items-center px-1 mt-5 gap-1 ml-3 py-2 rounded">

@@ -51,7 +51,11 @@ const LandingPage = () => {
                 <button onClick={() => navigate("/register")} className="hover:bg-[#83B943] text-white py-2 px-7 border border-[#83B943] rounded-lg transition ease-in-out duration-700">Get Started</button>
                 }
             </div>
-            <div className="w-full relative top-[-42px] coins-div">
+            <div className="w-full relative top-[-42px] coins-div positioned-coins">
+                <img src={coin1} alt="" className="w-[50%] mx-auto coin1 relative z-20"/>
+                <img src={coin2} alt="" className="w-[40%] ml-auto absolute top-[100px] right-0 coin2 z-10"/>
+            </div>
+            <div className="w-full relative top-[-42px] coins-div unpositioned-coins">
                 <img src={coin1} alt="" className="w-[50%] mx-auto coin1 relative z-20"/>
                 <img src={coin2} alt="" className="w-[40%] ml-auto absolute top-[100px] right-0 coin2 z-10"/>
             </div>
@@ -76,13 +80,13 @@ const LandingPage = () => {
             </ul>
             <ul className="flex justify-between items-center gap-5">
                 <li>
-                    <a href="#"><i className="ri-twitter-fill"></i></a>
+                    <a href="https://twitter.com/@thefarmhousedao"><i className="ri-twitter-fill"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i className="ri-discord-fill"></i></a>
+                    <a href="https://discord.gg/B8YnkS6g"><i className="ri-discord-fill"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i className="ri-instagram-fill"></i></a>
+                    <a href="https://www.instagram.com/thefarmhouseclub/"><i className="ri-instagram-fill"></i></a>
                 </li>
                 <li>
                     <a href="#"><i className="ri-linkedin-box-fill"></i></a>

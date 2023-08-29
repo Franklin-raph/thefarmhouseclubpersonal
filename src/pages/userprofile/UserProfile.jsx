@@ -21,6 +21,7 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
   const [old_password, setOldPassword] = useState("")
   const [new_password1, setNewPassword1] = useState("")
   const [new_password2, setNewPassword2] = useState("")
+  const [updatePasswordModalForGoogleSignUps, setUpdatePasswordModalForGoogleSignUps] = useState(false)
   const [btns, setbtns] = useState()
   const navigate = useNavigate()
   const passwordRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
@@ -76,6 +77,7 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
         setTwoFactorSuccessMessage(data.detail)
         setTwoFactorModal(false)
         setConfirmTwoFactorTurnOff(false)
+        getUserProfile()
 
         setTimeout(()=> {
           setError("")
@@ -113,19 +115,38 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
       const data = await response.json()
       if(response.ok){
         setSuccess(data.detail)
+        getUserProfile()
       }
       if(!response.ok){
         setError(data.detail)
       }
       console.log(response, data)
     }
+  }
 
+  function openTwoFactorModal(){
+    if(myProfile.provider === "google" && myProfile.has_changed_password === false){
+      setUpdatePasswordModalForGoogleSignUps(true)
+    }else{
+      setTwoFactorModal(true)
+    }
   }
 
   return (
     <div>
       {error && <ErrorAlert error={error} setError={setError}/>}
       {success && <SuccessAlert success={success} setSuccess={setSuccess}/>}
+      {updatePasswordModalForGoogleSignUps && 
+        <div className='changePasswordModalBg'>
+          <div className="changPasswordModal relative" style={{ textAlign:"start" }}>
+            <i className='ri-close-fill absolute top-2 right-3 cursor-pointer text-2xl' onClick={(e) => setUpdatePasswordModalForGoogleSignUps(false)}></i>
+            <p className='text-center text-[16px]'>
+              we are excited to introduce an additional layer of protection: 2-Factor Authentication (2FA). However, 
+              before you can enable 2FA for your account, we kindly ask you to update your password.
+            </p>
+          </div>
+        </div>
+      }
         <LoggedInNav changemode={changemode} mode={mode}/>
         <div className="userProfileDetailsContainer relative top-[10%]">
           <div className='fixed bg-white w-full py-8 top-[12.5%] left-[16%] z-10' id='userProfileNavContainer'>
@@ -227,7 +248,7 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                     <p className='text-[14px] text-[#46695c]'>Protect your farmhouseclub account from unauthorized transactions using a software token.</p>
                   </div>
                   <label class="switch flex items-center">
-                    {myProfile && myProfile.has2fa ? <button className='bg-gray-300 text-white py-1 px-2 cursor-not-allowed'>ON</button> : <button className='bg-green-500 text-white py-1 px-2' onClick={e => setTwoFactorModal(true)}>ON</button>}
+                    {myProfile && myProfile.has2fa ? <button className='bg-gray-300 text-white py-1 px-2 cursor-not-allowed'>ON</button> : <button className='bg-green-500 text-white py-1 px-2' onClick={openTwoFactorModal}>ON</button>}
                     {myProfile && myProfile.has2fa ? <button className='bg-red-500 text-white py-1 px-2' onClick={() => setConfirmTwoFactorTurnOff(true)}>OFF</button> : <button className='bg-gray-300 cursor-not-allowed text-white py-1 px-2' cursor-not-allowed>OFF</button>}
                   </label>
                 </div>
@@ -240,13 +261,13 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                     <h1 className='font-[600] text-xl text-[#006340] mb-2'>Update Password</h1>
                     <p className='text-[14px] text-[#46695c]'>Change your old password to a new one</p>
                   </div>
-                    <p onClick={() => setChangePasswordModal(true)} className='text-[#006340] cursor-pointer'>Change Password</p>
+                  <p onClick={() => setChangePasswordModal(true)} className='text-[#006340] cursor-pointer'>Change Password</p>
                 </div>
               </div>
 
               {user && myProfile.provider === "google" && myProfile.has_changed_password === false ?
                 <>
-                  {changePasswordModal && 
+                  {changePasswordModal &&
                   <div className='changePasswordModalBg'>
                     <div className="changPasswordModal relative" style={{ textAlign:"start" }}>
                       <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setChangePasswordModal(false)}></i>
@@ -258,7 +279,8 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                         <label className='block text-[16px] mb-1'>Confirm Password</label>
                         <input onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                       </div>
-                      {loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
+                      {loader ?
+                      <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
                       : 
                       <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={() => handlePasswordChange()}>Change Password</button>
                       }
@@ -284,7 +306,8 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                             <label className='block text-[16px] mb-1'>Confirm Password</label>
                             <input onChange={(e) => setNewPassword2(e.target.value)} value={new_password2} type="password" className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]'/>
                           </div>
-                          {loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
+                          {loader ?
+                          <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
                           :
                           <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={() => handlePasswordChange()}>Change Password</button>
                           }
@@ -302,8 +325,8 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
             <div className="twoFactorModal relative">
               <i className='ri-close-fill absolute top-3 right-5 cursor-pointer' onClick={(e) => setConfirmTwoFactorTurnOff(false)}></i>
               <p className='mb-5 font-medium text-lg'>Are you sure you want to turn off two-factor authentication on this account?</p>
-              {
-              loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
+              {loader ?
+              <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
               : 
               <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={activateTwoFactorAuth}>Yes, Continue</button>
               }
@@ -326,8 +349,8 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 <label className='block text-[17px] mb-2'>Password</label>
                 <input type="password" value={password} onChange={e => setPassword(e.target.value)} className='border border-gray-400 rounded-md px-2 py-2 outline-none w-full text-[17px]' />
               </div>
-              {
-              loader ? <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
+              {loader ?
+              <button className="bg-[#1AC888] w-full py-2 rounded-[6px] text-lg text-center"><i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i></button> 
               : 
               <button className='text-[#fff] text-sm bg-[#1AC888] w-full py-2 px-5 rounded-md' onClick={activateTwoFactorAuth}>Submit</button>
               }

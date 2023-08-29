@@ -158,7 +158,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                         </div>
                       </div>
                     ))}
-                    <div onClick={()=>setFundAccountModal(true)} className='border border-slate-600 flex items-center justify-center border-dashed cursor-pointer p-5 rounded-lg text-center dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
+                    <div onClick={()=>navigate("/swap")} className='border border-slate-600 flex items-center justify-center border-dashed cursor-pointer p-5 rounded-lg text-center dashboardInfo' style={{ boxShadow:"0 0 20px #ccc" }}>
                       <div className='flex items-center justify-center gap-3'>
                         <i class="ri-add-circle-fill text-[#64748B] text-[50px]"></i>
                         <p>Account Top Up</p>
@@ -183,7 +183,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                            <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{project.project_name}</h2>
                           <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
                             <div className='py-3 w-full p-2 rounded-[5px]'>
-                              <p className='font-bold'>TVR</p>
+                              <p className='font-bold'>TVS</p>
                               <h2 className='font-bold text-xl'>{project.tvl}</h2>
                             </div>
                             <div className='py-3 w-full p-2 rounded-[5px]'>
@@ -211,7 +211,7 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
                       <p className='mt-5 text-xl changing-text'>
                         <TextTransition springConfig={presets.wobbly}>{TEXTS[index % TEXTS.length]}</TextTransition>
                       </p>
-                      <button className='bg-[#39A971] text-white px-4 py-2 rounded-md flex justify-center items-center mt-4' onClick={()=>setFundAccountModal(true)}>
+                      <button className='bg-[#39A971] text-white px-4 py-2 rounded-md flex justify-center items-center mt-4' onClick={()=> navigate("/swap")}>
                         <i class="ri-add-fill mr-3 text-2xl"></i>
                         <p className='text-xl'>Fund Wallet</p>
                       </button>

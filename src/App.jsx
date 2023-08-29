@@ -19,6 +19,7 @@ console.log("igboekwulusifranklin@gmail.com")
 function App() {
 
   const [mode, setMode] = useState("lightMode")
+  const user = JSON.parse(localStorage.getItem("user"))
 
   function changemode(){
     console.log(mode)
@@ -29,10 +30,15 @@ function App() {
     }
     return mode
   }
+  
+  const [showTwoFactorNotification, setShowTwoFactorNotification] = useState(false)
 
-useEffect(() => {
-  // localStorage.clear()
-},[])
+  useEffect(() => {
+    setShowTwoFactorNotification(true)
+    console.log(user)
+    // localStorage.clear()
+  },[])
+
 
 
   const baseUrl = "https://app1.thefarmhouseclub.io/api/v1"
@@ -55,6 +61,17 @@ useEffect(() => {
         <Route path='/marketinfo/:id' element={<MarketInfo baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
         <Route path='/swap' element={<Swap baseUrl={baseUrl} changemode={changemode} mode={mode}/>} />
       </Routes>
+
+      {user && 
+        <>
+          {showTwoFactorNotification && 
+            <div className='py-1 px-2 fixed showTwoFactorNotification'>
+              <p>For Maximum security, please turn on 2 Factor Authentication</p>
+              <i className='ri-close-fill cursor-pointer' onClick={(e) => setShowTwoFactorNotification(false)}></i>
+            </div>
+          }
+        </>
+      }
     </div>
     </HashRouter>
   )
