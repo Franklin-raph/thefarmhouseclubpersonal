@@ -107,7 +107,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
           marketInfo && 
             <div className="marketInfoFirstSection">
               <div className="marketCard w-full">
-                <img src={cardImage2} alt="" className='firstImage w-full'/>
+                <img src={marketInfo.proj_img} alt="" className='firstImage w-full' style={{ objectFit:"cover", height:"350px" }}/>
                   <div className="body">
                   <div className="author flex justify-between items-center px-4">
                     <img src={logo} alt="" width={"12%"} className='mt-[-1.8rem] bg-[#262626] rounded-full p-2'/>
@@ -127,8 +127,8 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                   </div>
                   <div className='footer flex items-center justify-between px-4 pb-4 gap-3'>
                     <div className='w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>TVL</p>
-                      <h2 className='font-bold text-xl'>{marketInfo.tvl}</h2>
+                      <p className='font-bold'>Profit Yield</p>
+                      <h2 className='font-bold text-xl'>{marketInfo.profit_yield}</h2>
                     </div>
                     <div className='w-full p-2 rounded-[5px]'>
                       <p className='font-bold'>Cost</p>
