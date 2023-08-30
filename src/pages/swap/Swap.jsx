@@ -133,20 +133,20 @@ const Swap = ({changemode, mode, baseUrl}) => {
                             </div>
                         </div>
                         <div className="flex justify-between items-center text-gray-500 font-medium">
-                            <h3 className='text-[14px]'>$0</h3>
+                            <h3 className='text-[14px]'>$750</h3>
                         </div>
                     </div>
                     <i class="ri-arrow-down-line text-xl bg-[#263042] rounded-full px-2 py-1 relative z-10"></i>
                     <div className="from rounded-md w-full p-3">
                         <div className="flex justify-between items-center mb-3">
-                            <h3 className='text-[30px] font-medium'>0</h3>
+                            <h3 className='text-[30px] font-medium'>{amount * 750}</h3>
                             <div className="logo flex items-center gap-2 cursor-pointer bg-[#263042] px-2 py-1 rounded-full">
                                 <img src={avda} width={"25px"} className='rounded-full' alt="" />
                                 <p className='mr-2'>AVDA</p>
                             </div>
                         </div>
                         <div className="flex justify-between items-center text-gray-500 font-medium">
-                            <h3 className='text-[14px]'>$0</h3>
+                            <h3 className='text-[14px]'>$750</h3>
                         </div>
                     </div>
                     {amount && <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md' onClick={payWithPayStack}>Fund</button>}
@@ -166,20 +166,20 @@ const Swap = ({changemode, mode, baseUrl}) => {
                             </div>
                         </div>
                         <div className="flex justify-between items-center text-gray-500 font-medium">
-                            <h3 className='text-[14px]'>$0</h3>
+                            <h3 className='text-[14px]'>$750</h3>
                         </div>
                     </div>
                     <i class="ri-arrow-down-line text-xl bg-[#263042] rounded-full px-2 py-1 relative z-10"></i>
                     <div className="from rounded-md w-full p-3">
                         <div className="flex justify-between items-center mb-3">
-                            <h3 className='text-[30px] font-medium'>{amount * 1000}</h3>
+                            <h3 className='text-[30px] font-medium'>{amount * 750}</h3>
                             <div className="logo flex items-center gap-2 cursor-pointer bg-[#263042] px-2 py-1 rounded-full">
                                 <img src={avda} width={"25px"} className='rounded-full' alt="" />
                                 <p className='mr-2'>AVDA</p>
                             </div>
                         </div>
                         <div className="flex justify-between items-center text-gray-500 font-medium">
-                            <h3 className='text-[14px]'>$0</h3>
+                            <h3 className='text-[14px]'>$750</h3>
                         </div>
                     </div>
                     {amount && <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md'>Fund</button>}

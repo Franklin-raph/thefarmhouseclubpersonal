@@ -1,8 +1,7 @@
 import {useEffect, useState} from 'react'
 import LoggedInNav from '../../components/navbar/LoggedInNav'
 import {useNavigate, useParams} from "react-router-dom"
-import cardImage1 from '../../assets/images/cover.jpeg'
-import cardImage2 from '../../assets/images/cocoa-plant.jpg'
+import DOMPurify from 'dompurify';
 import logo from "../../assets/images/thefarmhouseclublogo2.png.crdownload.png"
 import stellar from "../../assets/images/Stellar_Symbol.png"
 import LoaderComponent from '../../components/loaderComponent/LoaderComponent'
@@ -25,12 +24,15 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const [depositTab, setDepositTab] = useState(false)
     const [withdrawTab, setWithdrawTab] = useState(false)
     const [currentTab, setCurrentTab] = useState("Deposit")
+    const [projectDescription, setProjectDescription] = useState("")
 
     const {id} = useParams()
+    const [rawData, setRawData] = useState('lorem <b>ipsum</b>');
 
     useEffect(() =>{
       getAccountSummary()
       getProjectInfo()
+      console.log(rawData)
       console.log(id)
     },[])
 
@@ -75,7 +77,9 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     })
     const data = await response.json()
     setMarketInfo(data)
-    console.log(data)
+    const sanitizedHtml = DOMPurify.sanitize(data.description);
+    setProjectDescription(sanitizedHtml)
+    console.log(sanitizedHtml)
   }
 
   async function handleProjectInvestment(){
@@ -114,7 +118,28 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                     {/* <p className='text-sm mt-1'>the Farmhouse Club</p> */}
                   </div>
                   {/* <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>Farm House Club</h2> */}
-                  <h2 className='font-bold text-lg pl-3 mt-2 mb-5'>{marketInfo.project_name}</h2>
+                  <div className='flex items-center px-3 justify-between'>
+                    <h2 className='font-bold text-lg mt-2 mb-5'>{marketInfo.project_name}</h2>
+                    <div>
+                      {!marketInfo.close === false ? 
+                      <div className='flex items-center gap-2 border border-gray-700 text-sm rounded-md py-1 px-3'>
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                        </span>
+                        <p>Closed</p>
+                      </div>
+                      :
+                      <div className='flex items-center gap-2 border border-gray-700 text-sm rounded-md py-1 px-3'>
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                        <p>Active</p>
+                      </div>
+                      }
+                    </div>
+                  </div>
                   <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
                     <div className='w-full p-2 rounded-[5px]'>
                       <p className='font-bold'>TVL</p>
@@ -216,7 +241,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
 
                 <div>
                   <h4 className='text-xl font-bold my-4'>Project Description</h4>
-                  <p className='text-justify mb-5'>{marketInfo.description.substring(0, 500)}</p>
+                  <p className='text-justify' dangerouslySetInnerHTML={{__html: projectDescription}}/>
                   <ul className=''>
                     <li className='my-2'>
                       <span className='mr-2'>1.</span>
@@ -234,9 +259,9 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                   </ul>
                   <button className='mt-4 border border-[#1AC888] hover:bg-[#1AC888] transition-all text-white p-2 w-full rounded-md'>Download full project description</button>
                 </div>
-              
             </div>
         }
+
           
         {walletModal && 
             <div className="walletsModalBg">
