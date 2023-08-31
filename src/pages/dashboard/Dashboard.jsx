@@ -199,9 +199,9 @@ const Dashboard = ({changemode, mode, baseUrl}) => {
         }
         
         {!displayDashboardInfo &&
-          <div className='h-[100vh]'>
+          <div className='h-[100vh] noDashboardInfo'>
             <div className='py-2 px-5 relative left-[7%] top-[10%] flex justify-center items-center flex-col' id='dashboard'>
-              <div className='flex flex-col justify-center items-center text-center w-[80%] mx-auto mt-[6rem]'>
+              <div className='flex flex-col justify-center items-center text-center w-[100%] md:w-[80%] mx-auto mt-[6rem]'>
                 <div className="connectWalletBox bg-[#eee] w-full rounded-[10px] py-5 mt-9" style={{ boxShadow:"0 0 25px #ccc" }}>
                     <img src={AVDACoin} alt="" style={{ width:"20%", margin:"-7rem 0 0 auto" }}/>
                     <div className='text-start px-9'>

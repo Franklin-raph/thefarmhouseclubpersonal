@@ -24,7 +24,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const [depositTab, setDepositTab] = useState(false)
     const [withdrawTab, setWithdrawTab] = useState(false)
     const [currentTab, setCurrentTab] = useState("")
-    const [numberOfDaysRemaining, setNumberOfDaysRemaining] = useState()
+    const [numberOfDaysRemaining, setNumberOfDaysRemaining] = useState(0)
 
     const {id} = useParams()
     const [rawData, setRawData] = useState('lorem <b>ipsum</b>');
@@ -82,15 +82,12 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const timeDifference = targetDate - currentDate;
     const remainingDays = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     if(remainingDays > 0){
-      setNumberOfDaysRemaining(`${remainingDays} days remaining`)
+      setNumberOfDaysRemaining(remainingDays)
     }else if (remainingDays === 0){
-      setNumberOfDaysRemaining(`Less than a day`)
+      setNumberOfDaysRemaining(0)
     }else{
-      setNumberOfDaysRemaining(`Vesting period duration expired`)
+      setNumberOfDaysRemaining(-1)
     }
-    console.log(remainingDays)
-    console.log(targetDate,data)
-    console.log(new Date(data.vesting_period))
   }
 
   async function handleProjectInvestment(){
@@ -173,10 +170,20 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                   </div>
                   <div className='footer flex items-center justify-between px-4 pb-4 gap-3'>
                     <div className='w-full p-2 rounded-[5px]'>
-                      <p className='text-gray-500 font-[600] mb-2'>Vesting Period</p>
+                      <div className='flex items-center justify-between' style={{ border:"none" }}>
+                        <p className='text-gray-500 font-[600] mb-2'>Vesting Period</p>
+                        {/* {console.log(numberOfDaysRemaining.match(/\d+/g))} */}
+                        {+numberOfDaysRemaining > 0 && <i class="ri-time-line text-[#1AC888]"></i>}
+                        {+numberOfDaysRemaining === 0 && <i class="ri-time-line text-[yellow]"></i>}
+                        {+numberOfDaysRemaining < 0 && <i class="ri-time-line text-[red]"></i>}
+                        
+                      </div>
                       <div className='flex items-center justify-between' style={{ border:"none" }}>
                         <h2 className='font-bold text-xl'>{marketInfo.vesting_period}</h2>
-                        <p>{numberOfDaysRemaining}</p>
+                        {numberOfDaysRemaining > 0 ? 
+                          <p>{numberOfDaysRemaining} Days Remaining</p> : numberOfDaysRemaining === 0 ? 
+                          <p>Less than a day</p> : <p>Vesting period expired</p> 
+                        }
                       </div>
                     </div>
                   </div>

@@ -76,7 +76,7 @@ form label{
   border-bottom: 1px solid #595959;
 }
 /* .successModal, .failureModal,  */
-.darkMode :is(.otp-input, .changPasswordModal, .twoFactorModal, .fundModal, .verifyPaymentModdal, .market-nav, .marketToggler){
+.darkMode :is(.otp-input, .changPasswordModal, .twoFactorModal, .fundModal, .verifyPaymentModdal, .market-nav, .marketToggler, .tokenModal){
   background-color: hsl(207, 26%, 17%);
   color: #ffffff;
 }
@@ -582,8 +582,8 @@ footer i{
   border-radius: 6px;
 }
 
-.market{
-  /* background: linear-gradient(170deg,#f2fffd 20%,#69bfac 100%); */
+.mobileAddress{
+  display: none;
 }
 
 /* dashboard */
@@ -597,7 +597,7 @@ footer i{
 
 .swapDiv{
   position: fixed;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 31%;
@@ -756,8 +756,8 @@ footer ul:nth-child(2) li{
     font-size: 33px;
   }
 
-  .register form{
-    /* width: 40%; */
+  .cryptoModal{
+    width: 75% !important;
   }
 }
 
@@ -861,9 +861,22 @@ footer ul:nth-child(2) li{
   .successModal, .failureModal, .otp-input, .confirmProjectInvestModal, .changPasswordModal, .twoFactorModal, .verifyPaymentModal{
     width: 55%;
   }
+
+  .cryptoModal{
+    width: 95% !important;
+  }
 }
 
 @media screen and (max-width:768px) {
+
+  .mobileAddress{
+    display: block;
+  }
+
+  .desktopAddress{
+    text-align: center;
+    display: none;
+  }
 
   .swapDiv, .tokenModal{
     width: 60%;
@@ -958,6 +971,10 @@ footer ul:nth-child(2) li{
 }
 
 @media screen and (max-width:600px) {
+
+  .noDashboardInfo{
+    height: 100% !important;
+  }
 
   .swapDiv, .tokenModal{
     width: 70%;
