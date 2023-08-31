@@ -82,21 +82,21 @@ const Markets = ({changemode, mode, baseUrl}) => {
                   </div>
                   <div className='footer flex items-center justify-between mt-5 px-4 pb-4 gap-3'>
                     <div className='w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>TVR</p>
+                      <p className='text-gray-500 font-[600] mb-2'>TVR</p>
                       <h2 className='font-bold text-xl'>{investMent.tvl}</h2>
                     </div>
                     <div className='w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>APY</p>
+                      <p className='text-gray-500 font-[600] mb-2'>APY</p>
                       <h2 className='font-bold text-xl'>{investMent.apy === null ? "0" : investMent.apy}</h2>
                     </div>
                   </div>
                   <div className='footer flex items-center justify-between mt-1 px-4 pb-4 gap-3'>
                     <div className='w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>Profit Yield</p>
+                      <p className='text-gray-500 font-[600] mb-2'>Profit Yield</p>
                       <h2 className='font-bold text-xl'>{investMent.profit_yield}</h2>
                     </div>
                     <div className='w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>Cost</p>
+                      <p className='text-gray-500 font-[600] mb-2'>TVR</p>
                       <h2 className='font-bold text-xl'>{investMent.cost === null ? "0" : investMent.cost}</h2>
                     </div>
                   </div>

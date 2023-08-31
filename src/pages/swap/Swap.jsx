@@ -41,8 +41,8 @@ const Swap = ({changemode, mode, baseUrl}) => {
     const [fundText, setFundText] = useState("Fund with Card")
 
     useEffect(() => {
-        setSelectedImg("-")
-        setSelectedName("-")
+        setSelectedImg(Ngn)
+        setSelectedName("NGN")
     },[])
 
     function selectCurrency(img, name){
@@ -126,27 +126,27 @@ const Swap = ({changemode, mode, baseUrl}) => {
                     <div className="from rounded-md w-full p-3">
                         <div className="flex justify-between items-center mb-3">
                             <input type="text" placeholder='0.0' value={amount} onChange={(e) => setAmount(e.target.value)} style={{ color:"#fff !important" }} className='bg-[transparent] outline-none text-[30px] text-white font-medium w-full'/>
-                            <div className="logo flex items-center gap-1 bg-[#263042] px-2 py-1 rounded-full cursor-pointer" onClick={() => setCoinsModal(true)}>
-                                <img src={selectedImg} width={"25px"} className='rounded-full' alt="" />
-                                <p className='mr-2'>{selectedName}</p>
+                            <div className="logo flex items-center w-[30%] gap-1 bg-[#263042] px-2 py-1 rounded-full cursor-pointer" onClick={() => setCoinsModal(true)}>
+                                <img src={selectedImg} width={"18px"} className='rounded-full' alt="" />
+                                <p className='text-sm'>{selectedName}</p>
                                 <i className="ri-arrow-down-s-line text-xl cursor-pointer"></i>
                             </div>
                         </div>
                         <div className="flex justify-between items-center text-gray-500 font-medium">
-                            <h3 className='text-[14px]'>$750</h3>
+                            <h3 className='text-[14px]'>${amount/750}</h3>
                         </div>
                     </div>
-                    <i class="ri-arrow-down-line text-xl bg-[#263042] rounded-full px-2 py-1 relative z-10"></i>
+                    <i class="ri-arrow-down-line text-xl bg-[#263042] rounded-full px-2 py-1 relative z-10 border"></i>
                     <div className="from rounded-md w-full p-3">
                         <div className="flex justify-between items-center mb-3">
-                            <h3 className='text-[30px] font-medium'>{amount * 750}</h3>
+                            <h3 className='text-[30px] font-medium'>{(amount / 0.750).toFixed(2)}</h3>
                             <div className="logo flex items-center gap-2 cursor-pointer bg-[#263042] px-2 py-1 rounded-full">
                                 <img src={avda} width={"25px"} className='rounded-full' alt="" />
                                 <p className='mr-2'>AVDA</p>
                             </div>
                         </div>
                         <div className="flex justify-between items-center text-gray-500 font-medium">
-                            <h3 className='text-[14px]'>$750</h3>
+                            <h3 className='text-[14px]'>${amount / 750}</h3>
                         </div>
                     </div>
                     {amount && <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md' onClick={payWithPayStack}>Fund</button>}

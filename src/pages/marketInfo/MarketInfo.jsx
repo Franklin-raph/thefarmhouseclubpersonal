@@ -23,8 +23,8 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const [investLoader, setInvestLoader] = useState(false)
     const [depositTab, setDepositTab] = useState(false)
     const [withdrawTab, setWithdrawTab] = useState(false)
-    const [currentTab, setCurrentTab] = useState("Deposit")
-    const [projectDescription, setProjectDescription] = useState("")
+    const [currentTab, setCurrentTab] = useState("")
+    const [numberOfDaysRemaining, setNumberOfDaysRemaining] = useState()
 
     const {id} = useParams()
     const [rawData, setRawData] = useState('lorem <b>ipsum</b>');
@@ -32,9 +32,9 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     useEffect(() =>{
       getAccountSummary()
       getProjectInfo()
-      console.log(rawData)
-      console.log(id)
+      setCurrentTab("")
     },[])
+    console.log(currentTab)
 
     async function getAccountSummary(){
       setLoadingAccount(true)
@@ -77,9 +77,20 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     })
     const data = await response.json()
     setMarketInfo(data)
-    const sanitizedHtml = DOMPurify.sanitize(data.description);
-    setProjectDescription(sanitizedHtml)
-    console.log(sanitizedHtml)
+    const targetDate = new Date(data.vesting_period)
+    const currentDate = new Date()
+    const timeDifference = targetDate - currentDate;
+    const remainingDays = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    if(remainingDays > 0){
+      setNumberOfDaysRemaining(`${remainingDays} days remaining`)
+    }else if (remainingDays === 0){
+      setNumberOfDaysRemaining(`Less than a day`)
+    }else{
+      setNumberOfDaysRemaining(`Vesting period duration expired`)
+    }
+    console.log(remainingDays)
+    console.log(targetDate,data)
+    console.log(new Date(data.vesting_period))
   }
 
   async function handleProjectInvestment(){
@@ -142,22 +153,31 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                   </div>
                   <div className='footer flex items-center justify-between mt-9 px-4 pb-4 gap-3'>
                     <div className='w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>TVL</p>
+                      <p className='text-gray-500 font-[600] mb-2'>TVL</p>
                       <h2 className='font-bold text-xl'>{marketInfo.tvl}</h2>
                     </div>
                     <div className='w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>APY</p>
+                      <p className='text-gray-500 font-[600] mb-2'>APY</p>
                       <h2 className='font-bold text-xl'>{marketInfo.apy === null ? "0" : marketInfo.apy}</h2>
                     </div>
                   </div>
                   <div className='footer flex items-center justify-between px-4 pb-4 gap-3'>
                     <div className='w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>Profit Yield</p>
+                      <p className='text-gray-500 font-[600] mb-2'>Profit Yield</p>
                       <h2 className='font-bold text-xl'>{marketInfo.profit_yield}</h2>
                     </div>
                     <div className='w-full p-2 rounded-[5px]'>
-                      <p className='font-bold'>Cost</p>
+                      <p className='text-gray-500 font-[600] mb-2'>TVR</p>
                       <h2 className='font-bold text-xl'>{marketInfo.cost === null ? "0" : marketInfo.cost}</h2>
+                    </div>
+                  </div>
+                  <div className='footer flex items-center justify-between px-4 pb-4 gap-3'>
+                    <div className='w-full p-2 rounded-[5px]'>
+                      <p className='text-gray-500 font-[600] mb-2'>Vesting Period</p>
+                      <div className='flex items-center justify-between' style={{ border:"none" }}>
+                        <h2 className='font-bold text-xl'>{marketInfo.vesting_period}</h2>
+                        <p>{numberOfDaysRemaining}</p>
+                      </div>
                     </div>
                   </div>
                   </div>
@@ -170,7 +190,10 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                       setDepositTab(true)
                       setWithdrawTab(false)
                       setCurrentTab("Deposit")
-                    }}>{currentTab === "Deposit" ? <p className='text-[#1AC888]'>Deposit</p> : <p>Deposit</p>}</div>
+                    }}>
+                      {currentTab === "Deposit" ? <p className='text-[#1AC888]'>Deposit</p> : <p>Deposit</p>}
+                      {/* {currentTab && currentTab === "Deposit" <p className='text-[#1AC888]'>Deposit</p>} */}
+                    </div>
                     <div className='tabBtn w-full p-3'onClick={() => {
                       setDepositTab(false)
                       setWithdrawTab(true)
@@ -227,21 +250,29 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                 </div>
                 {depositTab && 
                 <>
-                  {stakeInput <= 0 ? <button className='cursor-not-allowed mt-5 rounded-md bg-[#1AC888] opacity-50 text-center w-full py-2 font-medium text-white'>Invest ${stakeInput} in this project</button> : <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(true)}>Invest ${stakeInput} in this project</button> }
+                  {stakeInput <= 0 ? 
+                    <button className='cursor-not-allowed mt-5 rounded-md bg-[#1AC888] opacity-50 text-center w-full py-2 font-medium text-white'>Invest ${stakeInput} in this project</button> 
+                    : 
+                    <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(true)}>Invest ${stakeInput} in this project</button> }
                 </>
                 }
 
                 {withdrawTab && 
                 <>
-                  {stakeInput <= 0 ? <button className='cursor-not-allowed mt-5 rounded-md bg-[#1AC888] opacity-50 text-center w-full py-2 font-medium text-white'>Withdraw ${stakeInput}</button> : <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(true)}>Invest ${stakeInput} in this project</button> }
+                  {stakeInput <= 0 ? 
+                    <button className='cursor-not-allowed mt-5 rounded-md bg-[#1AC888] opacity-50 text-center w-full py-2 font-medium text-white'>Withdraw ${stakeInput}</button> 
+                    : 
+                    <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(true)}>Invest ${stakeInput} in this project</button> }
                 </>
                 }
+
+                {!currentTab &&<button className='cursor-not-allowed mt-5 rounded-md bg-[#1AC888] opacity-50 text-center w-full py-2 font-medium text-white'>Invest ${stakeInput} in this project1</button>}
                 
               </div>
 
                 <div>
                   <h4 className='text-xl font-bold my-4'>Project Description</h4>
-                  <p className='text-justify' dangerouslySetInnerHTML={{__html: projectDescription}}/>
+                  <p className='text-justify' dangerouslySetInnerHTML={{__html: marketInfo.description}}/>
                   <ul className=''>
                     <li className='my-2'>
                       <span className='mr-2'>1.</span>
