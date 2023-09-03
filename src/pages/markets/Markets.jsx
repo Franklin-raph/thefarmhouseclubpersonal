@@ -97,7 +97,7 @@ const Markets = ({changemode, mode, baseUrl}) => {
                     </div>
                     <div className='w-full p-2 rounded-[5px]'>
                       <p className='text-gray-500 font-[600] mb-2'>TVR</p>
-                      <h2 className='font-bold text-xl'>{investMent.cost === null ? "0" : investMent.cost}</h2>
+                      <h2 className='font-bold text-xl'>{investMent.tvr === null ? "0" : investMent.tvr}</h2>
                     </div>
                   </div>
                   </div>

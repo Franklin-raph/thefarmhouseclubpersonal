@@ -21,7 +21,9 @@ const Swap = ({changemode, mode, baseUrl}) => {
     const [isCopied, setIsCopied] = useState(false)
     const [bankDetails, setBankDetails] = useState(false)
     const [viewCryptoModal, setViewCryptoModal] = useState(false)
+    const [totalFee, setTotalFee] = useState()
     const funds = ["Fund with Bank", "Fund with Card", "Fund with Crypto"]
+    const [currentRate, setCurrentRate] = useState()
     const [availableCurrencies, setAvailablyCurrencies] = useState([
         {
             img:Ngn,
@@ -44,12 +46,24 @@ const Swap = ({changemode, mode, baseUrl}) => {
     useEffect(() => {
         setSelectedImg(Ngn)
         setSelectedName("NGN")
+        setCurrentRate("Ngn 750 ($1)")
     },[])
 
     function selectCurrency(img, name){
         setSelectedName(name)
         setSelectedImg(img)
         setCoinsModal(false)
+    }
+
+    function getCurrentRate(availableCurrencyName){
+        console.log(selectedName)
+        if(availableCurrencyName === "USDC"){
+            setCurrentRate("1 USDC ($1)")
+        }else if(availableCurrencyName === "NGN"){
+            setCurrentRate("Ngn 750 ($1)")
+        }else if(availableCurrencyName === "EURO"){
+            setCurrentRate("0.93 EURO ($1)")
+        }
     }
 
     function selectFundType(fund){
@@ -63,6 +77,7 @@ const Swap = ({changemode, mode, baseUrl}) => {
     }
 
     async function handleVerifyAccountFund(reference, amount){
+        console.log(amount)
         const response = await fetch(`${baseUrl}/create-funded-account/`,{
           method:"POST",
           body: JSON.stringify({reference:reference, amount:amount, public_key:user.public_key}),
@@ -82,16 +97,17 @@ const Swap = ({changemode, mode, baseUrl}) => {
       }
 
     function payWithPayStack(){
+        setTotalFee(amount + 0.2)
         const payStack = new PaystackPop()
         console.log(payStack)
         payStack.newTransaction({
           key:"pk_test_12420d20e0b354e9670266456195a13f3a03ec68",
-          amount:amount * 100,
+          amount:amount + 0.2 * 100,
           email:user.user.email,
           onSuccess(transaction){
             setFundAccountModal(false)
             setVerifyPaymentModal(true)
-            handleVerifyAccountFund(transaction.reference, amount)
+            handleVerifyAccountFund(transaction.reference, +amount)
             console.log(transaction)
           },
           oncancel(){
@@ -106,7 +122,7 @@ const Swap = ({changemode, mode, baseUrl}) => {
         {fundAccountModal && <FundAccountModal payWithPayStack={payWithPayStack} setFundAccountModal={setFundAccountModal} amount={amount} setAmount={setAmount} user={user}/>}
         <div className='swapContainer h-[100vh]'>
             <div className='py-5 px-5 swapDiv'>
-            <p className='mb-5 self-start text-[#1AC888] cursor-pointer text-sm font-medium'><i class="ri-exchange-funds-line"></i> 1 AVDA ($1) = Ngn 750 ($1)</p>
+            {currentRate && <p className='mb-5 self-start text-[#1AC888] cursor-pointer text-sm font-medium'><i class="ri-exchange-funds-line"></i> 1 AVDA ($1) = {currentRate}</p>}
             <div className="swapTab flex items-center justify-start gap-5 w-full mb-3 relative">
                 <p className='cursor-pointer bg-[#263042] px-4 py-1 rounded-full current text-sm' onClick={()=>setFundOptions(!fundOptions)}>
                     {fundText}
@@ -156,10 +172,10 @@ const Swap = ({changemode, mode, baseUrl}) => {
                     {!amount && <button className='bg-[#1AC888] opacity-50 w-full mt-3 py-2 rounded-md cursor-not-allowed'>Fund</button>}
                     {amount && 
                     <div className='w-full mt-3'>
-                        <div className='flex justify-between items-center mb-1'>
+                        {/* <div className='flex justify-between items-center mb-1'>
                             <p>Price Impact</p>
                             <p>-0.38%</p>
-                        </div>
+                        </div> */}
                         <div className='flex justify-between items-center mb-1'>
                             <p>Est. received</p>
                             <p>{(amount / 750).toFixed(2)} AVDA</p>
@@ -170,11 +186,11 @@ const Swap = ({changemode, mode, baseUrl}) => {
                         </div>
                         <div className='flex justify-between items-center mb-1'>
                             <p>Network Fee</p>
-                            <p>0.00011 ETH</p>
+                            <p>0.2 XLM</p>
                         </div>
                         <div className='flex justify-between items-center'>
-                            <p>Route</p>
-                            <p className='text-[#1AC888] cursor-pointer'>View</p>
+                            <p>Total</p>
+                            <p className='bg-[#1AC888] px-2 py-[1px] rounded-md cursor-pointer'>{+amount + 0.2}</p>
                         </div>
                     </div>
                     }
@@ -225,10 +241,9 @@ const Swap = ({changemode, mode, baseUrl}) => {
                         <p className='text-sm'>You will use your cryptographic signature (private key) to authorize transactions</p>
                         <p className='text-sm mt-10 mb-2'>My wallet address is</p>
                         <div className="flex items-center gap-2">
-                            <p className='py-1 px-2 border border-gray-700 rounded-md w-full hidden md:block'>{user && user.public_key.slice(0, 12)}...{user.public_key.slice(-12)}</p>
-                            <p className='py-1 px-2 border border-gray-700 rounded-md w-full block md:hidden'>{user && user.public_key.slice(0, 6)}...{user.public_key.slice(-6)}</p>
+                            <p className='py-1 px-2 border border-gray-700 rounded-full w-full hidden md:block'>{user && user.public_key.slice(0, 12)}...{user.public_key.slice(-12)}</p>
+                            <p className='py-1 px-2 border border-gray-700 rounded-full w-full block md:hidden'>{user && user.public_key.slice(0, 6)}...{user.public_key.slice(-6)}</p>
                             <i class="ri-eye-fill cursor-pointer" onClick={() => setViewCryptoModal(true)}></i>
-                            
                         </div>
                         <div className="mt-3 text-center flex items-center justify-center">
                         <QRCode
@@ -252,7 +267,11 @@ const Swap = ({changemode, mode, baseUrl}) => {
                     <input type="search" placeholder='Search for currency'/>
                     <div className="tokens mt-5">
                         {availableCurrencies && availableCurrencies.map(availableCurrency => (
-                            <div className="flex items-center gap-2 cursor-pointer my-2" onClick={() => selectCurrency(availableCurrency.img, availableCurrency.name)}>
+                            <div className="flex items-center gap-2 cursor-pointer my-2" onClick={() => {
+                                selectCurrency(availableCurrency.img, availableCurrency.name)
+                                console.log(availableCurrency.img, availableCurrency.name)
+                                getCurrentRate(availableCurrency.name)
+                                }}>
                                 <img src={availableCurrency.img} width={"20px"} className='rounded-full' alt="" />
                                 <p className='mr-2'>{availableCurrency.name}</p>
                             </div>
@@ -275,8 +294,8 @@ const Swap = ({changemode, mode, baseUrl}) => {
                     <div className="tokens mt-5 w-full pb-5">
                         <p className='mb-4'>My wallet address is</p>
                         <div className='flex items-center gap-5 text-center justify-center'>
-                            <p className='desktopAddress py-1 px-2 border border-gray-700 rounded-md'>{user && user.public_key}</p>
-                            <p className='mobileAddress py-1 px-2 border border-gray-700 rounded-md'>{user && user.public_key.slice(0, 9)}...{user.public_key.slice(-9)}</p>
+                            <p className='desktopAddress py-1 px-2 border border-gray-700 rounded-full shadow-xl'>{user && user.public_key}</p>
+                            <p className='mobileAddress py-1 px-2 border border-gray-700 rounded-full shadow-xl'>{user && user.public_key.slice(0, 9)}...{user.public_key.slice(-9)}</p>
                             {!isCopied?
                                 <i class="ri-clipboard-fill cursor-pointer" onClick={()=> copyToClipBoard()}></i>
                                 :

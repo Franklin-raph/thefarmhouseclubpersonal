@@ -23,7 +23,10 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     const [investLoader, setInvestLoader] = useState(false)
     const [depositTab, setDepositTab] = useState(false)
     const [withdrawTab, setWithdrawTab] = useState(false)
+    const [fullProjectDesc, setFullProjectDesc] = useState(false)
     const [currentTab, setCurrentTab] = useState("")
+    const [timeLine, setTimeLine] = useState([])
+    const [myInvestMentInfo, setMyInvestMentInfo] = useState()
     const [numberOfDaysRemaining, setNumberOfDaysRemaining] = useState(0)
 
     const {id} = useParams()
@@ -32,7 +35,10 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     useEffect(() =>{
       getAccountSummary()
       getProjectInfo()
-      setCurrentTab("")
+      setCurrentTab("Deposit")
+      getProjectTimeline()
+      getMyInvestMentDetails()
+      setDepositTab(true)
     },[])
     console.log(currentTab)
 
@@ -76,6 +82,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
       }
     })
     const data = await response.json()
+    console.log(data)
     setMarketInfo(data)
     const targetDate = new Date(data.vesting_period)
     const currentDate = new Date()
@@ -110,6 +117,33 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
     if(!response.ok) setError(data.detail)
     console.log(response, data.description)
   }
+
+  async function getProjectTimeline(){
+    const resp = await fetch(`${baseUrl}/get_timelines/${id}/`,{
+      headers:{
+        Authorization: `Bearer ${user.access}`,
+        "Content-Type":"application/json"
+      }
+    })
+    const data = await resp.json()
+    if(resp.ok){
+      setTimeLine(data)
+    }
+    console.log(data)
+  }
+
+  async function getMyInvestMentDetails(){
+    const resp = await fetch(`${baseUrl}/my-investment-detail/${id}/`,{
+      headers:{
+        Authorization: `Bearer ${user.access}`,
+        "Content-Type":"application/json"
+      }
+    })
+    const data = await resp.json()
+    setMyInvestMentInfo(data)
+    console.log(data)
+  }
+  console.log(myInvestMentInfo)
 
   return (
     <div className='h-[100%]'>
@@ -165,28 +199,48 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                     </div>
                     <div className='w-full p-2 rounded-[5px]'>
                       <p className='text-gray-500 font-[600] mb-2'>TVR</p>
-                      <h2 className='font-bold text-xl'>{marketInfo.cost === null ? "0" : marketInfo.cost}</h2>
+                      <h2 className='font-bold text-xl'>{marketInfo.tvr === null ? "0" : marketInfo.tvr}</h2>
                     </div>
                   </div>
                   <div className='footer flex items-center justify-between px-4 pb-4 gap-3'>
+                  <div className='w-full p-2 rounded-[5px]'>
+                      <p className='text-gray-500 font-[600] mb-2'>Amount Invested</p>
+                      <h2 className='font-bold text-xl'>${myInvestMentInfo && myInvestMentInfo.amount_invested}</h2>
+                    </div>
+                    <div className='w-full p-2 rounded-[5px]'>
+                      <p className='text-gray-500 font-[600] mb-2'>My Profit</p>
+                      <h2 className='font-bold text-xl'>{myInvestMentInfo && myInvestMentInfo.my_profit}%</h2>
+                    </div>
+                  </div>
+
+                  <div className='footer flex items-center justify-between px-4 pb-4 gap-3'>
+                    <div className='w-full p-2 rounded-[5px]'>
+                      <div className='' style={{ border:"none" }}>
+                        <p className='text-gray-500 font-[600] mb-2'>Investment Date</p>
+                      <h2 className='font-bold text-xl'>{myInvestMentInfo && new Date(myInvestMentInfo.date_invested).toDateString().split(" ").slice(1, 4).join(" ")}</h2>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* <div className='footer flex items-center justify-between px-4 pb-4 gap-3'>
                     <div className='w-full p-2 rounded-[5px]'>
                       <div className='flex items-center justify-between' style={{ border:"none" }}>
                         <p className='text-gray-500 font-[600] mb-2'>Vesting Period</p>
-                        {/* {console.log(numberOfDaysRemaining.match(/\d+/g))} */}
-                        {+numberOfDaysRemaining > 0 && <i class="ri-time-line text-[#1AC888]"></i>}
-                        {+numberOfDaysRemaining === 0 && <i class="ri-time-line text-[yellow]"></i>}
-                        {+numberOfDaysRemaining < 0 && <i class="ri-time-line text-[red]"></i>}
-                        
+                        <div className='hidden sm:block' style={{ border:"none" }}>
+                          {+numberOfDaysRemaining > 0 && <i class="ri-time-line text-[#1AC888]"></i>}
+                          {+numberOfDaysRemaining === 0 && <i class="ri-time-line text-[yellow]"></i>}
+                          {+numberOfDaysRemaining < 0 && <i class="ri-time-line text-[red]"></i>}
+                        </div>
                       </div>
-                      <div className='flex items-center justify-between' style={{ border:"none" }}>
-                        <h2 className='font-bold text-xl'>{marketInfo.vesting_period}</h2>
+                      <div className='block sm:flex items-center justify-between' style={{ border:"none" }}>
+                        <h2 className='font-bold text-xl mb-2 sm:mb-0'>{marketInfo.vesting_period}</h2>
                         {numberOfDaysRemaining > 0 ? 
                           <p>{numberOfDaysRemaining} Days Remaining</p> : numberOfDaysRemaining === 0 ? 
                           <p>Less than a day</p> : <p>Vesting period expired</p> 
                         }
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   </div>
               </div>
 
@@ -222,7 +276,7 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                           }
                         </div>
                     </div>
-                      <input type="text" className='depositFee font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3 w-full' value={stakeInput} onChange={(e)=> setStakeInput(e.target.value)} placeholder='0.0' style={{ color:"#000" }}/>
+                      <input type="number" className='depositFee font-bold text-3xl py-1 ml-5 bg-transparent outline-none my-3 w-full' value={stakeInput} onChange={(e)=> setStakeInput(e.target.value)} placeholder='0.0' style={{ color:"#000" }}/>
                       {accountBalanceInfo <= 0 ?
                       <div className="discount flex justify-between items-center p-5 gap-2">
                         <button className='cursor-not-allowed border border-[#595959] opacity-50 w-full py-1 rounded-md'>25%</button>
@@ -242,17 +296,25 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                   </div>
                 </div>
                 <div>
+                  {depositTab && 
+                    <div className='flex items-center justify-between my-2 font-medium'>
+                      <p>Deposit Fee</p>
+                      <p>{stakeInput}</p>
+                    </div>
+                  }
+                  {withdrawTab && 
+                    <div className='flex items-center justify-between my-2 font-medium'>
+                      <p>Withdraw Fee</p>
+                      <p>0</p>
+                    </div>
+                  }
                   <div className='flex items-center justify-between font-medium'>
-                    <p>Deposit Fee</p>
-                    <p>0</p>
+                    <p>Network Fee</p>
+                    <p>0.2 XLM</p>
                   </div>
-                  <div className='flex items-center justify-between my-2 font-medium'>
-                    <p>Withdraw Fee</p>
-                    <p>0%</p>
-                  </div>
-                  <div className='flex items-center justify-between font-medium'>
-                    <p>Performance Fee</p>
-                    <p>10%</p>
+                  <div className='flex items-center justify-between font-medium mt-2'>
+                    <p>Total</p>
+                    <p>{stakeInput + 0.2}</p>
                   </div>
                 </div>
                 {depositTab && 
@@ -272,31 +334,76 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                     <button className='mt-5 rounded-md bg-[#1AC888] text-center w-full py-2 font-medium text-white' onClick={()=> setConfirmProjectInvestModal(true)}>Invest ${stakeInput} in this project</button> }
                 </>
                 }
-
-                {!currentTab &&<button className='cursor-not-allowed mt-5 rounded-md bg-[#1AC888] opacity-50 text-center w-full py-2 font-medium text-white'>Invest ${stakeInput} in this project1</button>}
-                
               </div>
 
                 <div>
                   <h4 className='text-xl font-bold my-4'>Project Description</h4>
-                  <p className='text-justify' dangerouslySetInnerHTML={{__html: marketInfo.description}}/>
-                  <ul className=''>
-                    <li className='my-2'>
-                      <span className='mr-2'>1.</span>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, ullam?
+                  {!fullProjectDesc &&
+                   <>
+                     <p className='text-justify' dangerouslySetInnerHTML={{__html: marketInfo.description.slice(0, 150)}}/> <span className='text-[#1AC888] underline mt-3 cursor-pointer' onClick={() => setFullProjectDesc(true)}>Read more</span>
+                  </>
+                  }
+                 {fullProjectDesc && 
+                  <>
+                    <p className='text-justify' dangerouslySetInnerHTML={{__html: marketInfo.description}}/> <span className='text-[#1AC888] underline mt-3 cursor-pointer' onClick={() => setFullProjectDesc(false)}>Collapse</span>
+                  </>
+                 }
+                  
+                  <ul className='mt-5'>
+                    <li className='my-2 border border-[#595959] rounded-md p-2'>
+                      <p className='text-gray-500 font-[600]'>Maturity Date</p>
+                      <p>12-10-2020</p>
                     </li>
-                    <li className='my-2'>
-                      <span className='mr-2'>2.</span>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, ullam?
+                    <li className='my-4 border border-[#595959] rounded-md p-2'>
+                      <p className='text-gray-500 font-[600]'>Unit Price</p>
+                      <p>{marketInfo.unit_price}</p>
                     </li>
-                    <li className='my-2'>
-                      <span className='mr-2'>3.</span>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere, ullam?
+                    <li className='my-4 border border-[#595959] rounded-md p-2'>
+                      <p className='text-gray-500 font-[600]'>Investment Type</p>
+                      <p>{marketInfo.project_type}</p>
                     </li>
-                    
+                    <li className='my-2 border border-[#595959] rounded-md p-2'>
+                      <p className='text-gray-500 font-[600]'>Vesting Period</p>
+                      <p>{marketInfo.vesting_period}</p>
+                      <div className="flex items-center gap-5">
+                        {numberOfDaysRemaining > 0 ? 
+                          <p>{numberOfDaysRemaining} Days Remaining</p> : numberOfDaysRemaining === 0 ? 
+                          <p>Less than a day</p> : <p>Vesting period expired</p> 
+                        }
+                        <div className='hidden sm:block' style={{ border:"none" }}>
+                          {+numberOfDaysRemaining < 0 && <i class="ri-time-line text-[red]"></i>}
+                          {+numberOfDaysRemaining === 0 && <i class="ri-time-line text-[yellow]"></i>}
+                          {+numberOfDaysRemaining > 0 && <i class="ri-time-line text-[#1AC888]"></i>}
+                        </div>
+                      </div>
+                    </li>
                   </ul>
                   <button className='mt-4 border border-[#1AC888] hover:bg-[#1AC888] transition-all text-white p-2 w-full rounded-md'>Download full project description</button>
                 </div>
+
+                <div class="box">
+                  <h1 className='text-xl font-bold my-4'>Project Timeline</h1>
+                  <ul>
+                  {timeLine &&
+                    timeLine.map((timeline) => (
+                    <li className='relative'>
+                          <span></span>
+                          <div class="title">{timeline.timeline_title}</div>
+                          <div class="info">{timeline.timeline_description}</div>
+                          {timeline.status === "In progress" && <div class="name">
+                            <span className='bg-yellow-600 px-2 rounded-lg"'>{timeline.status}</span>
+                          </div> }
+                          {timeline.status === "Completed" && <div class="name bg-green-600 px-2 w-[55%] ml-auto rounded-md">{timeline.status}</div> }
+                          {console.log(timeline.status)}
+                          <div class="time">
+                              <span>{new Date(timeline.start_date).toDateString().split(" ").slice(1, 3).join(" ")}</span>
+                              <span>{new Date(timeline.end_date).toDateString().split(" ").slice(1, 3).join(" ")}</span>
+                          </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
             </div>
         }
 
