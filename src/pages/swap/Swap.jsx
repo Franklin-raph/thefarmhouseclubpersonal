@@ -155,7 +155,7 @@ const Swap = ({changemode, mode, baseUrl}) => {
                             <h3 className='text-[14px]'>${amount/750}</h3>
                         </div>
                     </div>
-                    <i class="ri-arrow-down-line text-xl bg-[#263042] rounded-full px-2 py-1 relative z-10 border"></i>
+                    <i class="ri-arrow-down-line text-xl bg-[#263042] rounded-full px-2 py-1 relative z-10 border" style={{ borderRadius:"50%" }}></i>
                     <div className="from rounded-md w-full p-3 mt-[-10px]">
                         <div className="flex justify-between items-center mb-3">
                             <h3 className='text-[30px] font-medium'>{(amount / 750).toFixed(2)}</h3>

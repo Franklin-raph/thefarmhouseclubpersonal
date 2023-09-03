@@ -148,29 +148,29 @@ const LoggedInNav = ({changemode, mode}) => {
             </ul>
 
             <ul className="mobileNavLoggedInNav">
-                <li className='text-center flex items-center flex-col gap-2 text-[#46695c]'>
+                <li className='text-center flex items-center flex-col gap-x-2 text-[#46695c]'>
                     <Link to="/dashboard">
                         <i class="ri-dashboard-3-line text-xl"></i>
                     </Link>
-                    <p>Dashboard</p>
+                    <p className='text-sm'>Dashboard</p>
                 </li>
-                <li className='text-center flex items-center flex-col gap-2 text-[#46695c]'>
+                <li className='text-center flex items-center flex-col gap-x-2 text-[#46695c]'>
                     <Link to="/markets">
                         <i class="ri-store-2-fill text-xl"></i>
                     </Link>
-                    <p>Market</p>
+                    <p className='text-sm'>Market</p>
                 </li>
-                <li className='text-center flex items-center flex-col gap-2 text-[#46695c]'>
+                <li className='text-center flex items-center flex-col gap-x-2 text-[#46695c]'>
                     <Link to="/swap">
                         <i class="ri-exchange-funds-line text-xl"></i>
                     </Link>
-                    <p>Swap</p>
+                    <p className='text-sm'>Swap</p>
                 </li>
-                <li className='text-center flex items-center flex-col gap-2 text-[#46695c]'>
+                <li className='text-center flex items-center flex-col gap-x-2 text-[#46695c]'>
                     <Link to="/governance">
                         <i class="ri-government-line text-xl"></i>
                     </Link>
-                    <p>Governance</p>
+                    <p className='text-sm'>Governance</p>
                 </li>
                 
                 <div className='flex gap-2 togglingNav' >

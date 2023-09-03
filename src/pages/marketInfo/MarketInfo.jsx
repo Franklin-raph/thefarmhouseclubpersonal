@@ -391,9 +391,13 @@ const MarketInfo = ({changemode, mode, baseUrl}) => {
                           <div class="title">{timeline.timeline_title}</div>
                           <div class="info">{timeline.timeline_description}</div>
                           {timeline.status === "In progress" && <div class="name">
-                            <span className='bg-yellow-600 px-2 rounded-lg"'>{timeline.status}</span>
-                          </div> }
-                          {timeline.status === "Completed" && <div class="name bg-green-600 px-2 w-[55%] ml-auto rounded-md">{timeline.status}</div> }
+                            <span className='bg-yellow-600 px-2"'>{timeline.status}</span>
+                          </div>
+                          }
+                          {timeline.status === "Completed" && <div class="name">
+                            <span className='bg-green-600 px-2"'>{timeline.status}</span>
+                          </div>
+                          }
                           {console.log(timeline.status)}
                           <div class="time">
                               <span>{new Date(timeline.start_date).toDateString().split(" ").slice(1, 3).join(" ")}</span>
