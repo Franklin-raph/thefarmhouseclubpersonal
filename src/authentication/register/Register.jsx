@@ -126,10 +126,10 @@ const Register = ({baseUrl}) => {
 
   return (
     <div className="px-[1rem] lg:px-[5rem] py-[5rem] register">
-      <div className=" mb-[5rem] cursor-pointer" onClick={() => navigate("/")}>
+      <div className=" mb-[5rem] cursor-pointer inline-block" onClick={() => navigate("/")}>
             <img src={logo} alt="" className=""/>
       </div>
-      <div className="flex flex-col md:flex-row items-center md:items-start justify-between justify-center">
+      <div className="flex flex-col md:flex-row items-center md:items-start justify-between">
         <div className="w-[90%] md:w-[55%]">
           <h1 className="font-bold text-[27px] xl:text-[50px] text-[#006340]">Begin your AGRI Defi investment pathway</h1>
         </div>
@@ -200,12 +200,12 @@ const Register = ({baseUrl}) => {
             <p className="text-sm">Already have an account? <Link to="/login" className="underline text-[#1AC888]">Login</Link> </p>
           </div>
             <div className="flex justify-center">
-            <GoogleLogin
+            {/* <GoogleLogin
                 onSuccess={googleResponseMessage}
                 onError={() => {
                     console.log('Login Failed');
                 }}
-                />
+                /> */}
             </div>
         </form>
         <a href="https://wa.me/+2347056514643" target="_blank" className="whatsapp fixed bottom-2 right-2 bg-green-500 py-2 px-3 rounded-full text-white text-sm">

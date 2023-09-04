@@ -90,22 +90,23 @@ const Login = ({baseUrl}) => {
         const userDetails = JSON.parse(atob(tokens[1]))
         console.log(userDetails)
         if(userDetails){
-            handleLoginFromGoogleResponse(userDetails.email)
+            handleLoginFromGoogleResponse(userDetails)
         }
       }
 
-      async function handleLoginFromGoogleResponse(email){
+      async function handleLoginFromGoogleResponse(userDetails){
         setLoading(true)
-        const response = await fetch(`${baseUrl}/google-login/`, {
+        const {email, family_name, given_name, email_verified} = userDetails
+        const response = await fetch(`${baseUrl}/google-signup/`, {
         // const response = await fetch(`https://app1.thefarmhouseclub.io/google-login/`, {
             method:"POST",
-            body: JSON.stringify({email:email}),
+            body: JSON.stringify({email:email, last_name:family_name, first_name:given_name, email_verified:email_verified}),
             headers:{
                 "Content-Type":"application/json"
             }
         })
         const data = await response.json()
-        console.log(response)
+        console.log(response, data)
         if(response) setLoading(false)
 
         if(response.status === 200) {
@@ -127,10 +128,10 @@ const Login = ({baseUrl}) => {
 
   return (
     <div className="px-[1rem] lg:px-[5rem] py-[5rem] register">
-      <div className=" mb-[5rem] cursor-pointer" onClick={() => navigate("/")}>
+      <div className=" mb-[5rem] cursor-pointer inline-block" onClick={() => navigate("/")}>
             <img src={logo} alt="" className=""/>
       </div>
-      <div className="flex flex-col md:flex-row items-center md:items-start justify-between justify-center">
+      <div className="flex flex-col md:flex-row items-center md:items-start justify-between">
         <div className="w-[90%] md:w-[55%]">
           <h1 className="font-bold text-[27px] xl:text-[50px] text-[#006340]">Jump right back in</h1>
           <p  className="font-bold text-[19px] xl:text-[25px] text-[#B3B3B3]">Sign in to continue</p>

@@ -25,6 +25,10 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
   const [btns, setbtns] = useState()
   const navigate = useNavigate()
   const passwordRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
+  const [first_name, setFirstName] = useState("")
+  const [last_name, setLastName] = useState("")
+  const [username, setUserName] = useState("")
+  const [phone_num, setPhoneNum] = useState("")
 
     const {id} = useParams()
     useEffect(()=> {
@@ -43,6 +47,10 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
       const data = await response.json()
       console.log(response, data)
       setMyProfile(data)
+      setFirstName(data.first_name)
+      setLastName(data.last_name)
+      setUserName(data.username)
+      setPhoneNum(data.phone_num)
       setbtns(data.has2fa)
     }
 
@@ -84,7 +92,6 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
         },4000)
       }
       setTwoFactorModal(false)
-      // set
       }
       
     }
@@ -132,6 +139,23 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
     }
   }
 
+  async function updateMyAccount(){
+    setLoader(true)
+    const response = await fetch(`${baseUrl}/profile-update/${id}/`, {
+      method:"PATCH",
+      body: JSON.stringify({phone_num:phone_num, first_name:first_name, last_name:last_name}),
+      headers:{
+        "Content-Type":"application/json",
+        Authorization: `Bearer ${user.access}`
+      }
+    })
+    const data = await response.json()
+    console.log(data, response)
+    if(response) setLoader(false)
+    if(response.ok) setSuccess("Account successfully updated")
+    if(!response.ok) setError("An error occured, please try agian later")
+  }
+
   return (
     <div>
       {error && <ErrorAlert error={error} setError={setError}/>}
@@ -177,45 +201,44 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 </div>
               </div>
 
-              <div className='my-9 inline-flex flex-col items-start md:flex-row gap-10 md:items-end'>
-                <div className='w-full md:w-[50%]'>
-                  <h1 className='font-[600] text-xl text-[#006340] mb-2'>First Name</h1>
-                  <p className='text-[14px] text-[#46695c]'>Receive money from friends using your username</p>
+              <div className="flex gap-10">
+                <div className='my-9 flex flex-col items-start md:flex-row gap-10 md:items-end'>
+                  <div>
+                    <label className='block text-[13px] font-[600] text-lg text-[#006340] mb-2'>First Name</label>
+                    <input className='border border-gray-300 rounded-md px-2 py-2 outline-none' onChange={e => setFirstName(e.target.value)} value={first_name} />
+                  </div>
                 </div>
-                <div>
-                  <label className='block text-[13px] mb-1'>First Name</label>
-                  <input className='border border-gray-300 rounded-md px-2 py-2 outline-none' value={myProfile && myProfile.first_name} />
+
+                <div className='my-9 flex flex-col items-start md:flex-row gap-10 md:items-end'>
+                  <div>
+                    <label className='block font-[600] text-lg text-[#006340] mb-2'>Last Name</label>
+                    <input className='border border-gray-300 rounded-md px-2 py-2 outline-none' onChange={e => setLastName(e.target.value)} value={last_name} />
+                  </div>
                 </div>
               </div>
 
-              <div className='my-9 inline-flex flex-col items-start md:flex-row gap-10 md:items-end'>
-                <div className='w-full md:w-[50%]'>
-                  <h1 className='font-[600] text-xl text-[#006340] mb-2'>Last Name</h1>
-                  <p className='text-[14px] text-[#46695c]'>Receive money from friends using your username</p>
+              <div className="flex gap-10">
+                <div className='my-9 flex flex-col items-start md:flex-row gap-10 md:items-end'>
+                  <div>
+                    <label className='block font-[600] text-lg text-[#006340] mb-2'>User Name</label>
+                    <input className='border border-gray-300 rounded-md px-2 py-2 outline-none' onChange={e => setUserName(e.target.value)} value={username} />
+                  </div>
                 </div>
-                <div>
-                  <label className='block text-[13px] mb-1'>Last Name</label>
-                  <input className='border border-gray-300 rounded-md px-2 py-2 outline-none' value={myProfile && myProfile.last_name} />
+
+                <div className='my-9 flex flex-col items-start md:flex-row gap-10 md:items-end'>
+                  <div>
+                    <label className='block font-[600] text-lg text-[#006340] mb-2'>Phone Number</label>
+                    <input className='border border-gray-300 rounded-md px-2 py-2 outline-none' onChange={e => setPhoneNum(e.target.value)} value={phone_num} />
+                  </div>
                 </div>
               </div>
-
-              <div className='my-9 inline-flex flex-col items-start md:flex-row gap-10 md:items-end'>
-                <div className='w-full md:w-[50%]'>
-                  <h1 className='font-[600] text-xl text-[#006340] mb-2'>User Name</h1>
-                  <p className='text-[14px] text-[#46695c]'>Receive money from friends using your username</p>
-                </div>
-                <div>
-                  <label className='block text-[13px] mb-1'>User Name</label>
-                  <input className='border border-gray-300 rounded-md px-2 py-2 outline-none' value={myProfile && myProfile.username} />
-                </div>
-              </div>
-
-              {/* <div className='my-3'>
-                <h1 className='font-[600] text-xl text-[#006340] mb-2'>Public Key...</h1>
-                <p className='border border-gray-300 inline rounded-md px-2 py-1 w-full'>{user && user.public_key}</p>
-              </div> */}
-
-              {/* <button className='text-[#fff] bg-[#1AC888] w-auto mt-5 py-3 px-5 rounded-md block'>Save Changes</button> */}
+              {loader ? 
+                <button className='text-[#fff] bg-[#1AC888] w-auto mt-5 py-3 px-5 rounded-md block'>
+                  <i className="fa-solid fa-gear fa-spin" style={{ color:"#fff" }}></i>
+                </button>
+                :
+                <button className='text-[#fff] bg-[#1AC888] w-auto mt-5 py-3 px-5 rounded-md block' onClick={updateMyAccount}>Update My Profile</button>
+              }
             </div>
               
           }
@@ -229,10 +252,10 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                     <p className='px-2 py-2'>{myProfile && myProfile.email}</p>
                 </div>
 
-                <div className='my-9 flex gap-10 md:flex-row md:items-center flex-col items-start'>
+                {/* <div className='my-9 flex gap-10 md:flex-row md:items-center flex-col items-start'>
                     <h1 className='font-[600] text-xl text-[#006340]'>Phone Number</h1>
                     {myProfile && myProfile.phone_num ? <p className='px-2 py-2'>{myProfile.phone_num}</p> : <p className='px-2 py-2'>+234000000000</p> }
-                </div>
+                </div> */}
 
                 <div className='my-9 flex gap-10 md:flex-row md:items-center flex-col items-start'>
                     <h1 className='font-[600] text-xl text-[#006340]'>Bank Verification Number (BVN)</h1>
