@@ -226,9 +226,17 @@ form label{
   gap: 60px;
   z-index: 1;
   background-color: #fff;
-  padding: 18px 20px;
+  padding: 10px 20px;
   border-radius: 50px;
   border: 1px solid #595959;
+}
+
+.market-nav li{
+  cursor: pointer;
+}
+
+.market-nav li:hover{
+  color: #595959;
 }
 
 /* ANIMATED CANCELMARK STARTS */
@@ -910,6 +918,20 @@ footer ul:nth-child(2) li{
 }
 
 @media screen and (max-width:1200px) {
+  .government-boxes{
+    grid-template-columns: 1fr !important;
+  }
+
+  .governance-page-container{
+    height: 100% !important;
+  }
+  
+  .governance-page{
+    width: 90% !important;
+    left: 0 !important;
+    /* padding: 8rem 0; */
+  }
+
   .swapDiv, .tokenModal{
     width: 40%;
   }

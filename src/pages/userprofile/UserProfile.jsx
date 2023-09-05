@@ -221,7 +221,7 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 <div className='my-9 flex flex-col items-start md:flex-row gap-10 md:items-end'>
                   <div>
                     <label className='block font-[600] text-lg text-[#006340] mb-2'>User Name</label>
-                    <input className='border border-gray-300 rounded-md px-2 py-2 outline-none' onChange={e => setUserName(e.target.value)} value={username} />
+                    <input className='border border-gray-300 rounded-md px-2 py-2 outline-none' value={username} />
                   </div>
                 </div>
 

@@ -56,7 +56,7 @@ const Markets = ({changemode, mode, baseUrl}) => {
             <i className='ri-menu-line text-xl'></i>
           </div>
         </div>
-        <div className="marketCardContainer mt-[9rem] relative left-[7%] w-[75%] mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="marketCardContainer mt-[7rem] relative left-[7%] w-[75%] mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {investMents && 
             investMents.map(investMent => (
               <div className="marketCard w-full cursor-pointer" onClick={()=> navigate(`/marketinfo/${investMent.id}`)}>
