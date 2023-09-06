@@ -194,15 +194,15 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
             <div className='userProfileDetails pl-[10rem] mt-[7rem]'>
               <h1 className='text-2xl my-[2.5rem] text-[rgba(10,46,101,.3)] font-medium border-b border-gray-200 pb-5'>Personalize</h1>
               <div className='my-3 flex items-center gap-4'>
-                <i className="ri-user-3-line text-3xl px-3 py-2 bg-slate-500 rounded-full text-white cursor-pointer"></i>
+                <i className="ri-user-3-line sm:text-3xl px-3 py-2 bg-slate-500 rounded-full text-white cursor-pointer"></i>
                 <div className='flex items-center gap-2'>
-                  <p className='font-[600] text-2xl text-[#006340]'>{myProfile && myProfile.first_name}</p>
-                  <p className='font-[600] text-2xl text-[#006340]'>{myProfile && myProfile.last_name}</p>
+                  <p className='font-[600] text-lg sm:text-2xl text-[#006340]'>{myProfile && myProfile.first_name}</p>
+                  <p className='font-[600] text-lg sm:text-2xl text-[#006340]'>{myProfile && myProfile.last_name}</p>
                 </div>
               </div>
 
-              <div className="flex gap-10">
-                <div className='my-9 flex flex-col items-start md:flex-row gap-10 md:items-end'>
+              <div className="flex md:gap-10 md:flex-row flex-col gap-0">
+                <div className='md:my-9 flex flex-col items-start md:flex-row gap-10 md:items-end'>
                   <div>
                     <label className='block text-[13px] font-[600] text-lg text-[#006340] mb-2'>First Name</label>
                     <input className='border border-gray-300 rounded-md px-2 py-2 outline-none' onChange={e => setFirstName(e.target.value)} value={first_name} />
@@ -217,8 +217,8 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                 </div>
               </div>
 
-              <div className="flex gap-10">
-                <div className='my-9 flex flex-col items-start md:flex-row gap-10 md:items-end'>
+              <div className="flex md:gap-10 md:flex-row flex-col gap-0">
+                <div className='md:my-9 flex flex-col items-start md:flex-row gap-10 md:items-end'>
                   <div>
                     <label className='block font-[600] text-lg text-[#006340] mb-2'>User Name</label>
                     <input className='border border-gray-300 rounded-md px-2 py-2 outline-none' value={username} />
@@ -257,9 +257,9 @@ const UserProfile = ({baseUrl, changemode, mode}) => {
                     {myProfile && myProfile.phone_num ? <p className='px-2 py-2'>{myProfile.phone_num}</p> : <p className='px-2 py-2'>+234000000000</p> }
                 </div> */}
 
-                <div className='my-9 flex gap-10 md:flex-row md:items-center flex-col items-start'>
+                <div className='md:my-9 flex md:gap-10 md:flex-row md:items-center flex-col items-start'>
                     <h1 className='font-[600] text-xl text-[#006340]'>Bank Verification Number (BVN)</h1>
-                    <p className='px-2 py-2'>******</p>
+                    <p className='md:px-2 py-2 text-red-600'>Unverified</p>
                 </div>
               </div>
               

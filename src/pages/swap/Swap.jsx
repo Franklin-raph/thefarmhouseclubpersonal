@@ -13,7 +13,6 @@ const Swap = ({changemode, mode, baseUrl}) => {
 
     const [fundAccountModal, setFundAccountModal] = useState(false)
     const [amount, setAmount] = useState("")
-
     const [coinsModal, setCoinsModal] = useState(false)
     const [fundOptions, setFundOptions] = useState(false)
     const [verifyPaymentModal, setVerifyPaymentModal] = useState(false)
@@ -56,7 +55,6 @@ const Swap = ({changemode, mode, baseUrl}) => {
     }
 
     function getCurrentRate(availableCurrencyName){
-        console.log(selectedName)
         if(availableCurrencyName === "USDC"){
             setCurrentRate("1 USDC ($1)")
         }else if(availableCurrencyName === "NGN"){
@@ -116,6 +114,24 @@ const Swap = ({changemode, mode, baseUrl}) => {
         })
       }
 
+      function openBankDetails(){
+        console.log(availableCurrencies)
+        // availableCurrencies.forEach(currencyName => {
+        //     if(currencyName.name === "NGN"){
+        //         alert("9ja")
+        //         return
+        //     }
+        //     if(currencyName.name === "USDC"){
+        //         alert("US")
+        //     }
+        //     if(currencyName.name === "EURO"){
+        //         alert("EU")
+        //     }
+        // })
+        // if(availableCurrencies.name )
+        // alert(availableCurrencies)
+      }
+
   return (
     <div className='relative h-full'>
         <LoggedInNav changemode={changemode} mode={mode}/>
@@ -172,10 +188,6 @@ const Swap = ({changemode, mode, baseUrl}) => {
                     {!amount && <button className='bg-[#1AC888] opacity-50 w-full mt-3 py-2 rounded-md cursor-not-allowed'>Fund</button>}
                     {amount && 
                     <div className='w-full mt-3'>
-                        {/* <div className='flex justify-between items-center mb-1'>
-                            <p>Price Impact</p>
-                            <p>-0.38%</p>
-                        </div> */}
                         <div className='flex justify-between items-center mb-1'>
                             <p>Est. received</p>
                             <p>{(amount / 750).toFixed(2)} AVDA</p>
@@ -199,36 +211,55 @@ const Swap = ({changemode, mode, baseUrl}) => {
 
             {fundText === "Fund with Bank" && 
                 <>
-                    <div className="from rounded-md w-full p-3">
-                        <div className="flex justify-between items-center mb-3">
-                            <input type="text" placeholder='0.0' value={amount} onChange={(e) => setAmount(e.target.value)} style={{ color:"#fff !important" }} className='bg-[transparent] outline-none text-[30px] text-white font-medium w-full'/>
-                            <div className="logo flex items-center gap-1 bg-[#263042] px-2 py-1 rounded-full cursor-pointer" onClick={() => setCoinsModal(true)}>
-                                <img src={selectedImg} width={"25px"} className='rounded-full' alt="" />
-                                <p className='mr-2'>{selectedName}</p>
-                                <i className="ri-arrow-down-s-line text-xl cursor-pointer"></i>
-                            </div>
-                        </div>
-                        <div className="flex justify-between items-center text-gray-500 font-medium">
-                            <h3 className='text-[14px]'>$750</h3>
+                <div className="from rounded-md w-full p-3 mb-[-10px]">
+                    <div className="flex justify-between items-center mb-3">
+                        <input type="text" placeholder='0.0' value={amount} onChange={(e) => setAmount(e.target.value)} style={{ color:"#fff !important" }} className='bg-[transparent] outline-none text-[30px] text-white font-medium w-full'/>
+                        <div className="logo flex items-center w-[30%] gap-1 bg-[#263042] px-2 py-1 rounded-full cursor-pointer" onClick={() => setCoinsModal(true)}>
+                            <img src={selectedImg} width={"18px"} className='rounded-full' alt="" />
+                            <p className='text-sm'>{selectedName}</p>
+                            <i className="ri-arrow-down-s-line text-xl cursor-pointer"></i>
                         </div>
                     </div>
-                    <i class="ri-arrow-down-line text-xl bg-[#263042] rounded-full px-2 py-1 relative z-10"></i>
-                    <div className="from rounded-md w-full p-3">
-                        <div className="flex justify-between items-center mb-3">
-                            <h3 className='text-[30px] font-medium'>{amount / 750}</h3>
-                            <div className="logo flex items-center gap-2 cursor-pointer bg-[#263042] px-2 py-1 rounded-full">
-                                <img src={avda} width={"25px"} className='rounded-full' alt="" />
-                                <p className='mr-2'>AVDA</p>
-                            </div>
-                        </div>
-                        <div className="flex justify-between items-center text-gray-500 font-medium">
-                            <h3 className='text-[14px]'>$750</h3>
+                    <div className="flex justify-between items-center text-gray-500 font-medium">
+                        <h3 className='text-[14px]'>${amount/750}</h3>
+                    </div>
+                </div>
+                <i class="ri-arrow-down-line text-xl bg-[#263042] rounded-full px-2 py-1 relative z-10 border" style={{ borderRadius:"50%" }}></i>
+                <div className="from rounded-md w-full p-3 mt-[-10px]">
+                    <div className="flex justify-between items-center mb-3">
+                        <h3 className='text-[30px] font-medium'>{(amount / 750).toFixed(2)}</h3>
+                        <div className="logo flex items-center gap-2 cursor-pointer bg-[#263042] px-2 py-1 rounded-full">
+                            <img src={avda} width={"25px"} className='rounded-full' alt="" />
+                            <p className='mr-2'>AVDA</p>
                         </div>
                     </div>
-                    {amount && <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md'>Fund</button>}
-                    {!amount && <button className='bg-[#1AC888] opacity-50 w-full mt-3 py-2 rounded-md cursor-not-allowed'>Fund</button>}
-                    
-                </>
+                    <div className="flex justify-between items-center text-gray-500 font-medium">
+                        <h3 className='text-[14px]'>${amount / 750}</h3>
+                    </div>
+                </div>
+                {amount && <button className='bg-[#1AC888] w-full mt-3 py-2 rounded-md' onClick={openBankDetails}>Fund</button>}
+                {!amount && <button className='bg-[#1AC888] opacity-50 w-full mt-3 py-2 rounded-md cursor-not-allowed'>Fund</button>}
+                {amount && 
+                <div className='w-full mt-3'>
+                    <div className='flex justify-between items-center mb-1'>
+                        <p>Est. received</p>
+                        <p>{(amount / 750).toFixed(2)} AVDA</p>
+                    </div>
+                    <div className='flex justify-between items-center mb-1'>
+                        <p>Min. received</p>
+                        <p>{(amount / 750).toFixed(2)} AVDA</p>
+                    </div>
+                    <div className='flex justify-between items-center mb-1'>
+                        <p>Network Fee</p>
+                        <p>0.2 XLM</p>
+                    </div>
+                    <div className='flex justify-between items-center'>
+                        <p>Total</p>
+                        <p className='bg-[#1AC888] px-2 py-[1px] rounded-md cursor-pointer'>{+amount + 0.2}</p>
+                    </div>
+                </div>
+                }
+            </>
             }
 
             {fundText === "Fund with Crypto" && 
@@ -269,7 +300,6 @@ const Swap = ({changemode, mode, baseUrl}) => {
                         {availableCurrencies && availableCurrencies.map(availableCurrency => (
                             <div className="flex items-center gap-2 cursor-pointer my-2" onClick={() => {
                                 selectCurrency(availableCurrency.img, availableCurrency.name)
-                                console.log(availableCurrency.img, availableCurrency.name)
                                 getCurrentRate(availableCurrency.name)
                                 }}>
                                 <img src={availableCurrency.img} width={"20px"} className='rounded-full' alt="" />

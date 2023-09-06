@@ -200,12 +200,12 @@ const Register = ({baseUrl}) => {
             <p className="text-sm">Already have an account? <Link to="/login" className="underline text-[#1AC888]">Login</Link> </p>
           </div>
             <div className="flex justify-center">
-            {/* <GoogleLogin
+            <GoogleLogin
                 onSuccess={googleResponseMessage}
                 onError={() => {
                     console.log('Login Failed');
                 }}
-                /> */}
+                />
             </div>
         </form>
         <a href="https://wa.me/+2347056514643" target="_blank" className="whatsapp fixed bottom-2 right-2 bg-green-500 py-2 px-3 rounded-full text-white text-sm">
